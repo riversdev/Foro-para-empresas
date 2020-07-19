@@ -9,7 +9,7 @@
     <script src="views/static/js/jquery-3.5.1.min.js"></script>
     <!-- bootstrap-4.5.0-dist -->
     <link type="text/css" rel="stylesheet" href="views\static\bootstrap\css\bootstrap.min.css">
-    <script type="text/javascript" src="C:\xampp\htdocs\Foro-para-empresas\views\static\bootstrap\js\bootstrap.min.js"></script>
+    <script type="text/javascript" src="views\static\bootstrap\js\bootstrap.min.js"></script>
     <!-- fontawesome-free-5.13.1-web -->
     <link rel="stylesheet" href="views/static/fontawesome/css/all.css">
     <script src="views/static/fontawesome/js/all.js"></script>
@@ -40,6 +40,11 @@
     }
     ?>
 
+    <!-- VUE ALL -->
+    <script src="views\static\js\vue\vue.js"></script>
+    <script src="views\static\js\vue\vuex.js"></script>
+    <script src="views\static\js\vue\vue-router.js"></script>
+    <script src="views\static\js\vue\main.js"></script>
 </body>
 
 </html>
