@@ -18,12 +18,6 @@
     <script src="views/static/datatables/datatables.min.js"></script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="views/static/css/main.css">
-    <!-- Custom JS -->
-    <script src="views/static/js/main.js"></script>
-    <!-- VUE ALL -->
-    <script src="views\static\js\vue\vue.js"></script>
-    <script src="views\static\js\vue\vuex.js"></script>
-    <script src="views\static\js\vue\vue-router.js"></script>
 </head>
 
 <body id="cuerpo">
@@ -39,16 +33,11 @@
             document.getElementById('cuerpo').style.cssText = 'overflow-y: hidden;';
         </script>
         <!-- Vista solicitada -->
-        <?php require_once $vistasR; 
+        <?php require_once $vistasR;
         ?>
     <?php
     }
     ?>
-
-    <!-- Components -->
-    <script src="views/templates/home.js"></script>
-    <!-- VUE CUSTOM INSTANCE -->
-    <script src="views\static\js\vue\main.js"></script>
 </body>
 
 </html>

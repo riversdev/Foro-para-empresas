@@ -1,8 +1,12 @@
-<div id="app">
-    <router-link to="/">Exit</router-link>
-    <router-view></router-view>
-</div>
-<div id="welcome" class="row align-items-center justify-content-center" style="overflow-y: scroll; height: 100%;">
+<?php
+session_start();
+
+if (isset($_SESSION['user_id'])) {
+    header("Location: /Foro-para-empresas/home");
+}
+?>
+
+<div class="row align-items-center justify-content-center" style="height: 100%;">
     <button id="iniciarSesion" class="btn btn-outline-primary btn-lg">
         Iniciar sesión
     </button>
@@ -11,17 +15,17 @@
             <h5 class="card-title text-center">Identifícate</h5>
             <form id="formIdentificarUsuario" class="needs-validation" novalidate>
                 <div class="form-row">
-                    <div class="col-md-6 mb-3">
-                        <label for="txtUsuario">Usuario</label>
-                        <input type="text" class="form-control" id="txtUsuario" required>
+                    <div class="col-md-7 mb-3">
+                        <label for="txtEmail">Correo</label>
+                        <input type="email" class="form-control" id="txtEmail" required>
                         <div class="valid-feedback">
                             Correcto!
                         </div>
                         <div class="invalid-feedback">
-                            Verifica tu usuario
+                            Verifica tu correo
                         </div>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-5 mb-3">
                         <label for="txtPassword">Contraseña</label>
                         <input type="password" class="form-control" id="txtPassword" required>
                         <div class="valid-feedback">
@@ -70,6 +74,16 @@
                         </div>
                     </div>
                     <div class="col-md-12 mb-3">
+                        <label for="txtRegistroEmail">Correo</label>
+                        <input type="email" class="form-control" id="txtRegistroEmail" required>
+                        <div class="valid-feedback">
+                            Correcto!
+                        </div>
+                        <div class="invalid-feedback">
+                            Verifica tu correo
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
                         <div class="form-group">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="txtRegistroSoyEmpresa">
@@ -93,3 +107,91 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        // PARA FORMULARIOS DE LOGIN
+        $('#iniciarSesion').on('click', function() {
+            $('#iniciarSesion').addClass("d-none");
+            $('#contenedorFormularioIdentificar').removeClass("d-none");
+        });
+        $('#registrarme').on('click', function() {
+            $('#contenedorFormularioIdentificar').addClass("d-none");
+            $('#contenedorFormularioRegistrar').removeClass("d-none");
+        });
+        $('#yaTengoUnaCuenta').on('click', function() {
+            $('#contenedorFormularioIdentificar').removeClass("d-none");
+            $('#contenedorFormularioRegistrar').addClass("d-none");
+        });
+    });
+
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    } else {
+                        event.preventDefault();
+                        if (form.id == "formIdentificarUsuario") {
+                            let txtEmail = $('#txtEmail').val();
+                            let txtPassword = $('#txtPassword').val();
+                            $.ajax({
+                                type: "POST",
+                                url: "ajax/welcomeAjax.php",
+                                data: {
+                                    tipo: "identificacion",
+                                    txtEmail,
+                                    txtPassword
+                                },
+                                error: function(data) {
+                                    console.error(data);
+                                },
+                                success: function(data) {
+                                    if (data == 1) {
+                                        location.href = "home";
+                                    } else {
+                                        alert("Verifica tus datos");
+                                    }
+                                }
+                            });
+                        } else if (form.id == "formRegistrarUsuario") {
+                            let txtRegistroUsuario = $('#txtRegistroUsuario').val();
+                            let txtRegistroPassword = $('#txtRegistroPassword').val();
+                            let txtRegistroEmail = $('#txtRegistroEmail').val();
+                            let txtRegistroSoyEmpresa = 0;
+                            if ($('#txtRegistroSoyEmpresa').is(':checked')) {
+                                txtRegistroSoyEmpresa = 2;
+                            } else {
+                                txtRegistroSoyEmpresa = 3;
+                            }
+                            $.ajax({
+                                type: "POST",
+                                url: "ajax/welcomeAjax.php",
+                                data: {
+                                    tipo: "registro",
+                                    txtRegistroUsuario,
+                                    txtRegistroPassword,
+                                    txtRegistroEmail,
+                                    txtRegistroSoyEmpresa
+                                },
+                                error: function(data) {
+                                    console.error(data);
+                                },
+                                success: function(data) {
+                                    console.log(data);
+                                }
+                            });
+                        } else {
+                            console.log("Formulario no encontrado");
+                        }
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>

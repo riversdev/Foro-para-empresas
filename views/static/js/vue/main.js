@@ -1,17 +1,7 @@
-const routes = [
-    { path: '/', component: welcome },
-    { path: '/home', component: home }
-]
-
-const router = new VueRouter({
-    routes
-})
-
 var app = new Vue({
     el: '#app',
-    router,
     data: {
-        saludo: "HOLA VUE"
+        saludo: "YA Estamos dentro !!!"
     },
     mounted: function () {
         prepararValidacionFormularios();
@@ -19,7 +9,6 @@ var app = new Vue({
     methods: {
         fun() {
             console.log("FUNCIONA");
-            router.push('home');
         }
     }
 });

@@ -1,16 +1,19 @@
 $(document).ready(function () {
-    // PARA FORMULARIOS DE LOGIN
-    $('#iniciarSesion').on('click', function () {
-        $('#iniciarSesion').addClass("d-none");
-        $('#contenedorFormularioIdentificar').removeClass("d-none");
-    });
-    $('#registrarme').on('click', function () {
-        $('#contenedorFormularioIdentificar').addClass("d-none");
-        $('#contenedorFormularioRegistrar').removeClass("d-none");
-    });
-    $('#yaTengoUnaCuenta').on('click', function () {
-        $('#contenedorFormularioIdentificar').removeClass("d-none");
-        $('#contenedorFormularioRegistrar').addClass("d-none");
+    $('#salir').on('click', function () {
+        $.ajax({
+            type: "POST",
+            url: "ajax/welcomeAjax.php",
+            data: {
+                tipo: "salir"
+            },
+            error: function (data) {
+                console.log(data);
+            },
+            success: function (data) {
+                console.log("Saliendo:"+data);
+                location.href = "welcome";
+            }
+        });
     });
 });
 
