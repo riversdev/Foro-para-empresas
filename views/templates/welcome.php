@@ -1,3 +1,7 @@
+<div id="app">
+    <router-link to="/">Exit</router-link>
+    <router-view></router-view>
+</div>
 <div id="welcome" class="row align-items-center justify-content-center" style="overflow-y: scroll; height: 100%;">
     <button id="iniciarSesion" class="btn btn-outline-primary btn-lg">
         Iniciar sesión
@@ -43,7 +47,7 @@
     <div id="contenedorFormularioRegistrar" class="card border-primary mb-3 d-none" style="max-width: 25rem;">
         <div class="card-body text-primary">
             <h5 class="card-title text-center">Registro</h5>
-            <form id="formRegistroUsuario" class="needs-validation" novalidate>
+            <form id="formRegistrarUsuario" class="needs-validation" novalidate>
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="txtRegistroUsuario">Usuario</label>
