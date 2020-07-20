@@ -6,6 +6,7 @@
 <script src="views\static\js\vue\vue-router.js"></script>
 <!-- Components -->
 <script src="views/components/navigation.js"></script>
+<script src="views/components/botonEditarContenido.js"></script>
 <script src="views/components/vacio.js"></script>
 
 <?php
@@ -78,7 +79,7 @@ if (isset($_SESSION['empresa_id'])) {
 
 ?>
     <div id="appEmpresa">
-        <navigation id="<?= $empresa['id']; ?>" user="<?= $empresa['nombre']; ?>" email="<?= $empresa['correo']; ?>" password="<?= $empresa['contrasenia']; ?>"></navigation>
+        <navigation id="<?= $empresa['id']; ?>" user="<?= $empresa['nombre']; ?>" email="<?= $empresa['correo']; ?>" password="<?= $empresa['contrasenia']; ?>" tipo="2"></navigation>
         <div class="row align-items-center justify-content-center" style="height:92vh;">
             <div class="col col-6 text-right mt-1">
                 <h2 class="text-black mt-2">
