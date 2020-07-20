@@ -35,6 +35,16 @@ if (isset($_SESSION['user_id'])) {
                             Verifica tu contraseña
                         </div>
                     </div>
+                    <div class="col-md-12 mb-3">
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="txtSoyEmpresa">
+                                <label class="form-check-label text-primary" for="txtSoyEmpresa">
+                                    Soy una empresa
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-row d-flex justify-content-between">
                     <button id="registrarme" class="btn btn-transparent btn-sm text-secondary" type="button">
@@ -110,7 +120,7 @@ if (isset($_SESSION['user_id'])) {
 
 <script>
     $(document).ready(function() {
-        // PARA FORMULARIOS DE LOGIN
+        // DISPLAY DE FORMULARIOS DE BIENVENIDA
         $('#iniciarSesion').on('click', function() {
             $('#iniciarSesion').addClass("d-none");
             $('#contenedorFormularioIdentificar').removeClass("d-none");
@@ -125,6 +135,7 @@ if (isset($_SESSION['user_id'])) {
         });
     });
 
+    // VALIDACION DE FORMULARIOS BIENVENIDA Y EVENTOS SUBMIT
     (function() {
         'use strict';
         window.addEventListener('load', function() {
@@ -139,13 +150,20 @@ if (isset($_SESSION['user_id'])) {
                         if (form.id == "formIdentificarUsuario") {
                             let txtEmail = $('#txtEmail').val();
                             let txtPassword = $('#txtPassword').val();
+                            let txtSoyEmpresa = 0;
+                            if ($('#txtSoyEmpresa').is(':checked')) {
+                                txtSoyEmpresa = 2;
+                            } else {
+                                txtSoyEmpresa = 3;
+                            }
                             $.ajax({
                                 type: "POST",
                                 url: "ajax/welcomeAjax.php",
                                 data: {
                                     tipo: "identificacion",
                                     txtEmail,
-                                    txtPassword
+                                    txtPassword,
+                                    txtSoyEmpresa
                                 },
                                 error: function(data) {
                                     console.error(data);
@@ -154,7 +172,7 @@ if (isset($_SESSION['user_id'])) {
                                     if (data == 1) {
                                         location.href = "home";
                                     } else {
-                                        alert("Verifica tus datos");
+                                        alertify.error("Verifica tus datos!");
                                     }
                                 }
                             });
@@ -182,7 +200,11 @@ if (isset($_SESSION['user_id'])) {
                                     console.error(data);
                                 },
                                 success: function(data) {
-                                    console.log(data);
+                                    if (data == "El mail de empresa ya existe!" || data == "El mail de usuario ya existe!") {
+                                        alertify.error(data);
+                                    } else {
+                                        alertify.success(data);
+                                    }
                                 }
                             });
                         } else {

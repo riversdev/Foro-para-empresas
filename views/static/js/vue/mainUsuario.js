@@ -1,7 +1,8 @@
-var app = new Vue({
-    el: '#app',
+
+var appUsuario = new Vue({
+    el: '#appUsuario',
     data: {
-        saludo: "YA Estamos dentro !!!"
+        saludo: "Cuenta de usuario VUE !!!"
     },
     mounted: function () {
         prepararValidacionFormularios();

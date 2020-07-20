@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    // BIENVENIDA A LA SESION
+    alertify.success("Todo está listo!");
+    // CERRAR SESION
     $('#salir').on('click', function () {
         $.ajax({
             type: "POST",
@@ -7,15 +10,29 @@ $(document).ready(function () {
                 tipo: "salir"
             },
             error: function (data) {
-                console.log(data);
+                console.eror(data);
             },
             success: function (data) {
-                console.log("Saliendo:"+data);
                 location.href = "welcome";
             }
         });
     });
 });
+
+function listarEmpresas() {
+    $.ajax({
+        type: "POST",
+        url: "ajax/empresasAjax.php",
+        data: {},
+        error: function (data) {
+            console.error(data);
+        },
+        success: function (data) {
+            $('#contenedorEmpresas').empty();
+            $('#contenedorEmpresas').append(data);
+        }
+    });
+}
 
 function prepararValidacionFormularios() {
     var forms = document.getElementsByClassName('needs-validation');

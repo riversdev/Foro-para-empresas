@@ -16,6 +16,10 @@
     <!-- DataTables-1.10.21 -->
     <link rel="stylesheet" href="views/static/datatables/datatables.min.css">
     <script src="views/static/datatables/datatables.min.js"></script>
+    <!-- Alertify JS 1.13.1 -->
+    <link rel="stylesheet" href="views\static\alertify\css\alertify.css">
+    <link rel="stylesheet" href="views\static\alertify\css\themes\bootstrap.min.css">
+    <script src="views\static\alertify\js\alertify.js"></script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="views/static/css/main.css">
 </head>
