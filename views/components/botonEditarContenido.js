@@ -4,10 +4,11 @@ Vue.component('botonEditarContenido', {
         `
         <div class="dropdown">
             <button v-on:click="obtenerInformacion(idEmpresa)" class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownEditar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Editar información
+                Editar información {{empresa}}
             </button>
             <div class="dropdown-menu dropdown-menu-right border-primary" aria-labelledby="dropdownEditar" style="width:60vh;">
                 <form id="formEditarInformacion" class="needs-validation p-3" novalidate>
+                    <input type="text" class="d-none" v-bind:value="idEmpresa">
                     <div class="form-row">
                         <div class="col col-12 mb-3">
                             <h6 class="font-weight-lighter text-dark">Empresa</h6>
@@ -86,7 +87,7 @@ Vue.component('botonEditarContenido', {
         </div>
     `,
     computed: {
-        ...Vuex.mapState(['empresa', 'productos','mision','vision','fundador','CEO'])
+        ...Vuex.mapState(['empresa', 'productos', 'mision', 'vision', 'fundador', 'CEO'])
     },
     methods: {
         ...Vuex.mapActions(['obtenerInformacion'])

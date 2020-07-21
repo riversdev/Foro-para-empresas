@@ -44,9 +44,9 @@ function prepararValidacionFormularios() {
                 console.log(form.id);
             } else {
                 event.preventDefault();
-                if (form.id == "formIdentificarUsuario") {
-                    console.log("Para indentificar usuario");
-                    app.fun();
+                if (form.id == "formEditarInformacion") {
+                    console.log("Para editar informacion");
+                    appEmpresa.editarInformacion(form[0].value);
                 } else if (form.id == "formRegistrarUsuario") {
                     console.log("Para registrar usuario");
                 } else {

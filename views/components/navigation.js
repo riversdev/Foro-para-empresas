@@ -28,5 +28,8 @@ Vue.component('navigation', {
                 </form>
             </div>
         </nav>
-    `
+    `,
+    computed: {
+        ...Vuex.mapState(['empresa', 'correo'])
+    }
 });
