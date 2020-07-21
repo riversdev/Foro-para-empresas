@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip()
     // BIENVENIDA A LA SESION
     alertify.success("Todo está listo!");
     // CERRAR SESION

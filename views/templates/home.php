@@ -89,7 +89,7 @@ if (isset($_SESSION['empresa_id'])) {
                 </h2>
             </div>
             <div class="col col-6 text-left mt-1">
-                <img src="data:image/jpeg;base64,<?= base64_encode($empresa['logo'])  ?>" alt="" style="height: 50px;">
+                <img src="data:image/jpeg;base64,<?= base64_encode($empresa['logo'])  ?>" style="height: 50px;" data-toggle="tooltip" data-placement="right" title="Cambiar logo">
             </div>
             <div class="col-12 mt-3">
                 <div class="container align-items-center justify-content-center" style="height: 80vh;">

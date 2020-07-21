@@ -10,6 +10,7 @@
     <!-- bootstrap-4.5.0-dist -->
     <link type="text/css" rel="stylesheet" href="views\static\bootstrap\css\bootstrap.min.css">
     <script type="text/javascript" src="views\static\bootstrap\js\bootstrap.min.js"></script>
+    <script src="views\static\bootstrap\js\bootstrap.bundle.min.js"></script>
     <!-- fontawesome-free-5.13.1-web -->
     <link rel="stylesheet" href="views/static/fontawesome/css/all.css">
     <script src="views/static/fontawesome/js/all.js"></script>
