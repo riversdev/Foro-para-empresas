@@ -10,7 +10,7 @@ Vue.component('navigation', {
                 <ul class="navbar-nav mr-auto"></ul>
                 <form class="form-inline my-2 my-lg-0">
                     <div v-if="tipo === '2'" class="px-3">
-                        <botonEditarContenido></botonEditarContenido>
+                        <botonEditarContenido :idEmpresa="id"></botonEditarContenido>
                     </div>
                     <div class="dropdown">
                         <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownUsuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

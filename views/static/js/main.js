@@ -10,7 +10,7 @@ $(document).ready(function () {
                 tipo: "salir"
             },
             error: function (data) {
-                console.eror(data);
+                console.error(data);
             },
             success: function (data) {
                 location.href = "welcome";
@@ -41,6 +41,7 @@ function prepararValidacionFormularios() {
             if (form.checkValidity() === false) {
                 event.preventDefault();
                 event.stopPropagation();
+                console.log(form.id);
             } else {
                 event.preventDefault();
                 if (form.id == "formIdentificarUsuario") {
