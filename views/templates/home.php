@@ -253,7 +253,7 @@ if (isset($_SESSION['empresa_id'])) {
                                 <?php
                                 if (count($videos) != 0) {
                                 ?>
-                                    <div class="col col-4">
+                                    <div class="col col-3">
                                         <div class="row align-items-center justify-content-center" style="height: 65vh; overflow-y: scroll;">
                                             <ul class="list-group list-group-flush">
                                                 <?php
@@ -271,13 +271,13 @@ if (isset($_SESSION['empresa_id'])) {
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="col col-8">
+                                    <div class="col col-9">
                                         <div class="row align-items-center justify-content-center">
                                             <div v-if="videoDeInicio === true">
-                                                <iframe width="560" height="315" src="<?php echo $videos[0][3]; ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                <iframe width="640" height="355" src="<?php echo $videos[0][3]; ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                             </div>
                                             <div v-else>
-                                                <iframe width="560" height="315" v-bind:src="video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                <iframe width="640" height="355" v-bind:src="video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                             </div>
                                         </div>
                                     </div>
