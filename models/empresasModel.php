@@ -31,6 +31,19 @@ class empresasModel
         }
         $stmt = null;
     }
+    public static function guardarLogo($idEmpresa, $logo)
+    {
+        $SQL = 'UPDATE empresas
+                SET logo="' . $logo . '"
+                WHERE id = ' . $idEmpresa;
+        $stmt = Conexion::conectar()->prepare($SQL);
+        if ($stmt->execute()) {
+            echo "Logo actualizado!";
+        } else {
+            echo "Peticion guardar logo fallida!";
+        }
+        $stmt = null;
+    }
     public static function listarEmpresas()
     {
         $SQL = "";

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="tooltip"]').tooltip();
     // BIENVENIDA A LA SESION
     alertify.success("Todo está listo!");
     // CERRAR SESION
@@ -47,13 +47,43 @@ function prepararValidacionFormularios() {
                 event.preventDefault();
                 if (form.id == "formEditarInformacion") {
                     appEmpresa.editarInformacion(form[0].value);
-                } else if (form.id == "formRegistrarUsuario") {
-                    console.log("Para registrar usuario");
+                } else if (form.id == "formEditarLogo") {
+                    console.log("Para editar logo");
+                    var formData = new FormData(document.getElementById(form.id));
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/empresasAjax.php",
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                    }).done(function (echo) {
+                        $('#mensaje').html(echo);
+                    });
                 } else {
                     console.log("Formulario no encontrado");
                 }
             }
             form.classList.add('was-validated');
         }, false);
+    });
+}
+
+function guardarLogo(idEmpresa) {
+    let logo = document.getElementById('txtEmpresaLogo').files[0];
+    $.ajax({
+        type: "POST",
+        url: "ajax/empresasAjax.php",
+        data: {
+            tipoPeticion: "guardarLogo",
+            idEmpresa,
+            logo
+        },
+        error: function (data) {
+            console.error(data);
+        },
+        success: function (data) {
+            console.log(data);
+        }
     });
 }
