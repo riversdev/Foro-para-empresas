@@ -1,6 +1,6 @@
 const store = new Vuex.Store({
     state: {
-        empresa: "",
+        empresa: "aaa",
         correo: "",
         contrasenia: "",
         productos: "",
@@ -14,7 +14,6 @@ const store = new Vuex.Store({
         llenarCampos(state, data) {
             let decodificado = JSON.parse(data);
             let empresa = decodificado[0];
-            //console.log(empresa);
             state.empresa = empresa['nombre'];
             state.correo = empresa['correo'];
             state.contrasenia = empresa['contrasenia'];
@@ -23,10 +22,9 @@ const store = new Vuex.Store({
             state.vision = empresa['vision'];
             state.fundador = empresa['fundador'];
             state.CEO = empresa['CEO'];
-            console.log("Campos llenos");
         },
         recuperarCampos(state) {
-            state.campos.push({ empresa: state.empresa, productos: state.productos, mision: state.mision, vision: state.vision, fundador: state.fundador, CEO: state.CEO });
+            state.campos.push({ empresa: $('#txtEmpresaNombre').val(), productos: $('#txtEmpresaPS').val(), mision: $('#txtEmpresaMision').val(), vision: $('#txtEmpresaVision').val(), fundador: $('#txtEmpresaFundador').val(), CEO: $('#txtEmpresaCEO').val() });
             console.log("Campos recuperados");
         }
     },
@@ -48,13 +46,6 @@ const store = new Vuex.Store({
             });
         },
         guardarInformacion({ commit }, datos) {
-            console.log(this.state.empresa);
-            console.log(this.state.campos[0]['empresa']);
-            console.log(this.state.campos[0]['productos']);
-            console.log(this.state.campos[0]['mision']);
-            console.log(this.state.campos[0]['vision']);
-            console.log(this.state.campos[0]['fundador']);
-            console.log(this.state.campos[0]['CEO']);
             $.ajax({
                 type: "POST",
                 url: "ajax/empresasAjax.php",
@@ -72,7 +63,11 @@ const store = new Vuex.Store({
                     console.error(data);
                 },
                 success: function (data) {
-                    console.log(data);
+                    if (data == "Información guardada!") {
+                        alertify.success(data);
+                    } else {
+                        console.error(data);
+                    }
                     store.dispatch('obtenerInformacion', datos.id);
                 }
             });
@@ -85,15 +80,20 @@ var appEmpresa = new Vue({
     store,
     data: {
         videoDeInicio: true,
-        video: ""
+        video: "",
+        id:""
     },
     mounted() {
         prepararValidacionFormularios();
+        store.dispatch('obtenerInformacion', this.id);
     },
     methods: {
         editarInformacion(id) {
             store.commit('recuperarCampos');
             store.dispatch('guardarInformacion', { id });
         }
+    },
+    computed: {
+        ...Vuex.mapState(['empresa', 'productos', 'mision', 'vision', 'fundador', 'CEO'])
     }
 });

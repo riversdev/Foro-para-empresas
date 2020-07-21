@@ -4,7 +4,7 @@ Vue.component('botonEditarContenido', {
         `
         <div class="dropdown">
             <button v-on:click="obtenerInformacion(idEmpresa)" class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownEditar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Editar información {{empresa}}
+                Editar información
             </button>
             <div class="dropdown-menu dropdown-menu-right border-primary" aria-labelledby="dropdownEditar" style="width:60vh;">
                 <form id="formEditarInformacion" class="needs-validation p-3" novalidate>

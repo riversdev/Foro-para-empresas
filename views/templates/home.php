@@ -80,11 +80,12 @@ if (isset($_SESSION['empresa_id'])) {
 ?>
     <div id="appEmpresa">
         <navigation id="<?= $empresa['id']; ?>" user="<?= $empresa['nombre']; ?>" email="<?= $empresa['correo']; ?>" password="<?= $empresa['contrasenia']; ?>" tipo="2"></navigation>
+        <p class="d-none">{{id=<?= $empresa['id']; ?>}}</p>
         <div class="row align-items-center justify-content-center" style="height:92vh;">
             <div class="col col-6 text-right mt-1">
                 <h2 class="text-black mt-2">
                     <span class="bg-primary text-primary">i</span>
-                    <?= $empresa['nombre'] ?>
+                    {{empresa}}
                 </h2>
             </div>
             <div class="col col-6 text-left mt-1">
@@ -102,20 +103,19 @@ if (isset($_SESSION['empresa_id'])) {
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
-                            <div class="row mt-4 align-items-center justify-content-center" style="height: 65vh;overflow: hidden;">
-                                <?php
-                                if ($empresa['productosServicios'] == "" && $empresa['mision'] == "" && $empresa['vision'] == "" && $empresa['fundador'] == "" && $empresa['CEO'] == "") {
-                                ?>
+                            <div v-if="productos === '', mision === '', vision === '', fundador === '', CEO === ''">
+                                <div class="row mt-4 align-items-center justify-content-center" style="height: 65vh;overflow: hidden;">
                                     <vacio cat="datos"></vacio>
-                                <?php
-                                } else {
-                                ?>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <div class="row mt-4 align-items-center justify-content-center" style="height: 65vh;overflow: hidden;">
                                     <div class="col col-3">
                                         <div class="card border-primary mb-3" style="max-width: 18rem;">
                                             <div class="card-body text-primary">
                                                 <h6 class="card-title">Productos o servicios</h6>
                                                 <small class="card-text">
-                                                    <p class="text-justify"><?= $empresa['productosServicios'] ?></p>
+                                                    <p class="text-justify">{{productos}}</p>
                                                 </small>
                                             </div>
                                         </div>
@@ -125,7 +125,7 @@ if (isset($_SESSION['empresa_id'])) {
                                             <div class="card-body text-primary">
                                                 <h6 class="card-title">Misión</h6>
                                                 <small class="card-text">
-                                                    <p class="text-justify"><?= $empresa['mision'] ?></p>
+                                                    <p class="text-justify">{{mision}}</p>
                                                 </small>
                                             </div>
                                         </div>
@@ -135,7 +135,7 @@ if (isset($_SESSION['empresa_id'])) {
                                             <div class="card-body text-primary">
                                                 <h6 class="card-title">Visión</h6>
                                                 <small class="card-text">
-                                                    <p class="text-justify"><?= $empresa['vision'] ?></p>
+                                                    <p class="text-justify">{{vision}}</p>
                                                 </small>
                                             </div>
                                         </div>
@@ -144,15 +144,13 @@ if (isset($_SESSION['empresa_id'])) {
                                         <div class="card border-primary mb-3" style="max-width: 18rem;">
                                             <div class="card-body text-primary">
                                                 <h6 class="card-title">Fundador</h6>
-                                                <p class="card-text"><?= $empresa['fundador'] ?></p>
+                                                <p class="card-text">{{fundador}}</p>
                                                 <h6 class="card-title">CEO</h6>
-                                                <p class="card-text"><?= $empresa['CEO'] ?></p>
+                                                <p class="card-text">{{CEO}}</p>
                                             </div>
                                         </div>
                                     </div>
-                                <?php
-                                }
-                                ?>
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-tripticos" role="tabpanel" aria-labelledby="nav-tripticos-tab">
