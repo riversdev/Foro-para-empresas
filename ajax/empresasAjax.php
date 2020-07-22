@@ -32,4 +32,6 @@ if ($tipoPeticion == "unico") {
     } else {
         die("error|Verifique sus datos");
     }
+} elseif ($tipoPeticion == "obtenerTripticos") {
+    echo "obteniendo tripticos";
 }

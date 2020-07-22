@@ -1,6 +1,6 @@
 const store = new Vuex.Store({
     state: {
-        empresa: "aaa",
+        empresa: "",
         correo: "",
         contrasenia: "",
         productos: "",
@@ -8,7 +8,8 @@ const store = new Vuex.Store({
         vision: "",
         fundador: "",
         CEO: "",
-        campos: []
+        campos: [],
+        tripticos: []
     },
     mutations: {
         llenarCampos(state, data) {
@@ -22,11 +23,14 @@ const store = new Vuex.Store({
             state.vision = empresa['vision'];
             state.fundador = empresa['fundador'];
             state.CEO = empresa['CEO'];
+            console.log("Campos llenos");
         },
         recuperarCampos(state) {
+            state.campos = [];
             state.campos.push({ empresa: $('#txtEmpresaNombre').val(), productos: $('#txtEmpresaPS').val(), mision: $('#txtEmpresaMision').val(), vision: $('#txtEmpresaVision').val(), fundador: $('#txtEmpresaFundador').val(), CEO: $('#txtEmpresaCEO').val() });
-            console.log("Campos recuperados");
-        }
+            console.log(state.campos);
+        },
+        llenarTripticos(state, data) { }
     },
     actions: {
         obtenerInformacion({ commit }, id) {
@@ -45,13 +49,14 @@ const store = new Vuex.Store({
                 }
             });
         },
-        guardarInformacion({ commit }, datos) {
+        guardarInformacion({ commit }, id) {
+            console.log("Empresa lista para guardar:" + this.state.campos[0]['empresa']);
             $.ajax({
                 type: "POST",
                 url: "ajax/empresasAjax.php",
                 data: {
                     tipoPeticion: "guardar",
-                    idEmpresa: datos.id,
+                    idEmpresa: id,
                     empresa: this.state.campos[0]['empresa'],
                     productos: this.state.campos[0]['productos'],
                     mision: this.state.campos[0]['mision'],
@@ -68,7 +73,24 @@ const store = new Vuex.Store({
                     } else {
                         console.error(data);
                     }
-                    store.dispatch('obtenerInformacion', datos.id);
+                    store.dispatch('obtenerInformacion', id);
+                }
+            });
+        },
+        obtenerTripticos({ commit }, id) {
+            $.ajax({
+                type: "POST",
+                url: "ajax/empresasAjax.php",
+                data: {
+                    tipoPeticion: "obtenerTripticos",
+                    idEmpresa: id
+                },
+                error: function (data) {
+                    console.error(data);
+                },
+                success: function (data) {
+                    //commit('llenarTripticos', data);
+                    console.log("TRIPTICOS:" + data);
                 }
             });
         }
@@ -81,16 +103,17 @@ var appEmpresa = new Vue({
     data: {
         videoDeInicio: true,
         video: "",
-        id:""
+        id: ""
     },
     mounted() {
         prepararValidacionFormularios();
         store.dispatch('obtenerInformacion', this.id);
+        store.dispatch('obtenerTripticos', this.id);
     },
     methods: {
         editarInformacion(id) {
             store.commit('recuperarCampos');
-            store.dispatch('guardarInformacion', { id });
+            store.dispatch('guardarInformacion', id);
         }
     },
     computed: {

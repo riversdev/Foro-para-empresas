@@ -18,7 +18,7 @@ Vue.component('navigation', {
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownUsuario">
                             <div class="dropdown-item-text text-center">
-                                <label>{{user}}</label>
+                                <label>{{empresa}}</label>
                                 <small>{{email}}</small>
                             </div>
                             <div class="dropdown-divider"></div>
@@ -30,6 +30,6 @@ Vue.component('navigation', {
         </nav>
     `,
     computed: {
-        ...Vuex.mapState(['empresa', 'correo'])
+        ...Vuex.mapState(['empresa'])
     }
 });

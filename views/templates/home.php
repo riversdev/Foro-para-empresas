@@ -210,6 +210,7 @@ if (isset($_SESSION['empresa_id'])) {
                                                             <div class="carousel-caption d-none d-md-block">
                                                                 <h5><?php echo $value['nombre']; ?></h5>
                                                                 <p><?php echo $value['descripcion']; ?></p>
+                                                                <button type="button" class="btn btn-light">Editar</button>
                                                             </div>
                                                         </div>
                                                     <?php

@@ -42,7 +42,6 @@ function prepararValidacionFormularios() {
             if (form.checkValidity() === false) {
                 event.preventDefault();
                 event.stopPropagation();
-                console.log(form.id);
             } else {
                 event.preventDefault();
                 if (form.id == "formEditarInformacion") {
