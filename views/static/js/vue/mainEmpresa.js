@@ -23,14 +23,18 @@ const store = new Vuex.Store({
             state.vision = empresa['vision'];
             state.fundador = empresa['fundador'];
             state.CEO = empresa['CEO'];
-            console.log("Campos llenos");
         },
         recuperarCampos(state) {
             state.campos = [];
             state.campos.push({ empresa: $('#txtEmpresaNombre').val(), productos: $('#txtEmpresaPS').val(), mision: $('#txtEmpresaMision').val(), vision: $('#txtEmpresaVision').val(), fundador: $('#txtEmpresaFundador').val(), CEO: $('#txtEmpresaCEO').val() });
-            console.log(state.campos);
         },
-        llenarTripticos(state, data) { }
+        llenarTripticos(state, data) {
+            let decodificado = JSON.parse(data);
+            state.tripticos = [];
+            for (let i = 0; i < decodificado.length; i++) {
+                state.tripticos[i] = { id: decodificado[i].id, idEmpresa: decodificado[i].idEmpresa, nombre: decodificado[i].nombre, imagen: decodificado[i].triptico };
+            }
+        }
     },
     actions: {
         obtenerInformacion({ commit }, id) {
@@ -50,7 +54,6 @@ const store = new Vuex.Store({
             });
         },
         guardarInformacion({ commit }, id) {
-            console.log("Empresa lista para guardar:" + this.state.campos[0]['empresa']);
             $.ajax({
                 type: "POST",
                 url: "ajax/empresasAjax.php",
@@ -90,7 +93,11 @@ const store = new Vuex.Store({
                 },
                 success: function (data) {
                     //commit('llenarTripticos', data);
-                    console.log("TRIPTICOS:" + data);
+                    if (data == 0) {
+                        store.state.tripticos = null;
+                    } else {
+                        commit('llenarTripticos', data);
+                    }
                 }
             });
         }
@@ -102,7 +109,9 @@ var appEmpresa = new Vue({
     store,
     data: {
         videoDeInicio: true,
+        tripticoDeInicio: true,
         video: "",
+        imagenTriptico: "data:image/jpeg;base64,",
         id: ""
     },
     mounted() {
@@ -117,6 +126,6 @@ var appEmpresa = new Vue({
         }
     },
     computed: {
-        ...Vuex.mapState(['empresa', 'productos', 'mision', 'vision', 'fundador', 'CEO'])
+        ...Vuex.mapState(['empresa', 'productos', 'mision', 'vision', 'fundador', 'CEO', 'tripticos'])
     }
 });

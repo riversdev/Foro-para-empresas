@@ -5,6 +5,15 @@ require_once "conexion.php";
 
 class empresasModel
 {
+    public static function obtenerTripticos($idEmpresa)
+    {
+        $SQL = "SELECT * FROM tripticos WHERE idEmpresa='$idEmpresa';";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        $stmt->execute();
+        $resultado = $stmt->fetchAll();
+        $stmt = null;
+        return $resultado;
+    }
     public static function leerLogoEmpresa($idEmpresa)
     {
         $stmt = Conexion::conectar()->prepare('SELECT logo FROM empresas WHERE id = :id');

@@ -33,5 +33,19 @@ if ($tipoPeticion == "unico") {
         die("error|Verifique sus datos");
     }
 } elseif ($tipoPeticion == "obtenerTripticos") {
-    echo "obteniendo tripticos";
+    $resultado = empresasModel::obtenerTripticos($_POST['idEmpresa']);
+    if (count($resultado) == 0) {
+        echo 0;
+    } else {
+        $tripticos = array();
+        foreach ($resultado as $key => $row) {
+            $triptico = new stdClass();
+            $triptico->id = $row['id'];
+            $triptico->idEmpresa = $row['idEmpresa'];
+            $triptico->nombre = $row['nombre'];
+            $triptico->triptico = base64_encode($row['triptico']);
+            $tripticos[$key] = $triptico;
+        }
+        echo json_encode($tripticos);
+    }
 }

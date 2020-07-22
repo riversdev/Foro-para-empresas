@@ -65,12 +65,6 @@ if (isset($_SESSION['empresa_id'])) {
         $stmt = null;
     }
 
-    $SQL = "SELECT * FROM tripticos WHERE idEmpresa = '" . $empresa['id'] . "';";
-    $stmt = Conexion::conectar()->prepare($SQL);
-    $stmt->execute();
-    $tripticos = $stmt->fetchAll();
-    $stmt = null;
-
     $SQL = "SELECT * FROM videos WHERE idEmpresa = '" . $empresa['id'] . "';";
     $stmt = Conexion::conectar()->prepare($SQL);
     $stmt->execute();
@@ -154,97 +148,40 @@ if (isset($_SESSION['empresa_id'])) {
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-tripticos" role="tabpanel" aria-labelledby="nav-tripticos-tab">
-                            <div class="row mt-4 align-items-center justify-content-center" style="height: 65vh;overflow: hidden;">
-                                <?php
-                                if (count($tripticos) != 0) {
-                                    if (count($tripticos) == 1) {
-                                ?>
-                                        <div id="carouselTripticosCaptions" class="carousel slide" data-ride="carousel" style="height: 65vh;">
-                                            <ol class="carousel-indicators">
-                                                <li data-target="#carouselTripticosCaptions" data-slide-to="0" class="active"></li>
-                                            </ol>
-                                            <div class="carousel-inner">
-                                                <div class="carousel-item active">
-                                                    <img src="17.jpg" class="d-block w-100" alt="..." style="height: 65vh;">
-                                                    <div class="carousel-caption d-none d-md-block">
-                                                        <h5><?php echo $tripticos[0][2]; ?></h5>
-                                                        <p><?php echo $tripticos[0][3]; ?></p>
+                            <div v-if="tripticos === null">
+                                <div class="row mt-4 align-items-center justify-content-center" style="height: 65vh;overflow: hidden;">
+                                    <vacio cat="tripticos"></vacio>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <div class="row mt-4 align-items-center justify-content-center" style="height: 65vh;overflow: hidden;">
+                                    <div class="col col-3">
+                                        <div class="row align-items-center justify-content-center" style="height: 65vh; overflow-y: scroll;">
+                                            <ul v-for="(triptico, index) in tripticos" class="list-group list-group-flush">
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    {{triptico.nombre}}
+                                                    <button class="btn btn-small btn-transparent" v-on:click="imagenTriptico='data:image/jpeg;base64,'+triptico.imagen, tripticoDeInicio = false">
+                                                        <i class="far fa-play-circle"></i>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col col-9">
+                                        <div class="row align-items-center justify-content-center">
+                                            <div v-if="tripticoDeInicio === true">
+                                                <div v-for="(triptico, index) in tripticos">
+                                                    <div v-if="index === 0" class="">
+                                                        <img v-bind:src="'data:image/jpeg;base64,'+triptico.imagen" class="d-block w-100" alt="..." style="height: 60vh;">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a class="carousel-control-prev" href="#carouselTripticosCaptions" role="button" data-slide="prev">
-                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                <span class="sr-only">Previous</span>
-                                            </a>
-                                            <a class="carousel-control-next" href="#carouselTripticosCaptions" role="button" data-slide="next">
-                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                <span class="sr-only">Next</span>
-                                            </a>
-                                        </div>
-                                    <?php
-                                    } else {
-                                    ?>
-                                        <div id="carouselTripticosCaptions" class="carousel slide" data-ride="carousel" style="height: 65vh;">
-                                            <ol class="carousel-indicators">
-                                                <?php
-                                                foreach ($tripticos as $key => $value) {
-                                                    if ($key == 0) {
-                                                ?>
-                                                        <li data-target="#carouselTripticosCaptions" data-slide-to="0" class="active"></li>
-                                                    <?php
-                                                    } else {
-                                                    ?>
-                                                        <li data-target="#carouselTripticosCaptions" data-slide-to="<?php echo $key; ?>"></li>
-                                                <?php
-                                                    }
-                                                }
-                                                ?>
-                                            </ol>
-                                            <div class="carousel-inner">
-                                                <?php
-                                                foreach ($tripticos as $key => $value) {
-                                                    if ($key == 0) {
-                                                ?>
-                                                        <div class="carousel-item active">
-                                                            <img src="data:image/jpeg;base64,<?php echo base64_encode($value['triptico']); ?>" class="d-block w-100" alt="..." style="height: 65vh;">
-                                                            <div class="carousel-caption d-none d-md-block">
-                                                                <h5><?php echo $value['nombre']; ?></h5>
-                                                                <p><?php echo $value['descripcion']; ?></p>
-                                                                <button type="button" class="btn btn-light">Editar</button>
-                                                            </div>
-                                                        </div>
-                                                    <?php
-                                                    } else {
-                                                    ?>
-                                                        <div class="carousel-item">
-                                                            <img src="data:image/jpeg;base64,<?php echo base64_encode($value['triptico']); ?>" class="d-block w-100" alt="..." style="height: 65vh;">
-                                                            <div class="carousel-caption d-none d-md-block">
-                                                                <h5><?php echo $value['nombre']; ?></h5>
-                                                                <p><?php echo $value['descripcion']; ?></p>
-                                                            </div>
-                                                        </div>
-                                                <?php
-                                                    }
-                                                }
-                                                ?>
+                                            <div v-else>
+                                                <img v-bind:src="imagenTriptico" class="d-block w-100" alt="..." style="height: 60vh;">
                                             </div>
-                                            <a class="carousel-control-prev" href="#carouselTripticosCaptions" role="button" data-slide="prev">
-                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                <span class="sr-only">Previous</span>
-                                            </a>
-                                            <a class="carousel-control-next" href="#carouselTripticosCaptions" role="button" data-slide="next">
-                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                <span class="sr-only">Next</span>
-                                            </a>
                                         </div>
-                                    <?php
-                                    }
-                                } else {
-                                    ?>
-                                    <vacio cat="tripticos"></vacio>
-                                <?php
-                                }
-                                ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-videos" role="tabpanel" aria-labelledby="nav-videos-tab">
