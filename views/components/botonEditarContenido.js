@@ -25,7 +25,7 @@ Vue.component('botonEditarContenido', {
                     <div class="form-row">
                         <div class="col col-12 mb-3">
                             <h6 class="font-weight-lighter text-dark">Cambiar logo</h6>
-                            <input type="file" class="form-control form-control-sm" name="imagen" id="txtEmpresaLogo" style="width:100%;">
+                            <input type="file" class="form-control form-control-sm" name="imagen" id="txtEmpresaLogo" style="width:100%;" accept="image/png, .jpeg, .jpg, image/gif">
                         </div>
                     </div>
                     <div class="form-row">
