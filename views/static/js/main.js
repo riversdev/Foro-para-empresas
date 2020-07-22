@@ -46,20 +46,7 @@ function prepararValidacionFormularios() {
             } else {
                 event.preventDefault();
                 if (form.id == "formEditarInformacion") {
-                    appEmpresa.editarInformacion(form[0].value);
-                } else if (form.id == "formEditarLogo") {
-                    console.log("Para editar logo");
-                    var formData = new FormData(document.getElementById(form.id));
-                    $.ajax({
-                        type: "POST",
-                        url: "ajax/empresasAjax.php",
-                        data: formData,
-                        cache: false,
-                        contentType: false,
-                        processData: false
-                    }).done(function (echo) {
-                        $('#mensaje').html(echo);
-                    });
+                    guardarLogo(form.id, form[0].value);
                 } else {
                     console.log("Formulario no encontrado");
                 }
@@ -69,21 +56,27 @@ function prepararValidacionFormularios() {
     });
 }
 
-function guardarLogo(idEmpresa) {
-    let logo = document.getElementById('txtEmpresaLogo').files[0];
+function guardarLogo(form, idEmpresa) {
+    var formData = new FormData(document.getElementById(form));
     $.ajax({
         type: "POST",
         url: "ajax/empresasAjax.php",
-        data: {
-            tipoPeticion: "guardarLogo",
-            idEmpresa,
-            logo
-        },
-        error: function (data) {
-            console.error(data);
-        },
-        success: function (data) {
-            console.log(data);
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false
+    }).done(function (echo) {
+        let mensaje = echo.split('|');
+        if (mensaje[0] == "success") {
+            if (mensaje[1] == "Logo actualizado!") {
+                $('#contenedorLogo').empty();
+                $('#contenedorLogo').append(mensaje[2]);
+            }
+            appEmpresa.editarInformacion(idEmpresa);
+        } else if (mensaje[0] == "error") {
+            alertify.error(mensaje[1]);
+        } else {
+            console.log("No se definió el tipo de respuesta");
         }
     });
 }

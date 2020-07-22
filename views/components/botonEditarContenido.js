@@ -7,8 +7,9 @@ Vue.component('botonEditarContenido', {
                 Editar información
             </button>
             <div class="dropdown-menu dropdown-menu-right border-primary" aria-labelledby="dropdownEditar" style="width:60vh;">
-                <form id="formEditarInformacion" class="needs-validation p-3" novalidate enctype="multipart/form-data">
-                    <input type="text" class="d-none" v-bind:value="idEmpresa">
+                <form id="formEditarInformacion" accept-charset="utf-8" method="POST" enctype="multipart/form-data" class="needs-validation p-3" novalidate>
+                    <input type="text" class="d-none" v-bind:value="idEmpresa" name="idEmpresa">
+                    <input type="text" class="d-none" name="tipoPeticion" value="guardarLogo">
                     <div class="form-row">
                         <div class="col col-12 mb-3">
                             <h6 class="font-weight-lighter text-dark">Empresa</h6>
@@ -24,7 +25,7 @@ Vue.component('botonEditarContenido', {
                     <div class="form-row">
                         <div class="col col-12 mb-3">
                             <h6 class="font-weight-lighter text-dark">Cambiar logo</h6>
-                            <input type="file" class="form-control form-control-sm" id="txtEmpresaLogo" style="width:100%;">
+                            <input type="file" class="form-control form-control-sm" name="imagen" id="txtEmpresaLogo" style="width:100%;">
                         </div>
                     </div>
                     <div class="form-row">

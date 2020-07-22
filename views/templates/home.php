@@ -88,14 +88,7 @@ if (isset($_SESSION['empresa_id'])) {
                     {{empresa}}
                 </h2>
             </div>
-            <div class="col col-6 text-left mt-1">
-                <form id="formEditarLogo" accept-charset="utf-8" method="POST" enctype="multipart/form-data" class="needs-validation p-3" novalidate>
-                    <input type="text" name="idEmpresa" value="<?= $empresa['id']; ?>">
-                    <input type="text" name="tipoPeticion" value="guardarLogo">
-                    <input type="file" name="imagen">
-                    <button type="submit">Guardar</button>
-                </form>
-                <div id="mensaje"></div>
+            <div id="contenedorLogo" class="col col-6 text-left mt-1">
                 <img src="data:image/jpeg;base64,<?= base64_encode($empresa['logo'])  ?>" style="height: 50px;" data-toggle="tooltip" data-placement="right" title="Cambiar logo">
             </div>
             <div class="col-12 mt-3">

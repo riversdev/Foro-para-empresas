@@ -1,9 +1,19 @@
 <?php
+error_reporting(0);
 
 require_once "conexion.php";
 
 class empresasModel
 {
+    public static function leerLogoEmpresa($idEmpresa)
+    {
+        $stmt = Conexion::conectar()->prepare('SELECT logo FROM empresas WHERE id = :id');
+        $stmt->bindParam(':id', $idEmpresa);
+        $stmt->execute();
+        $resultado = $stmt->fetchAll();
+        $stmt = null;
+        return $resultado;
+    }
     public static function buscarEmpresa($idEmpresa)
     {
         $SQL = "SELECT nombre, correo, contrasenia, productosServicios, mision, vision, fundador, CEO FROM empresas WHERE id = '$idEmpresa'";
@@ -33,14 +43,18 @@ class empresasModel
     }
     public static function guardarLogo($idEmpresa, $logo)
     {
-        $SQL = 'UPDATE empresas
-                SET logo="' . $logo . '"
-                WHERE id = ' . $idEmpresa;
+        $SQL = "UPDATE empresas
+                SET logo='$logo'
+                WHERE id = '$idEmpresa'";
         $stmt = Conexion::conectar()->prepare($SQL);
-        if ($stmt->execute()) {
-            echo "Logo actualizado!";
-        } else {
-            echo "Peticion guardar logo fallida!";
+        try {
+            if ($stmt->execute()) {
+                echo "success|Logo actualizado!";
+            } else {
+                echo "error|Peticion guardar logo fallida!";
+            }
+        } catch (Exception $e) {
+            echo "error|Logo demasiado grande";
         }
         $stmt = null;
     }
