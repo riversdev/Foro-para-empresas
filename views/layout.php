@@ -19,7 +19,7 @@
     <script src="views/static/datatables/datatables.min.js"></script>
     <!-- Alertify JS 1.13.1 -->
     <link rel="stylesheet" href="views\static\alertify\css\alertify.css">
-    <link rel="stylesheet" href="views\static\alertify\css\themes\bootstrap.min.css">
+    <link rel="stylesheet" href="views\static\alertify\css\themes\default.css">
     <script src="views\static\alertify\js\alertify.js"></script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="views/static/css/main.css">

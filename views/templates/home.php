@@ -155,29 +155,45 @@ if (isset($_SESSION['empresa_id'])) {
                             </div>
                             <div v-else>
                                 <div class="row mt-4 align-items-center justify-content-center" style="height: 65vh;overflow: hidden;">
-                                    <div class="col col-3">
+                                    <div class="col col-4">
                                         <div class="row align-items-center justify-content-center" style="height: 65vh; overflow-y: scroll;">
-                                            <ul v-for="(triptico, index) in tripticos" class="list-group list-group-flush">
-                                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                    {{triptico.nombre}}
-                                                    <button class="btn btn-small btn-transparent" v-on:click="imagenTriptico='data:image/jpeg;base64,'+triptico.imagen, tripticoDeInicio = false">
-                                                        <i class="far fa-play-circle"></i>
-                                                    </button>
-                                                </li>
-                                            </ul>
+                                            <table id="tablaTripticos" class="table" style="width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" class="text-left">Triptico</th>
+                                                        <th scope="col" class="text-center">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody v-for="(triptico, index) in tripticos">
+                                                    <tr>
+                                                        <td scope="row">{{triptico.nombre}}</td>
+                                                        <td class="text-center d-flex justify-content-between">
+                                                            <button class="btn btn-sm btn-transparent" type="button" v-on:click="eliminarTriptico(triptico.id,triptico.nombre)">
+                                                                <i class="far fa-trash-alt"></i>
+                                                            </button>
+                                                            <button class="btn btn-sm btn-transparent" type="button" data-toggle="modal" data-target="#modalEditarTriptico" v-on:click="idTriptico=triptico.id, nombreTriptico=triptico.nombre, descripcionTriptico=triptico.descripcion, imagenTriptico='data:image/jpeg;base64,'+triptico.imagen">
+                                                                <i class="far fa-edit"></i>
+                                                            </button>
+                                                            <button class="btn btn-sm btn-transparent" type="button" v-on:click="imagenTriptico='data:image/jpeg;base64,'+triptico.imagen, tripticoDeInicio = false">
+                                                                <i class="far fa-eye"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
-                                    <div class="col col-9">
+                                    <div class="col col-8">
                                         <div class="row align-items-center justify-content-center">
                                             <div v-if="tripticoDeInicio === true">
                                                 <div v-for="(triptico, index) in tripticos">
                                                     <div v-if="index === 0" class="">
-                                                        <img v-bind:src="'data:image/jpeg;base64,'+triptico.imagen" class="d-block w-100" alt="..." style="height: 60vh;">
+                                                        <img v-bind:src="'data:image/jpeg;base64,'+triptico.imagen" class="d-block w-100" alt="..." style="height: 55vh;">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div v-else>
-                                                <img v-bind:src="imagenTriptico" class="d-block w-100" alt="..." style="height: 60vh;">
+                                                <img v-bind:src="imagenTriptico" class="d-block w-100" alt="..." style="height: 55vh;">
                                             </div>
                                         </div>
                                     </div>
@@ -227,6 +243,71 @@ if (isset($_SESSION['empresa_id'])) {
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-chat" role="tabpanel" aria-labelledby="nav-chat-tab">.Chat..</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Editar Triptico -->
+        <div class="modal fade" id="modalEditarTriptico" tabindex="-1" role="dialog" aria-labelledby="labelEditarTriptico" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="labelEditarTriptico">{{nombreTriptico}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formEditarTriptico" accept-charset="utf-8" method="POST" enctype="multipart/form-data" class="needs-validation p-2" novalidate>
+                            <input type="text" class="d-none" name="txtIdTriptico" v-bind:value="idTriptico">
+                            <input type="text" class="d-none" name="tipoPeticion" value="actualizarTriptico">
+                            <div class="form-row">
+                                <div class="col-md-8 mb-3">
+                                    <label for="txtNombreTriptico">Nombre</label>
+                                    <input type="text" class="form-control" name="txtNombreTriptico" id="txtNombreTriptico" v-model="nombreTriptico" required>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Ingresa un nombre.
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3 d-flex justify-content-end">
+                                    <img id="imgT" v-bind:src="imagenTriptico" class="d-block w-100" alt="Sin imagen" style="width: 20vh;">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="txtDescripcionTriptico">Descripción</label>
+                                    <textarea class="form-control" name="txtDescripcionTriptico" id="txtDescripcionTriptico" rows="3" required>{{descripcionTriptico}}</textarea>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Ingresa una descripción.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <label for="txtImagenTriptico">Cambiar imagen</label>
+                                    <div class="custom-file mb-3">
+                                        <input type="file" class="custom-file-input" name="txtImagenTriptico" id="txtImagenTriptico">
+                                        <label class="custom-file-label" for="txtImagenTriptico">Choose file...</label>
+                                        <div class="valid-feedback">
+                                            Correcto!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Elige una imagen.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row d-flex justify-content-end">
+                                <button class="btn btn-primary" type="submit">Guardar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

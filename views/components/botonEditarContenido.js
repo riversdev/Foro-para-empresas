@@ -7,7 +7,7 @@ Vue.component('botonEditarContenido', {
                 Editar información
             </button>
             <div class="dropdown-menu dropdown-menu-right border-primary" aria-labelledby="dropdownEditar" style="width:60vh;">
-                <form id="formEditarInformacion" accept-charset="utf-8" method="POST" enctype="multipart/form-data" class="needs-validation p-3" novalidate>
+                <form id="formEditarInformacion" accept-charset="utf-8" method="POST" enctype="multipart/form-data" class="needs-validation px-3 pt-1" novalidate>
                     <input type="text" class="d-none" v-bind:value="idEmpresa" name="idEmpresa">
                     <input type="text" class="d-none" name="tipoPeticion" value="guardarLogo">
                     <div class="form-row">

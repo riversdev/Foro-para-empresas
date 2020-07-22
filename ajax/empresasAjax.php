@@ -43,9 +43,32 @@ if ($tipoPeticion == "unico") {
             $triptico->id = $row['id'];
             $triptico->idEmpresa = $row['idEmpresa'];
             $triptico->nombre = $row['nombre'];
+            $triptico->descripcion = $row['descripcion'];
             $triptico->triptico = base64_encode($row['triptico']);
             $tripticos[$key] = $triptico;
         }
         echo json_encode($tripticos);
     }
+} elseif ($tipoPeticion == "actualizarTriptico") {
+    if ($_FILES['txtImagenTriptico']['error'] === 1) {
+        die("error|La imagen sobrepasa el limite de tamaño (2MB)");
+    } elseif ($_FILES['txtImagenTriptico']['error'] === 4) {
+        empresasModel::actualizarTripticoSinImagen($_POST['txtIdTriptico'], $_POST['txtNombreTriptico'], $_POST['txtDescripcionTriptico']);
+    } elseif ($_FILES['txtImagenTriptico']['error'] === 0) {
+        $imagenBinaria = addslashes(file_get_contents($_FILES['txtImagenTriptico']['tmp_name']));
+        $nombreArchivo = $_FILES['txtImagenTriptico']['name'];
+        $extensiones = array('jpg', 'jpeg', 'gif', 'png', 'bmp');
+        $extension = explode('.', $nombreArchivo);
+        $extension = end($extension);
+        $extension = strtolower($extension);
+        if (!in_array($extension, $extensiones)) {
+            die('error|Sólo elija imagenes con extensiones: ' . implode(', ', $extensiones));
+        } else {
+            empresasModel::actualizarTriptico($_POST['txtIdTriptico'], $_POST['txtNombreTriptico'], $_POST['txtDescripcionTriptico'], $imagenBinaria);
+        }
+    } else {
+        die("error|Verifique sus datos");
+    }
+} elseif ($tipoPeticion == "eliminarTriptico") {
+    empresasModel::eliminarTriptico($_POST['idTriptico']);
 }

@@ -32,7 +32,7 @@ const store = new Vuex.Store({
             let decodificado = JSON.parse(data);
             state.tripticos = [];
             for (let i = 0; i < decodificado.length; i++) {
-                state.tripticos[i] = { id: decodificado[i].id, idEmpresa: decodificado[i].idEmpresa, nombre: decodificado[i].nombre, imagen: decodificado[i].triptico };
+                state.tripticos[i] = { id: decodificado[i].id, idEmpresa: decodificado[i].idEmpresa, nombre: decodificado[i].nombre, descripcion: decodificado[i].descripcion, imagen: decodificado[i].triptico };
             }
         }
     },
@@ -108,11 +108,14 @@ var appEmpresa = new Vue({
     el: '#appEmpresa',
     store,
     data: {
-        videoDeInicio: true,
+        id: "",
         tripticoDeInicio: true,
-        video: "",
+        idTriptico: "",
+        nombreTriptico: "",
+        descripcionTriptico: "",
         imagenTriptico: "data:image/jpeg;base64,",
-        id: ""
+        videoDeInicio: true,
+        video: ""
     },
     mounted() {
         prepararValidacionFormularios();
@@ -123,6 +126,12 @@ var appEmpresa = new Vue({
         editarInformacion(id) {
             store.commit('recuperarCampos');
             store.dispatch('guardarInformacion', id);
+        },
+        obtenerTripticos() {
+            store.dispatch('obtenerTripticos', this.id);
+        },
+        eliminarTriptico(idTrip, nomTrip) {
+            confirmacionEliminarTriptico(idTrip, nomTrip);
         }
     },
     computed: {

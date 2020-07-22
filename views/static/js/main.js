@@ -46,12 +46,70 @@ function prepararValidacionFormularios() {
                 event.preventDefault();
                 if (form.id == "formEditarInformacion") {
                     guardarLogo(form.id, form[0].value);
+                } else if (form.id == "formEditarTriptico") {
+                    guardarTriptico(form.id);
                 } else {
                     console.log("Formulario no encontrado");
                 }
             }
             form.classList.add('was-validated');
         }, false);
+    });
+}
+
+function confirmacionEliminarTriptico(idTriptico, nombreTriptico) {
+    alertify
+        .confirm('Eliminando triptico...', 'Está seguro de querer eliminar el triptico ' + nombreTriptico,
+            function () {
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/empresasAjax.php",
+                    data: {
+                        tipoPeticion: "eliminarTriptico",
+                        idTriptico
+                    },
+                    error: function (data) {
+                        console.error(data);
+                    },
+                    success: function (data) {
+                        let mensaje = data.split("|");
+                        if (mensaje[0] == "success") {
+                            appEmpresa.obtenerTripticos();
+                            alertify.success(mensaje[1]);
+                        } else if (mensaje[0] == "error") {
+                            alertify.error(mensaje[1]);
+                        } else {
+                            console.log("Tipo de mensaje no definido");
+                        }
+                    }
+                });
+            },
+            function () {
+                alertify.error('Cancelado')
+            }
+        );
+}
+
+function guardarTriptico(form) {
+    var formData = new FormData(document.getElementById(form));
+    $.ajax({
+        type: "POST",
+        url: "ajax/empresasAjax.php",
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false
+    }).done(function (echo) {
+        let mensaje = echo.split('|');
+        if (mensaje[0] == "success") {
+            $('#modalEditarTriptico').modal('hide');
+            alertify.success(mensaje[1]);
+            appEmpresa.obtenerTripticos();
+        } else if (mensaje[0] == "error") {
+            alertify.error(mensaje[1]);
+        } else {
+            console.log("No se definió el tipo de respuesta");
+        }
     });
 }
 

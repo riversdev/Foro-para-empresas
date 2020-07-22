@@ -5,6 +5,50 @@ require_once "conexion.php";
 
 class empresasModel
 {
+    public static function eliminarTriptico($idTriptico)
+    {
+        $SQL = "DELETE FROM tripticos WHERE id='$idTriptico'";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        if ($stmt->execute()) {
+            echo "success|Triptico eliminado!";
+        } else {
+            echo "error|Imposible eliminar triptico!";
+        }
+        $stmt = null;
+    }
+    public static function actualizarTripticoSinImagen($idTriptico, $nombre, $descripcion)
+    {
+        $SQL = "UPDATE tripticos
+                SET nombre='$nombre',
+                    descripcion='$descripcion'
+                WHERE id = '$idTriptico'";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        if ($stmt->execute()) {
+            echo "success|Triptico actualizado!";
+        } else {
+            echo "error|Peticion guardar triptico fallida!";
+        }
+        $stmt = null;
+    }
+    public static function actualizarTriptico($idTriptico, $nombre, $descripcion, $imagen)
+    {
+        $SQL = "UPDATE tripticos
+                SET nombre='$nombre',
+                    descripcion='$descripcion',
+                    triptico='$imagen'
+                WHERE id = '$idTriptico'";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        try {
+            if ($stmt->execute()) {
+                echo "success|Triptico actualizado!";
+            } else {
+                echo "error|Peticion guardar triptico fallida!";
+            }
+        } catch (Exception $e) {
+            echo "error|Imagen demasiado grande";
+        }
+        $stmt = null;
+    }
     public static function obtenerTripticos($idEmpresa)
     {
         $SQL = "SELECT * FROM tripticos WHERE idEmpresa='$idEmpresa';";
