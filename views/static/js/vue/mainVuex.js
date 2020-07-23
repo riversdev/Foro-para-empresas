@@ -45,7 +45,11 @@ const store = new Vuex.Store({
             }
         },
         llenarEmpresas(state, data) {
-            console.log("Data recibido:" + data);
+            let decodificado = JSON.parse(data);
+            state.empresas = [];
+            for (let i = 0; i < decodificado.length; i++) {
+                state.empresas[i] = { id: decodificado[i].id, nombre: decodificado[i].nombre, correo: decodificado[i].correo, logo: 'data:image/jpeg;base64,' + decodificado[i].logo, productosServicios: decodificado[i].productosServicios, mision: decodificado[i].mision, vision: decodificado[i].vision, fundador: decodificado[i].fundador, CEO: decodificado[i].CEO };
+            }
         }
     },
     actions: {
