@@ -52,11 +52,9 @@ function prepararValidacionFormularios() {
                     guardarTriptico(form.id);
                 } else if (form.id == "formAgregarVideo") {
                     guardarVideo(form.id);
-                }
-                else if (form.id == "formEditarVideo") {
+                } else if (form.id == "formEditarVideo") {
                     guardarVideo(form.id);
-                }
-                else {
+                } else {
                     console.log("Formulario no encontrado");
                 }
             }
