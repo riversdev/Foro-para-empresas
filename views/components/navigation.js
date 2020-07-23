@@ -8,6 +8,12 @@ Vue.component('navigation', {
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto"></ul>
+                <ul class="navbar-nav">
+                    <button class="btn btn-transparent text-white" data-toggle="modal" data-target="#modalAgregarTriptico">Agregar triptico</button>
+                </ul>
+                <ul class="navbar-nav">
+                    <button class="btn btn-transparent text-white" data-toggle="modal" data-target="#modalAgregarVideo">Agregar video</button>
+                </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <div v-if="tipo === '2'" class="px-3">
                         <botonEditarContenido :idEmpresa="id"></botonEditarContenido>

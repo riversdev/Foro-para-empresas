@@ -252,9 +252,9 @@ if (isset($_SESSION['empresa_id'])) {
         <div class="modal fade" id="modalEditarTriptico" tabindex="-1" role="dialog" aria-labelledby="labelEditarTriptico" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header bg-primary text-white">
                         <h5 class="modal-title" id="labelEditarTriptico">{{nombreTriptico}}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -265,7 +265,7 @@ if (isset($_SESSION['empresa_id'])) {
                             <div class="form-row">
                                 <div class="col-md-8 mb-3">
                                     <label for="txtNombreTriptico">Nombre</label>
-                                    <input type="text" class="form-control" name="txtNombreTriptico" id="txtNombreTriptico" v-model="nombreTriptico" required>
+                                    <input type="text" class="form-control form-control-sm" name="txtNombreTriptico" id="txtNombreTriptico" v-model="nombreTriptico" required>
                                     <div class="valid-feedback">
                                         Correcto!
                                     </div>
@@ -280,7 +280,7 @@ if (isset($_SESSION['empresa_id'])) {
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
                                     <label for="txtDescripcionTriptico">Descripción</label>
-                                    <textarea class="form-control" name="txtDescripcionTriptico" id="txtDescripcionTriptico" rows="3" required>{{descripcionTriptico}}</textarea>
+                                    <textarea class="form-control form-control-sm" name="txtDescripcionTriptico" id="txtDescripcionTriptico" rows="3" required>{{descripcionTriptico}}</textarea>
                                     <div class="valid-feedback">
                                         Correcto!
                                     </div>
@@ -301,6 +301,114 @@ if (isset($_SESSION['empresa_id'])) {
                                         <div class="invalid-feedback">
                                             Elige una imagen.
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row d-flex justify-content-end">
+                                <button class="btn btn-primary" type="submit">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Agregar Triptico -->
+        <div class="modal fade" id="modalAgregarTriptico" tabindex="-1" role="dialog" aria-labelledby="labelAgregarTriptico" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="labelAgregarTriptico">Agregar triptico</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formAgregarTriptico" accept-charset="utf-8" method="POST" enctype="multipart/form-data" class="needs-validation p-2" novalidate>
+                            <input type="text" class="d-none" name="idEmpresa" v-bind:value="id">
+                            <input type="text" class="d-none" name="tipoPeticion" value="agregarTriptico">
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label class="text-dark">Nombre</label>
+                                    <input type="text" class="form-control form-control-sm" name="txtNombreTriptico" required>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Ingresa un nombre.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label class="text-dark">Descripción</label>
+                                    <textarea class="form-control form-control-sm" name="txtDescripcionTriptico" rows="3" required></textarea>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Ingresa una descripción.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <div class="custom-file mb-3">
+                                        <input type="file" class="custom-file-input" name="txtImagenTriptico" required accept="image/png, .jpeg, .jpg, image/gif">
+                                        <label class="custom-file-label text-dark" for="txtImagenTriptico">Elegir imagen...</label>
+                                        <div class="valid-feedback">
+                                            Correcto!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Elige una imagen.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row d-flex justify-content-end">
+                                <button class="btn btn-primary" type="submit">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Agregar Video -->
+        <div class="modal fade" id="modalAgregarVideo" tabindex="-1" role="dialog" aria-labelledby="labelAgregarVideo" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="labelAgregarVideo">Agregar Video</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formAgregarVideo" accept-charset="utf-8" method="POST" enctype="multipart/form-data" class="needs-validation p-2" novalidate>
+                            <input type="text" class="d-none" name="idEmpresa" v-bind:value="id">
+                            <input type="text" class="d-none" name="tipoPeticion" value="agregarVideo">
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label class="text-dark">Nombre</label>
+                                    <input type="text" class="form-control form-control-sm" name="txtNombreVideo" required>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Ingresa un nombre.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label class="text-dark">Link del video</label>
+                                    <input type="text" class="form-control form-control-sm" name="txtLinkVideo" required>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Ingresa una descripción.
                                     </div>
                                 </div>
                             </div>

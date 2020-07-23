@@ -1,14 +1,14 @@
 <?php
 
-require_once "../models/empresasModel.php";
+require_once "../models/ModeloEmpresas.php";
 
 $tipoPeticion = $_POST['tipoPeticion'];
 
 if ($tipoPeticion == "unico") {
-    $resultado = empresasModel::buscarEmpresa($_POST['idEmpresa']);
+    $resultado = ModeloEmpresas::buscarEmpresa($_POST['idEmpresa']);
     echo $resultado;
 } elseif ($tipoPeticion == "guardar") {
-    $resultado = empresasModel::agregarInformacionEmpresa($_POST['idEmpresa'], $_POST['empresa'], $_POST['productos'], $_POST['mision'], $_POST['vision'], $_POST['fundador'], $_POST['CEO']);
+    $resultado = ModeloEmpresas::agregarInformacionEmpresa($_POST['idEmpresa'], $_POST['empresa'], $_POST['productos'], $_POST['mision'], $_POST['vision'], $_POST['fundador'], $_POST['CEO']);
     echo $resultado;
 } elseif ($tipoPeticion == "guardarLogo") {
     if ($_FILES['imagen']['error'] === 4) {
@@ -25,15 +25,15 @@ if ($tipoPeticion == "unico") {
         if (!in_array($extension, $extensiones)) {
             die('error|Sólo elija logos con extensiones: ' . implode(', ', $extensiones));
         } else {
-            empresasModel::guardarLogo($_POST['idEmpresa'], $imagenBinaria);
-            $logo = empresasModel::leerLogoEmpresa($_POST['idEmpresa']);
+            ModeloEmpresas::guardarLogo($_POST['idEmpresa'], $imagenBinaria);
+            $logo = ModeloEmpresas::leerLogoEmpresa($_POST['idEmpresa']);
             echo '|<img src="data:image/jpeg;base64,' . base64_encode($logo[0][0])  . '" style="height: 50px;">';
         }
     } else {
         die("error|Verifique sus datos");
     }
 } elseif ($tipoPeticion == "obtenerTripticos") {
-    $resultado = empresasModel::obtenerTripticos($_POST['idEmpresa']);
+    $resultado = ModeloEmpresas::obtenerTripticos($_POST['idEmpresa']);
     if (count($resultado) == 0) {
         echo 0;
     } else {
@@ -53,7 +53,7 @@ if ($tipoPeticion == "unico") {
     if ($_FILES['txtImagenTriptico']['error'] === 1) {
         die("error|La imagen sobrepasa el limite de tamaño (2MB)");
     } elseif ($_FILES['txtImagenTriptico']['error'] === 4) {
-        empresasModel::actualizarTripticoSinImagen($_POST['txtIdTriptico'], $_POST['txtNombreTriptico'], $_POST['txtDescripcionTriptico']);
+        ModeloEmpresas::actualizarTripticoSinImagen($_POST['txtIdTriptico'], $_POST['txtNombreTriptico'], $_POST['txtDescripcionTriptico']);
     } elseif ($_FILES['txtImagenTriptico']['error'] === 0) {
         $imagenBinaria = addslashes(file_get_contents($_FILES['txtImagenTriptico']['tmp_name']));
         $nombreArchivo = $_FILES['txtImagenTriptico']['name'];
@@ -64,11 +64,46 @@ if ($tipoPeticion == "unico") {
         if (!in_array($extension, $extensiones)) {
             die('error|Sólo elija imagenes con extensiones: ' . implode(', ', $extensiones));
         } else {
-            empresasModel::actualizarTriptico($_POST['txtIdTriptico'], $_POST['txtNombreTriptico'], $_POST['txtDescripcionTriptico'], $imagenBinaria);
+            ModeloEmpresas::actualizarTriptico($_POST['txtIdTriptico'], $_POST['txtNombreTriptico'], $_POST['txtDescripcionTriptico'], $imagenBinaria);
         }
     } else {
         die("error|Verifique sus datos");
     }
 } elseif ($tipoPeticion == "eliminarTriptico") {
-    empresasModel::eliminarTriptico($_POST['idTriptico']);
+    ModeloEmpresas::eliminarTriptico($_POST['idTriptico']);
+} elseif ($tipoPeticion == "agregarTriptico") {
+    if ($_FILES['txtImagenTriptico']['error'] === 1) {
+        die("error|La imagen sobrepasa el limite de tamaño (2MB)");
+    } elseif ($_FILES['txtImagenTriptico']['error'] === 4) {
+        ModeloEmpresas::actualizarTripticoSinImagen($_POST['txtIdTriptico'], $_POST['txtNombreTriptico'], $_POST['txtDescripcionTriptico']);
+    } elseif ($_FILES['txtImagenTriptico']['error'] === 0) {
+        $imagenBinaria = addslashes(file_get_contents($_FILES['txtImagenTriptico']['tmp_name']));
+        $nombreArchivo = $_FILES['txtImagenTriptico']['name'];
+        $extensiones = array('jpg', 'jpeg', 'gif', 'png', 'bmp');
+        $extension = explode('.', $nombreArchivo);
+        $extension = end($extension);
+        $extension = strtolower($extension);
+        if (!in_array($extension, $extensiones)) {
+            die('error|Sólo elija imagenes con extensiones: ' . implode(', ', $extensiones));
+        } else {
+            ModeloEmpresas::agregarTriptico($_POST['idEmpresa'], $_POST['txtNombreTriptico'], $_POST['txtDescripcionTriptico'], $imagenBinaria);
+        }
+    } else {
+        die("error|Verifique sus datos");
+    }
+} elseif ($tipoPeticion == "agregarVideo") {
+    $pos = strpos($_POST['txtLinkVideo'], "https://www.youtube.com/");
+    if ($pos !== false) {
+        $pos2 = strpos($_POST['txtLinkVideo'], "&");
+        if ($pos2 !== false) {
+            $link = str_replace('watch?v=', 'embed/', $_POST['txtLinkVideo']);
+            $linkSinListaReproduccion = substr($link, 0, ($pos2 - 2));
+            ModeloEmpresas::agregarVideo($_POST['idEmpresa'], $_POST['txtNombreVideo'], $linkSinListaReproduccion);
+        } else {
+            $link = str_replace('watch?v=', 'embed/', $_POST['txtLinkVideo']);
+            ModeloEmpresas::agregarVideo($_POST['idEmpresa'], $_POST['txtNombreVideo'], $link);
+        }
+    } else {
+        echo "error|Ingresa un link de YouTube!";
+    }
 }

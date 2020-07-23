@@ -3,10 +3,10 @@ Vue.component('botonEditarContenido', {
     template:/*html*/
         `
         <div class="dropdown">
-            <button v-on:click="obtenerInformacion(idEmpresa)" class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownEditar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button v-on:click="obtenerInformacion(idEmpresa)" class="btn btn-transparent text-white dropdown-toggle" type="button" id="dropdownEditar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Editar información
             </button>
-            <div class="dropdown-menu dropdown-menu-right border-primary" aria-labelledby="dropdownEditar" style="width:60vh;">
+            <div class="dropdown-menu dropdown-menu-right bg-light" aria-labelledby="dropdownEditar" style="width:60vh;">
                 <form id="formEditarInformacion" accept-charset="utf-8" method="POST" enctype="multipart/form-data" class="needs-validation px-3 pt-1" novalidate>
                     <input type="text" class="d-none" v-bind:value="idEmpresa" name="idEmpresa">
                     <input type="text" class="d-none" name="tipoPeticion" value="guardarLogo">

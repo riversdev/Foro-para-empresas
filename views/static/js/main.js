@@ -48,7 +48,15 @@ function prepararValidacionFormularios() {
                     guardarLogo(form.id, form[0].value);
                 } else if (form.id == "formEditarTriptico") {
                     guardarTriptico(form.id);
-                } else {
+                } else if (form.id == "formAgregarTriptico") {
+                    guardarTriptico(form.id);
+                } else if (form.id == "formAgregarVideo") {
+                    guardarVideo(form.id);
+                }
+                else if (form.id == "formEditarVideo") {
+                    guardarVideo(form.id);
+                }
+                else {
                     console.log("Formulario no encontrado");
                 }
             }
@@ -102,7 +110,9 @@ function guardarTriptico(form) {
     }).done(function (echo) {
         let mensaje = echo.split('|');
         if (mensaje[0] == "success") {
+            document.getElementById(form).reset();
             $('#modalEditarTriptico').modal('hide');
+            $('#modalAgregarTriptico').modal('hide');
             alertify.success(mensaje[1]);
             appEmpresa.obtenerTripticos();
         } else if (mensaje[0] == "error") {
@@ -130,6 +140,31 @@ function guardarLogo(form, idEmpresa) {
                 $('#contenedorLogo').append(mensaje[2]);
             }
             appEmpresa.editarInformacion(idEmpresa);
+        } else if (mensaje[0] == "error") {
+            alertify.error(mensaje[1]);
+        } else {
+            console.log("No se definió el tipo de respuesta");
+        }
+    });
+}
+
+function guardarVideo(form) {
+    var formData = new FormData(document.getElementById(form));
+    $.ajax({
+        type: "POST",
+        url: "ajax/empresasAjax.php",
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false
+    }).done(function (echo) {
+        let mensaje = echo.split('|');
+        if (mensaje[0] == "success") {
+            document.getElementById(form).reset();
+            //$('#modalEditarVideo').modal('hide');
+            $('#modalAgregarVideo').modal('hide');
+            alertify.success(mensaje[1]);
+            //appEmpresa.obtenerTripticos();
         } else if (mensaje[0] == "error") {
             alertify.error(mensaje[1]);
         } else {

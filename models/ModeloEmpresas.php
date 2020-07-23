@@ -3,8 +3,32 @@ error_reporting(0);
 
 require_once "conexion.php";
 
-class empresasModel
+class ModeloEmpresas
 {
+    public static function agregarVideo($idEmpresa, $nombre, $link)
+    {
+        $SQL = "INSERT INTO videos (nombre,idEmpresa,video) VALUES ('$nombre','$idEmpresa','$link');";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        if ($stmt->execute()) {
+            echo "success|Video agregado!";
+        } else {
+            echo "error|Imposible agregar video!";
+        }
+    }
+    public static function agregarTriptico($idEmpresa, $nombre, $descripcion, $imagen)
+    {
+        $SQL = "INSERT INTO tripticos (idEmpresa,nombre,descripcion,triptico) VALUES ('$idEmpresa','$nombre','$descripcion','$imagen');";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        try {
+            if ($stmt->execute()) {
+                echo "success|Triptico agregado!";
+            } else {
+                echo "error|Imposible agregar triptico!";
+            }
+        } catch (Exception $e) {
+            echo "error|Imagen demasiado grande";
+        }
+    }
     public static function eliminarTriptico($idTriptico)
     {
         $SQL = "DELETE FROM tripticos WHERE id='$idTriptico'";
@@ -109,14 +133,6 @@ class empresasModel
         } catch (Exception $e) {
             echo "error|Logo demasiado grande";
         }
-        $stmt = null;
-    }
-    public static function listarEmpresas()
-    {
-        $SQL = "";
-        $stmt = Conexion::conectar()->prepare($SQL);
-        $stmt->execute();
-        return $stmt->fetchAll();
         $stmt = null;
     }
 }
