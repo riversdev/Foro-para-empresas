@@ -10,7 +10,8 @@ const store = new Vuex.Store({
         CEO: "",
         campos: [],
         tripticos: [],
-        videos: []
+        videos: [],
+        empresas: []
     },
     mutations: {
         llenarCampos(state, data) {
@@ -42,6 +43,9 @@ const store = new Vuex.Store({
             for (let i = 0; i < decodificado.length; i++) {
                 state.videos[i] = { id: decodificado[i].id, idEmpresa: decodificado[i].idEmpresa, nombre: decodificado[i].nombre, link: decodificado[i].link };
             }
+        },
+        llenarEmpresas(state, data) {
+            console.log("Data recibido:" + data);
         }
     },
     actions: {
@@ -124,6 +128,25 @@ const store = new Vuex.Store({
                         store.state.videos = null;
                     } else {
                         commit('llenarVideos', data);
+                    }
+                }
+            });
+        },
+        obtenerEmpresas({ commit }) {
+            $.ajax({
+                type: "POST",
+                url: "ajax/usuariosAjax.php",
+                data: {
+                    tipoPeticion: "obtenerEmpresas"
+                },
+                error: function (data) {
+                    console.error(data);
+                },
+                success: function (data) {
+                    if (data == 0) {
+                        store.state.empresas = null;
+                    } else {
+                        commit('llenarEmpresas', data);
                     }
                 }
             });

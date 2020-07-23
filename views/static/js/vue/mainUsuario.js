@@ -1,15 +1,14 @@
 
 var appUsuario = new Vue({
     el: '#appUsuario',
+    store,
     data: {
         saludo: "Cuenta de usuario VUE !!!"
     },
-    mounted: function () {
-        prepararValidacionFormularios();
+    mounted() {
+        store.dispatch('obtenerEmpresas');
     },
-    methods: {
-        fun() {
-            console.log("FUNCIONA");
-        }
+    computed: {
+        ...Vuex.mapState(['empresas'])
     }
 });
