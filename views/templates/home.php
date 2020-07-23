@@ -33,7 +33,8 @@ if (isset($_SESSION['user_id'])) {
     }
 ?>
     <div id="appUsuario">
-        <navigation id="<?= $user['id']; ?>" user="<?= $user['nombre']; ?>" email="<?= $user['correo']; ?>" password="<?= $user['contrasenia']; ?>"></navigation>
+        <navigation id="<?= $user['id']; ?>" user="<?= $user['nombre']; ?>" email="<?= $user['correo']; ?>" password="<?= $user['contrasenia']; ?>" tipo="1"></navigation>
+        <h4>HOLA</h4>
         {{saludo}}
         <?php if (!empty($user)) : ?>
             <br> Welcome. <?= $user['correo'] ?>
@@ -65,12 +66,6 @@ if (isset($_SESSION['empresa_id'])) {
         $stmt = null;
     }
 
-    $SQL = "SELECT * FROM videos WHERE idEmpresa = '" . $empresa['id'] . "';";
-    $stmt = Conexion::conectar()->prepare($SQL);
-    $stmt->execute();
-    $videos = $stmt->fetchAll();
-    $stmt = null;
-
 ?>
     <div id="appEmpresa">
         <navigation id="<?= $empresa['id']; ?>" user="<?= $empresa['nombre']; ?>" email="<?= $empresa['correo']; ?>" password="<?= $empresa['contrasenia']; ?>" tipo="2"></navigation>
@@ -86,7 +81,7 @@ if (isset($_SESSION['empresa_id'])) {
                 <img src="data:image/jpeg;base64,<?= base64_encode($empresa['logo'])  ?>" style="height: 50px;">
             </div>
             <div class="col-12 mt-3">
-                <div class="container align-items-center justify-content-center" style="height: 80vh;">
+                <div class="px-4 align-items-center justify-content-center" style="height: 80vh;">
                     <nav>
                         <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
                             <a class="nav-item nav-link active" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-controls="nav-info" aria-selected="true">Información</a>
