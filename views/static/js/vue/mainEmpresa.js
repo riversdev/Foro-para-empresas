@@ -9,7 +9,8 @@ const store = new Vuex.Store({
         fundador: "",
         CEO: "",
         campos: [],
-        tripticos: []
+        tripticos: [],
+        videos: []
     },
     mutations: {
         llenarCampos(state, data) {
@@ -33,6 +34,13 @@ const store = new Vuex.Store({
             state.tripticos = [];
             for (let i = 0; i < decodificado.length; i++) {
                 state.tripticos[i] = { id: decodificado[i].id, idEmpresa: decodificado[i].idEmpresa, nombre: decodificado[i].nombre, descripcion: decodificado[i].descripcion, imagen: decodificado[i].triptico };
+            }
+        },
+        llenarVideos(state, data) {
+            let decodificado = JSON.parse(data);
+            state.videos = [];
+            for (let i = 0; i < decodificado.length; i++) {
+                state.videos[i] = { id: decodificado[i].id, idEmpresa: decodificado[i].idEmpresa, nombre: decodificado[i].nombre, link: decodificado[i].link };
             }
         }
     },
@@ -92,11 +100,30 @@ const store = new Vuex.Store({
                     console.error(data);
                 },
                 success: function (data) {
-                    //commit('llenarTripticos', data);
                     if (data == 0) {
                         store.state.tripticos = null;
                     } else {
                         commit('llenarTripticos', data);
+                    }
+                }
+            });
+        },
+        obtenerVideos({ commit }, id) {
+            $.ajax({
+                type: "POST",
+                url: "ajax/empresasAjax.php",
+                data: {
+                    tipoPeticion: "obtenerVideos",
+                    idEmpresa: id
+                },
+                error: function (data) {
+                    console.error(data);
+                },
+                success: function (data) {
+                    if (data == 0) {
+                        store.state.videos = null;
+                    } else {
+                        commit('llenarVideos', data);
                     }
                 }
             });
@@ -115,12 +142,15 @@ var appEmpresa = new Vue({
         descripcionTriptico: "",
         imagenTriptico: "data:image/jpeg;base64,",
         videoDeInicio: true,
-        video: ""
+        idVideo: "",
+        nombreVideo: "",
+        linkVideo: ""
     },
     mounted() {
         prepararValidacionFormularios();
         store.dispatch('obtenerInformacion', this.id);
         store.dispatch('obtenerTripticos', this.id);
+        store.dispatch('obtenerVideos', this.id);
     },
     methods: {
         editarInformacion(id) {
@@ -132,9 +162,15 @@ var appEmpresa = new Vue({
         },
         eliminarTriptico(idTrip, nomTrip) {
             confirmacionEliminarTriptico(idTrip, nomTrip);
+        },
+        obtenerVideos() {
+            store.dispatch('obtenerVideos', this.id);
+        },
+        eliminarVideo(idVid, nomVid) {
+            confirmacionEliminarVideo(idVid, nomVid);
         }
     },
     computed: {
-        ...Vuex.mapState(['empresa', 'productos', 'mision', 'vision', 'fundador', 'CEO', 'tripticos'])
+        ...Vuex.mapState(['empresa', 'productos', 'mision', 'vision', 'fundador', 'CEO', 'tripticos', 'videos'])
     }
 });

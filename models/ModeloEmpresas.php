@@ -5,6 +5,39 @@ require_once "conexion.php";
 
 class ModeloEmpresas
 {
+    public static function eliminarVideo($idVideo)
+    {
+        $SQL = "DELETE FROM videos WHERE id='$idVideo'";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        if ($stmt->execute()) {
+            echo "success|Video eliminado!";
+        } else {
+            echo "error|Imposible eliminar video!";
+        }
+        $stmt = null;
+    }
+    public static function actualizarVideo($idVideo, $nombre, $video)
+    {
+        $SQL = "UPDATE videos
+                SET nombre='$nombre',
+                    video='$video'
+                WHERE id='$idVideo';";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        if ($stmt->execute()) {
+            echo "success|Video actualizado!";
+        } else {
+            echo "error|Imposible actualizar video!";
+        }
+    }
+    public static function obtenerVideos($idEmpresa)
+    {
+        $SQL = "SELECT * FROM videos WHERE idEmpresa='$idEmpresa';";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        $stmt->execute();
+        $resultado = $stmt->fetchAll();
+        $stmt = null;
+        return $resultado;
+    }
     public static function agregarVideo($idEmpresa, $nombre, $link)
     {
         $SQL = "INSERT INTO videos (nombre,idEmpresa,video) VALUES ('$nombre','$idEmpresa','$link');";

@@ -201,45 +201,56 @@ if (isset($_SESSION['empresa_id'])) {
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-videos" role="tabpanel" aria-labelledby="nav-videos-tab">
-                            <div class="row mt-4 align-items-center justify-content-center" style="height: 65vh;overflow: hidden;">
-                                <?php
-                                if (count($videos) != 0) {
-                                ?>
+                            <div v-if="videos === null">
+                                <div class="row mt-4 align-items-center justify-content-center" style="height: 65vh;overflow: hidden;">
+                                    <vacio cat="videos"></vacio>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <div class="row mt-4 align-items-center justify-content-center" style="height: 65vh;overflow: hidden;">
                                     <div class="col col-3">
                                         <div class="row align-items-center justify-content-center" style="height: 65vh; overflow-y: scroll;">
-                                            <ul class="list-group list-group-flush">
-                                                <?php
-                                                foreach ($videos as $row) {
-                                                ?>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <?php echo $row['nombre'] ?>
-                                                        <button class="btn btn-small btn-transparent" v-on:click="video='<?php echo $row['video']; ?>', videoDeInicio = false">
-                                                            <i class="far fa-play-circle"></i>
-                                                        </button>
-                                                    </li>
-                                                <?php
-                                                }
-                                                ?>
-                                            </ul>
+                                            <table id="tablaVideos" class="table" style="width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" class="text-left">Video</th>
+                                                        <th scope="col" class="text-center">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody v-for="(video, index) in videos">
+                                                    <tr>
+                                                        <td scope="row">{{video.nombre}}</td>
+                                                        <td class="text-center d-flex justify-content-between">
+                                                            <button class="btn btn-sm btn-transparent" type="button" v-on:click="eliminarVideo(video.id,video.nombre)">
+                                                                <i class="far fa-trash-alt"></i>
+                                                            </button>
+                                                            <button class="btn btn-sm btn-transparent" type="button" data-toggle="modal" data-target="#modalEditarVideo" v-on:click="idVideo=video.id, nombreVideo=video.nombre, linkVideo=video.link">
+                                                                <i class="far fa-edit"></i>
+                                                            </button>
+                                                            <button class="btn btn-sm btn-transparent" type="button" v-on:click="linkVideo=video.link, videoDeInicio = false">
+                                                                <i class="far fa-eye"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                     <div class="col col-9">
                                         <div class="row align-items-center justify-content-center">
                                             <div v-if="videoDeInicio === true">
-                                                <iframe width="640" height="355" src="<?php echo $videos[0][3]; ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                <div v-for="(video, index) in videos">
+                                                    <div v-if="index === 0" class="">
+                                                        <iframe width="640" height="355" v-bind:src="video.link" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div v-else>
-                                                <iframe width="640" height="355" v-bind:src="video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                <iframe width="640" height="355" v-bind:src="linkVideo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                             </div>
                                         </div>
                                     </div>
-                                <?php
-                                } else {
-                                ?>
-                                    <vacio cat="videos"></vacio>
-                                <?php
-                                }
-                                ?>
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-chat" role="tabpanel" aria-labelledby="nav-chat-tab">.Chat..</div>
@@ -408,6 +419,53 @@ if (isset($_SESSION['empresa_id'])) {
                                         Correcto!
                                     </div>
                                     <div class="invalid-feedback">
+                                        Ingresa el link de YouTube.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row d-flex justify-content-end">
+                                <button class="btn btn-primary" type="submit">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Editar Video -->
+        <div class="modal fade" id="modalEditarVideo" tabindex="-1" role="dialog" aria-labelledby="labelEditarVideo" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="labelEditarVideo">{{nombreVideo}}</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formEditarVideo" accept-charset="utf-8" method="POST" enctype="multipart/form-data" class="needs-validation p-2" novalidate>
+                            <input type="text" class="d-none" name="tipoPeticion" value="editarVideo">
+                            <input type="text" class="d-none" name="txtIdVideo" v-bind:value="idVideo">
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label class="text-dark">Nombre</label>
+                                    <input type="text" class="form-control form-control-sm" name="txtNombreVideo" v-model="nombreVideo" required>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Ingresa un nombre.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label class="text-dark">Link del video</label>
+                                    <input type="text" class="form-control form-control-sm" name="txtLinkVideo" v-bind:value="linkVideo" required>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
                                         Ingresa una descripción.
                                     </div>
                                 </div>
@@ -420,10 +478,6 @@ if (isset($_SESSION['empresa_id'])) {
                 </div>
             </div>
         </div>
-        <?php if (!empty($empresa)) : ?>
-            <br> Welcome. <?= $empresa['correo'] ?>
-            <br>You are Successfully Logged In
-        <?php endif; ?>
     </div>
 
     <!-- VUE CUSTOM INSTANCE - EMPRESAS -->

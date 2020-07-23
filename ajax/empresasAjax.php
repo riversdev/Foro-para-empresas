@@ -106,4 +106,37 @@ if ($tipoPeticion == "unico") {
     } else {
         echo "error|Ingresa un link de YouTube!";
     }
+} elseif ($tipoPeticion == "obtenerVideos") {
+    $resultado = ModeloEmpresas::obtenerVideos($_POST['idEmpresa']);
+    if (count($resultado) == 0) {
+        echo 0;
+    } else {
+        $videos = array();
+        foreach ($resultado as $key => $row) {
+            $video = new stdClass();
+            $video->id = $row['id'];
+            $video->idEmpresa = $row['idEmpresa'];
+            $video->nombre = $row['nombre'];
+            $video->link = $row['video'];
+            $videos[$key] = $video;
+        }
+        echo json_encode($videos);
+    }
+} elseif ($tipoPeticion == "editarVideo") {
+    $pos = strpos($_POST['txtLinkVideo'], "https://www.youtube.com/");
+    if ($pos !== false) {
+        $pos2 = strpos($_POST['txtLinkVideo'], "&");
+        if ($pos2 !== false) {
+            $link = str_replace('watch?v=', 'embed/', $_POST['txtLinkVideo']);
+            $linkSinListaReproduccion = substr($link, 0, ($pos2 - 2));
+            ModeloEmpresas::actualizarVideo($_POST['txtIdVideo'], $_POST['txtNombreVideo'], $linkSinListaReproduccion);
+        } else {
+            $link = str_replace('watch?v=', 'embed/', $_POST['txtLinkVideo']);
+            ModeloEmpresas::actualizarVideo($_POST['txtIdVideo'], $_POST['txtNombreVideo'], $link);
+        }
+    } else {
+        echo "error|Ingresa un link de YouTube!";
+    }
+} elseif ($tipoPeticion == "eliminarVideo") {
+    ModeloEmpresas::eliminarVideo($_POST['idVideo']);
 }

@@ -161,14 +161,48 @@ function guardarVideo(form) {
         let mensaje = echo.split('|');
         if (mensaje[0] == "success") {
             document.getElementById(form).reset();
-            //$('#modalEditarVideo').modal('hide');
+            $('#modalEditarVideo').modal('hide');
             $('#modalAgregarVideo').modal('hide');
             alertify.success(mensaje[1]);
-            //appEmpresa.obtenerTripticos();
+            appEmpresa.obtenerVideos();
         } else if (mensaje[0] == "error") {
             alertify.error(mensaje[1]);
         } else {
             console.log("No se definió el tipo de respuesta");
+            console.log(echo);
         }
     });
+}
+
+function confirmacionEliminarVideo(idVideo, nombreVideo) {
+    alertify
+        .confirm('Eliminando video...', 'Está seguro de querer eliminar el video ' + nombreVideo,
+            function () {
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/empresasAjax.php",
+                    data: {
+                        tipoPeticion: "eliminarVideo",
+                        idVideo
+                    },
+                    error: function (data) {
+                        console.error(data);
+                    },
+                    success: function (data) {
+                        let mensaje = data.split("|");
+                        if (mensaje[0] == "success") {
+                            appEmpresa.obtenerVideos();
+                            alertify.success(mensaje[1]);
+                        } else if (mensaje[0] == "error") {
+                            alertify.error(mensaje[1]);
+                        } else {
+                            console.log("Tipo de mensaje no definido");
+                        }
+                    }
+                });
+            },
+            function () {
+                alertify.error('Cancelado')
+            }
+        );
 }
