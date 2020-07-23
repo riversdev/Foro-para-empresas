@@ -134,8 +134,10 @@ function guardarLogo(form, idEmpresa) {
         let mensaje = echo.split('|');
         if (mensaje[0] == "success") {
             if (mensaje[1] == "Logo actualizado!") {
-                $('#contenedorLogo').empty();
-                $('#contenedorLogo').append(mensaje[2]);
+                $('#contenedorLogoMenu').empty();
+                $('#contenedorLogoMenu').append(mensaje[2]);
+                $('#contenedorLogoPrincipal').empty();
+                $('#contenedorLogoPrincipal').append(mensaje[2]);
             }
             appEmpresa.editarInformacion(idEmpresa);
         } else if (mensaje[0] == "error") {

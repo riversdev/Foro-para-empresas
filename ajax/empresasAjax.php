@@ -27,7 +27,7 @@ if ($tipoPeticion == "unico") {
         } else {
             ModeloEmpresas::guardarLogo($_POST['idEmpresa'], $imagenBinaria);
             $logo = ModeloEmpresas::leerLogoEmpresa($_POST['idEmpresa']);
-            echo '|<img src="data:image/jpeg;base64,' . base64_encode($logo[0][0])  . '" style="height: 50px;">';
+            echo '|<img src="data:image/jpeg;base64,' . base64_encode($logo[0][0])  . '" style="height: 40px;">';
         }
     } else {
         die("error|Verifique sus datos");
