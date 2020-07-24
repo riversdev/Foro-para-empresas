@@ -44,7 +44,7 @@ if (isset($_SESSION['user_id'])) {
                         <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
                             <div v-if="idEmpresaU === ''">
                                 <div class="row px-5 pt-3 d-flex justify-content-center pt-5 mt-5">
-                                    <div class="card mb-3 bg-warning text-white mt-5" style="max-width: 25rem;">
+                                    <div class="card mb-3 bg-danger text-white mt-5" style="max-width: 25rem;">
                                         <div class="card-body text-white">
                                             <h5 class="card-title text-center">Bienvenido</h5>
                                             <p class="card-text text-justify">
