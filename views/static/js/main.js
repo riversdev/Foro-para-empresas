@@ -20,19 +20,11 @@ $(document).ready(function () {
     });
 });
 
-function listarEmpresas() {
-    $.ajax({
-        type: "POST",
-        url: "ajax/empresasAjax.php",
-        data: {},
-        error: function (data) {
-            console.error(data);
-        },
-        success: function (data) {
-            $('#contenedorEmpresas').empty();
-            $('#contenedorEmpresas').append(data);
-        }
-    });
+function dameElActive(item, items) {
+    for (let i = 0; i < items.length; i++) {
+        $('#item' + items[i]).removeClass("active");
+    }
+    $('#' + item).addClass("active");
 }
 
 function prepararValidacionFormularios() {

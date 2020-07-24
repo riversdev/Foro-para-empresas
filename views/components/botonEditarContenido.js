@@ -86,7 +86,7 @@ Vue.component('botonEditarContenido', {
                     </div>
                     <div class="form-row">
                         <div class="col col-12 form-group justify-content-end">
-                            <button class="btn btn-sm btn-primary" type="submit">Guardar</button>
+                            <button class="btn btn-sm btn-warning" type="submit">Guardar</button>
                         </div>
                     </div>
                 </form>

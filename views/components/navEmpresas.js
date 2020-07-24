@@ -1,7 +1,7 @@
 Vue.component('navegacionempresas', {
     props: ['id', 'user', 'email', 'password', 'tipo', 'logoinicial'],
     template: /*html*/`
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <a class="navbar-brand d-flex justify-content-between align-items-center" href="/Foro-para-empresas/home">
                 <div id="contenedorLogoPrincipal" class="bg-light">
                     <img v-bind:src="logoinicial" style="height: 40px;">
