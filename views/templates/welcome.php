@@ -10,117 +10,157 @@ if (isset($_SESSION['empresa_id'])) {
 
 ?>
 
-<div class="row align-items-center justify-content-center" style="height: 100%;">
-    <button id="iniciarSesion" class="btn btn-outline-primary btn-lg">
-        Iniciar sesión
-    </button>
-    <div id="contenedorFormularioIdentificar" class="card border-primary mb-3 d-none" style="max-width: 20rem;">
-        <div class="card-body text-primary">
-            <h5 class="card-title text-center">Identifícate</h5>
-            <form id="formIdentificarUsuario" class="needs-validation" novalidate>
-                <div class="form-row">
-                    <div class="col-md-7 mb-3">
-                        <label for="txtEmail">Correo</label>
-                        <input type="email" class="form-control" id="txtEmail" required>
-                        <div class="valid-feedback">
-                            Correcto!
-                        </div>
-                        <div class="invalid-feedback">
-                            Verifica tu correo
-                        </div>
-                    </div>
-                    <div class="col-md-5 mb-3">
-                        <label for="txtPassword">Contraseña</label>
-                        <input type="password" class="form-control" id="txtPassword" required>
-                        <div class="valid-feedback">
-                            Correcto!
-                        </div>
-                        <div class="invalid-feedback">
-                            Verifica tu contraseña
-                        </div>
-                    </div>
-                    <div class="col-md-12 mb-3">
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="txtSoyEmpresa">
-                                <label class="form-check-label text-primary" for="txtSoyEmpresa">
-                                    Soy una empresa
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row d-flex justify-content-between">
-                    <button id="registrarme" class="btn btn-transparent btn-sm text-secondary" type="button">
-                        Registrarme
-                    </button>
-                    <button class="btn btn-primary" type="submit">
-                        Ingresar
-                        <i class="fas fa-arrow-circle-right"></i>
-                    </button>
-                </div>
+<div id="particles-js"></div>
+<div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+        <a class="navbar-brand" href="/Foro-para-empresas">Foro</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Comunidad <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Bolsa</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Fondos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Ahorro</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Financiación</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Formación</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <button id="iniciarSesion2" class="btn btn-transparent text-white" type="button">
+                    Iniciar sesión
+                </button>
             </form>
         </div>
-    </div>
-    <div id="contenedorFormularioRegistrar" class="card border-primary mb-3 d-none" style="max-width: 25rem;">
-        <div class="card-body text-primary">
-            <h5 class="card-title text-center">Registro</h5>
-            <form id="formRegistrarUsuario" class="needs-validation" novalidate>
-                <div class="form-row">
-                    <div class="col-md-6 mb-3">
-                        <label for="txtRegistroUsuario">Usuario</label>
-                        <input type="text" class="form-control" id="txtRegistroUsuario" required>
-                        <div class="valid-feedback">
-                            Correcto!
+    </nav>
+    <div class="row align-items-center justify-content-center contenedor">
+        <button id="iniciarSesion" class="btn btn-outline-light" type="button">
+            Iniciar sesión
+        </button>
+        <div id="contenedorFormularioIdentificar" class="card bg-light mb-3 d-none" style="max-width: 20rem;">
+            <div class="card-body text-primary">
+                <h5 class="card-title text-center">Identifícate</h5>
+                <form id="formIdentificarUsuario" class="needs-validation" novalidate>
+                    <div class="form-row">
+                        <div class="col-md-7 mb-3">
+                            <label for="txtEmail">Correo</label>
+                            <input type="email" class="form-control" id="txtEmail" required>
+                            <div class="valid-feedback">
+                                Correcto!
+                            </div>
+                            <div class="invalid-feedback">
+                                Verifica tu correo
+                            </div>
                         </div>
-                        <div class="invalid-feedback">
-                            Verifica tu usuario
+                        <div class="col-md-5 mb-3">
+                            <label for="txtPassword">Contraseña</label>
+                            <input type="password" class="form-control" id="txtPassword" required>
+                            <div class="valid-feedback">
+                                Correcto!
+                            </div>
+                            <div class="invalid-feedback">
+                                Verifica tu contraseña
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="txtRegistroPassword">Contraseña</label>
-                        <input type="password" class="form-control" id="txtRegistroPassword" required>
-                        <div class="valid-feedback">
-                            Correcto!
-                        </div>
-                        <div class="invalid-feedback">
-                            Verifica tu contraseña
-                        </div>
-                    </div>
-                    <div class="col-md-12 mb-3">
-                        <label for="txtRegistroEmail">Correo</label>
-                        <input type="email" class="form-control" id="txtRegistroEmail" required>
-                        <div class="valid-feedback">
-                            Correcto!
-                        </div>
-                        <div class="invalid-feedback">
-                            Verifica tu correo
-                        </div>
-                    </div>
-                    <div class="col-md-12 mb-3">
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="txtRegistroSoyEmpresa">
-                                <label class="form-check-label text-primary" for="txtRegistroSoyEmpresa">
-                                    Soy una empresa
-                                </label>
+                        <div class="col-md-12 mb-3">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="txtSoyEmpresa">
+                                    <label class="form-check-label text-primary" for="txtSoyEmpresa">
+                                        Soy una empresa
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-row d-flex justify-content-between">
-                    <button id="yaTengoUnaCuenta" class="btn btn-transparent btn-sm text-secondary" type="button">
-                        Ya tengo una cuenta
-                    </button>
-                    <button class="btn btn-primary" type="submit">
-                        Registrarme
-                        <i class="fas fa-arrow-circle-right"></i>
-                    </button>
-                </div>
-            </form>
+                    <div class="form-row d-flex justify-content-between">
+                        <button id="registrarme" class="btn btn-transparent btn-sm text-secondary" type="button">
+                            Registrarme
+                        </button>
+                        <button class="btn btn-warning" type="submit">
+                            Ingresar
+                            <i class="fas fa-arrow-circle-right"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="contenedorFormularioRegistrar" class="card bg-light mb-3 d-none" style="max-width: 25rem;">
+            <div class="card-body text-primary">
+                <h5 class="card-title text-center">Registro</h5>
+                <form id="formRegistrarUsuario" class="needs-validation" novalidate>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label for="txtRegistroUsuario">Usuario</label>
+                            <input type="text" class="form-control" id="txtRegistroUsuario" required>
+                            <div class="valid-feedback">
+                                Correcto!
+                            </div>
+                            <div class="invalid-feedback">
+                                Verifica tu usuario
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="txtRegistroPassword">Contraseña</label>
+                            <input type="password" class="form-control" id="txtRegistroPassword" required>
+                            <div class="valid-feedback">
+                                Correcto!
+                            </div>
+                            <div class="invalid-feedback">
+                                Verifica tu contraseña
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="txtRegistroEmail">Correo</label>
+                            <input type="email" class="form-control" id="txtRegistroEmail" required>
+                            <div class="valid-feedback">
+                                Correcto!
+                            </div>
+                            <div class="invalid-feedback">
+                                Verifica tu correo
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="txtRegistroSoyEmpresa">
+                                    <label class="form-check-label text-primary" for="txtRegistroSoyEmpresa">
+                                        Soy una empresa
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row d-flex justify-content-between">
+                        <button id="yaTengoUnaCuenta" class="btn btn-transparent btn-sm text-secondary" type="button">
+                            Ya tengo una cuenta
+                        </button>
+                        <button class="btn btn-warning" type="submit">
+                            Registrarme
+                            <i class="fas fa-arrow-circle-right"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
+
+<!-- PARTICLES JS 2.0.0 -->
+<script src="views\static\particles\particles.js-master\particles.js"></script>
+<script src="views\static\particles\app.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -136,6 +176,10 @@ if (isset($_SESSION['empresa_id'])) {
         $('#yaTengoUnaCuenta').on('click', function() {
             $('#contenedorFormularioIdentificar').removeClass("d-none");
             $('#contenedorFormularioRegistrar').addClass("d-none");
+        });
+        $('#iniciarSesion2').on('click', function() {
+            $('#iniciarSesion').addClass("d-none");
+            $('#contenedorFormularioIdentificar').removeClass("d-none");
         });
     });
 
@@ -226,3 +270,19 @@ if (isset($_SESSION['empresa_id'])) {
         }, false);
     })();
 </script>
+
+<style>
+    #particles-js {
+        height: 100vh;
+        width: 100%;
+        position: fixed;
+        z-index: -1;
+        background-color: #092432;
+    }
+
+    .contenedor {
+        position: relative;
+        height: 85vh;
+        z-index: 1;
+    }
+</style>

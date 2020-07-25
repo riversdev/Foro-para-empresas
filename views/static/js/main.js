@@ -20,11 +20,43 @@ $(document).ready(function () {
     });
 });
 
+function tabularTripticos() {
+    $('#tablaTripticos').DataTable({
+        scrollX: true,
+        language: {
+            sProcessing: "Procesando...",
+            sLengthMenu: "Mostrar _MENU_ registros",
+            sZeroRecords: "No se encontraron resultados",
+            sEmptyTable: "Ningún dato disponible en esta tabla",
+            sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+            sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+            sInfoPostFix: "",
+            sSearch: "Buscar:",
+            sUrl: "",
+            sInfoThousands: ",",
+            sLoadingRecords: "Cargando...",
+            oPaginate: {
+                sFirst: "Primero",
+                sLast: "Último",
+                sNext: "Siguiente",
+                sPrevious: "Anterior"
+            },
+            aria: {
+                SortAscending: ": Activar para ordenar la columna de manera ascendente",
+                SortDescending: ": Activar para ordenar la columna de manera descendente"
+            }
+        }
+    });
+}
+
 function dameElActive(item, items) {
     for (let i = 0; i < items.length; i++) {
-        $('#item' + items[i]).removeClass("active");
+        $('#item' + items[i]).removeClass("bg-warning");
+        $('#item' + items[i]).removeClass("text-white");
     }
-    $('#' + item).addClass("active");
+    $('#' + item).addClass("bg-warning");
+    $('#' + item).addClass("text-white");
 }
 
 function prepararValidacionFormularios() {

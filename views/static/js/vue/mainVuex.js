@@ -36,6 +36,7 @@ const store = new Vuex.Store({
             for (let i = 0; i < decodificado.length; i++) {
                 state.tripticos[i] = { id: decodificado[i].id, idEmpresa: decodificado[i].idEmpresa, nombre: decodificado[i].nombre, descripcion: decodificado[i].descripcion, imagen: decodificado[i].triptico };
             }
+            console.log(state.tripticos);
         },
         llenarVideos(state, data) {
             let decodificado = JSON.parse(data);

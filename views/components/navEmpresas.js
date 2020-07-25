@@ -14,22 +14,20 @@ Vue.component('navegacionempresas', {
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <div class="nav justify-content-center" id="nav-tab" role="tablist">
+                    <div class="nav d-flex justify-content-center align-items-center" id="nav-tab" role="tablist">
                         <a class="nav-item nav-link active" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-controls="nav-info" aria-selected="true">Información</a>
                         <a class="nav-item nav-link" id="nav-tripticos-tab" data-toggle="tab" href="#nav-tripticos" role="tab" aria-controls="nav-tripticos" aria-selected="false">Tripticos</a>
                         <a class="nav-item nav-link" id="nav-videos-tab" data-toggle="tab" href="#nav-videos" role="tab" aria-controls="nav-videos" aria-selected="false">Videos</a>
                         <a class="nav-item nav-link" id="nav-chat-tab" data-toggle="tab" href="#nav-chat" role="tab" aria-controls="nav-chat" aria-selected="false">Chat</a>
+                        <botonEditarContenido :idEmpresa="id"></botonEditarContenido>
                     </div>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
-                    <div v-if="tipo === '2'" class="px-3">
-                        <botonEditarContenido :idEmpresa="id"></botonEditarContenido>
-                    </div>
                     <div class="dropdown">
                         <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownUsuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="far fa-user"></i>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownUsuario">
+                        <div class="dropdown-menu dropdown-menu-right bg-light border-primary" aria-labelledby="dropdownUsuario">
                             <div class="dropdown-item-text text-center">
                                 <h4>{{empresa}}</h4>
                                 <div id="contenedorLogoMenu" class="my-1 d-flex align-items-center justify-content-center">

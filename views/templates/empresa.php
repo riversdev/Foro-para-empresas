@@ -36,7 +36,7 @@ if (isset($_SESSION['empresa_id'])) {
     <div id="appEmpresa">
         <navegacionempresas id="<?= $empresa['id']; ?>" user="<?= $empresa['nombre']; ?>" email="<?= $empresa['correo']; ?>" password="<?= $empresa['contrasenia']; ?>" logoinicial="data:image/jpeg;base64,<?= base64_encode($empresa['logo'])  ?>" tipo="2"></navegacionempresas>
         <p class="d-none">{{id=<?= $empresa['id']; ?>}}</p>
-        <div class="px-4 align-items-center justify-content-center">
+        <div class="align-items-center justify-content-center" style="overflow-x: hidden;">
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
                     <div v-if="productos === '', mision === '', vision === '', fundador === '', CEO === ''">
@@ -46,9 +46,43 @@ if (isset($_SESSION['empresa_id'])) {
                     </div>
                     <div v-else>
                         <div class="row px-5 pt-3">
+                            <div class="col col-12">
+                                <div class="row">
+                                    <div class="col-12 col-sm-6 col-lg-4">
+                                        <div class="card bg-transparent mb-3 border border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
+                                            <div class="card-body text-primary">
+                                                <h6 class="card-title">Fundador</h6>
+                                                <small>
+                                                    <p class="card-text">{{fundador}}</p>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-lg-4">
+                                        <div class="card bg-transparent mb-3 border border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
+                                            <div class="card-body text-primary">
+                                                <h6 class="card-title">CEO</h6>
+                                                <small>
+                                                    <p class="card-text">{{CEO}}</p>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-lg-4">
+                                        <div class="card bg-transparent mb-3 border border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
+                                            <div class="card-body text-primary">
+                                                <h6 class="card-title">Contacto</h6>
+                                                <small>
+                                                    <p class="card-text">{{correo}}</p>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col col-lg-4 col-sm-12 col-12">
-                                <div class="card mb-3 bg-light border-warning" style="border-style: dotted;border-width: 2px;">
-                                    <div class="card-body text-dark">
+                                <div class="card mb-3 bg-transparent border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
+                                    <div class="card-body text-primary">
                                         <div>
                                             <h6 class="card-title">Productos o servicios</h6>
                                             <small class="card-text">
@@ -56,65 +90,37 @@ if (isset($_SESSION['empresa_id'])) {
                                             </small>
                                         </div>
                                         <div class="bg-transparent text-center">
-                                            <img src="./views/static/img/productos-servicios-naranja.png" style="height: 30vh;">
+                                            <img src="./views/static/img/productos-servicios-naranja.png" style="height: 20vh;">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col col-lg-6 col-sm-12 col-12">
-                                <div class="row">
-                                    <div class="col col-12">
-                                        <div class="card bg-light mb-3 border-warning" style="border-style: dotted;border-width: 2px;">
-                                            <div class="card-body text-dark">
-                                                <div class="row">
-                                                    <div class="col col-12 col-sm-5 col-lg-5 bg-transparent text-center">
-                                                        <img src="./views/static/img/mision.png" style="height: 25vh;">
-                                                    </div>
-                                                    <div class="col col-12 col-sm-7 col-lg-7 col-sm">
-                                                        <h6 class="card-title">Misión</h6>
-                                                        <small class="card-text">
-                                                            <p class="text-justify">{{mision}}</p>
-                                                        </small>
-                                                    </div>
-                                                </div>
-                                            </div>
+                            <div class="col col-lg-4 col-sm-12 col-12">
+                                <div class="card bg-transparent mb-3 border-top-0 border-bottom-0 border-right-0 border-warning shadow-sm bg-white rounded">
+                                    <div class="card-body text-primary">
+                                        <div>
+                                            <h6 class="card-title">Misión</h6>
+                                            <small class="card-text">
+                                                <p class="text-justify">{{mision}}</p>
+                                            </small>
                                         </div>
-                                    </div>
-                                    <div class="col col-12">
-                                        <div class="card bg-light mb-3 border-warning" style="border-style: dotted;border-width: 2px;">
-                                            <div class="card-body text-dark">
-                                                <div class="row">
-                                                    <div class="col col-12 col-sm-7 col-lg-7">
-                                                        <h6 class="card-title">Visión</h6>
-                                                        <small class="card-text">
-                                                            <p class="text-justify">{{vision}}</p>
-                                                        </small>
-                                                    </div>
-                                                    <div class="col col-12 col-sm-5 col-lg-5 bg-transparent text-center">
-                                                        <img src="./views/static/img/vision-naranja.png" style="height: 25vh;">
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="bg-transparent text-center">
+                                            <img src="./views/static/img/mision.png" style="height: 20vh;">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col col-lg-2 col-sm-12 col-12">
-                                <div class="card bg-light mb-3 border-warning" style="border-style: dotted;border-width: 2px;">
-                                    <div class="card-body text-dark">
-                                        <div class="row">
-                                            <div class="col col-12 text-left">
-                                                <h6 class="card-title">Fundador</h6>
-                                                <small>
-                                                    <p class="card-text">{{fundador}}</p>
-                                                </small>
-                                            </div>
-                                            <div class="col col-12 text-left pt-5">
-                                                <h6 class="card-title">CEO</h6>
-                                                <small>
-                                                    <p class="card-text">{{CEO}}</p>
-                                                </small>
-                                            </div>
+                            <div class="col col-lg-4 col-sm-12 col-12">
+                                <div class="card bg-transparent mb-3 border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
+                                    <div class="card-body text-primary">
+                                        <div>
+                                            <h6 class="card-title">Visión</h6>
+                                            <small class="card-text">
+                                                <p class="text-justify">{{vision}}</p>
+                                            </small>
+                                        </div>
+                                        <div class="bg-transparent text-center">
+                                            <img src="./views/static/img/vision-naranja.png" style="height: 20vh;">
                                         </div>
                                     </div>
                                 </div>
@@ -129,46 +135,44 @@ if (isset($_SESSION['empresa_id'])) {
                         </div>
                     </div>
                     <div v-else>
-                        <div class="row mt-4 align-items-center justify-content-center" style="height: 65vh;overflow: hidden;">
-                            <div class="col col-4">
-                                <div class="row align-items-center justify-content-center" style="height: 65vh; overflow-y: scroll;">
-                                    <table id="tablaTripticos" class="table" style="width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col" class="text-left">Triptico</th>
-                                                <th scope="col" class="text-center">Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody v-for="(triptico, index) in tripticos">
-                                            <tr>
-                                                <td scope="row">{{triptico.nombre}}</td>
-                                                <td class="text-center d-flex justify-content-between">
-                                                    <button class="btn btn-sm btn-transparent" type="button" v-on:click="eliminarTriptico(triptico.id,triptico.nombre)">
-                                                        <i class="far fa-trash-alt"></i>
-                                                    </button>
-                                                    <button class="btn btn-sm btn-transparent" type="button" data-toggle="modal" data-target="#modalEditarTriptico" v-on:click="idTriptico=triptico.id, nombreTriptico=triptico.nombre, descripcionTriptico=triptico.descripcion, imagenTriptico='data:image/jpeg;base64,'+triptico.imagen">
-                                                        <i class="far fa-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-sm btn-transparent" type="button" v-on:click="imagenTriptico='data:image/jpeg;base64,'+triptico.imagen, tripticoDeInicio = false">
-                                                        <i class="far fa-eye"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                        <div class="row">
+                            <div class="col col-12 col-lg-4">
+                                <table id="tablaTripticos" class="table table-hover" style="width: 100%;">
+                                    <thead class="bg-warning text-light">
+                                        <tr>
+                                            <th scope="col" class="text-left">Nombre</th>
+                                            <th scope="col" class="text-center">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody v-for="(triptico, index) in tripticos" class="shadow-sm rounded">
+                                        <tr>
+                                            <td><small>{{triptico.nombre}}</small></td>
+                                            <td class="text-center d-flex justify-content-between">
+                                                <button class="btn btn-sm btn-transparent" type="button" v-on:click="eliminarTriptico(triptico.id,triptico.nombre)">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-transparent" type="button" data-toggle="modal" data-target="#modalEditarTriptico" v-on:click="idTriptico=triptico.id, nombreTriptico=triptico.nombre, descripcionTriptico=triptico.descripcion, imagenTriptico='data:image/jpeg;base64,'+triptico.imagen">
+                                                    <i class="far fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-transparent" type="button" v-on:click="imagenTriptico='data:image/jpeg;base64,'+triptico.imagen, tripticoDeInicio = false">
+                                                    <i class="far fa-eye"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="col col-8">
-                                <div class="row align-items-center justify-content-center">
+                            <div class="col col-12 col-lg-8">
+                                <div class="row align-items-center justify-content-center" style="min-height: 80vh;">
                                     <div v-if="tripticoDeInicio === true">
                                         <div v-for="(triptico, index) in tripticos">
                                             <div v-if="index === 0" class="">
-                                                <img v-bind:src="'data:image/jpeg;base64,'+triptico.imagen" class="d-block w-100" alt="..." style="height: 55vh;">
+                                                <img v-bind:src="'data:image/jpeg;base64,'+triptico.imagen" class="d-block" style="height: 55vh;">
                                             </div>
                                         </div>
                                     </div>
                                     <div v-else>
-                                        <img v-bind:src="imagenTriptico" class="d-block w-100" alt="..." style="height: 55vh;">
+                                        <img v-bind:src="imagenTriptico" class="d-block" style="height: 55vh;">
                                     </div>
                                 </div>
                             </div>
@@ -182,37 +186,35 @@ if (isset($_SESSION['empresa_id'])) {
                         </div>
                     </div>
                     <div v-else>
-                        <div class="row mt-4 align-items-center justify-content-center" style="height: 65vh;overflow: hidden;">
-                            <div class="col col-3">
-                                <div class="row align-items-center justify-content-center" style="height: 65vh; overflow-y: scroll;">
-                                    <table id="tablaVideos" class="table" style="width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col" class="text-left">Video</th>
-                                                <th scope="col" class="text-center">Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody v-for="(video, index) in videos">
-                                            <tr>
-                                                <td scope="row">{{video.nombre}}</td>
-                                                <td class="text-center d-flex justify-content-between">
-                                                    <button class="btn btn-sm btn-transparent" type="button" v-on:click="eliminarVideo(video.id,video.nombre)">
-                                                        <i class="far fa-trash-alt"></i>
-                                                    </button>
-                                                    <button class="btn btn-sm btn-transparent" type="button" data-toggle="modal" data-target="#modalEditarVideo" v-on:click="idVideo=video.id, nombreVideo=video.nombre, linkVideo=video.link">
-                                                        <i class="far fa-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-sm btn-transparent" type="button" v-on:click="linkVideo=video.link, videoDeInicio = false">
-                                                        <i class="far fa-eye"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                        <div class="row">
+                            <div class="col col-12 col-lg-4">
+                                <table id="tablaVideos" class="table table-hover" style="width: 100%;">
+                                    <thead class="bg-warning text-white">
+                                        <tr>
+                                            <th scope="col" class="text-left">Nombre</th>
+                                            <th scope="col" class="text-center">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody v-for="(video, index) in videos" class="shadow-sm rounded">
+                                        <tr>
+                                            <td scope="row"><small>{{video.nombre}}</small></td>
+                                            <td class="text-center d-flex justify-content-between">
+                                                <button class="btn btn-sm btn-transparent" type="button" v-on:click="eliminarVideo(video.id,video.nombre)">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-transparent" type="button" data-toggle="modal" data-target="#modalEditarVideo" v-on:click="idVideo=video.id, nombreVideo=video.nombre, linkVideo=video.link">
+                                                    <i class="far fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-transparent" type="button" v-on:click="linkVideo=video.link, videoDeInicio = false">
+                                                    <i class="far fa-eye"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="col col-9">
-                                <div class="row align-items-center justify-content-center">
+                            <div class="col col-12 col-lg-8">
+                                <div class="row align-items-center justify-content-center" style="min-height: 80vh;">
                                     <div v-if="videoDeInicio === true">
                                         <div v-for="(video, index) in videos">
                                             <div v-if="index === 0" class="">
@@ -236,7 +238,7 @@ if (isset($_SESSION['empresa_id'])) {
         <div class="modal fade" id="modalEditarTriptico" tabindex="-1" role="dialog" aria-labelledby="labelEditarTriptico" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header bg-primary text-white">
+                    <div class="modal-header bg-warning text-white">
                         <h5 class="modal-title text-white" id="labelEditarTriptico">{{nombreTriptico}}</h5>
                         <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -258,7 +260,7 @@ if (isset($_SESSION['empresa_id'])) {
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-3 d-flex justify-content-end">
-                                    <img id="imgT" v-bind:src="imagenTriptico" class="d-block w-100" alt="Sin imagen" style="width: 20vh;">
+                                    <img id="imgT" v-bind:src="imagenTriptico" class="d-block" alt="Sin imagen" style="height: 15vh;">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -289,7 +291,7 @@ if (isset($_SESSION['empresa_id'])) {
                                 </div>
                             </div>
                             <div class="form-row d-flex justify-content-end">
-                                <button class="btn btn-primary" type="submit">Guardar</button>
+                                <button class="btn btn-warning" type="submit">Guardar</button>
                             </div>
                         </form>
                     </div>
@@ -313,8 +315,7 @@ if (isset($_SESSION['empresa_id'])) {
                             <input type="text" class="d-none" name="tipoPeticion" value="agregarTriptico">
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label class="text-dark">Nombre</label>
-                                    <input type="text" class="form-control form-control-sm" name="txtNombreTriptico" required>
+                                    <input type="text" class="form-control form-control-sm" name="txtNombreTriptico" placeholder="Nombre" required>
                                     <div class="valid-feedback">
                                         Correcto!
                                     </div>
@@ -325,8 +326,7 @@ if (isset($_SESSION['empresa_id'])) {
                             </div>
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label class="text-dark">Descripción</label>
-                                    <textarea class="form-control form-control-sm" name="txtDescripcionTriptico" rows="3" required></textarea>
+                                    <textarea class="form-control form-control-sm" name="txtDescripcionTriptico" rows="3" placeholder="Descripción" required></textarea>
                                     <div class="valid-feedback">
                                         Correcto!
                                     </div>
@@ -350,7 +350,7 @@ if (isset($_SESSION['empresa_id'])) {
                                 </div>
                             </div>
                             <div class="form-row d-flex justify-content-end">
-                                <button class="btn btn-primary" type="submit">Guardar</button>
+                                <button class="btn btn-warning" type="submit">Guardar</button>
                             </div>
                         </form>
                     </div>
@@ -362,8 +362,8 @@ if (isset($_SESSION['empresa_id'])) {
         <div class="modal fade" id="modalAgregarVideo" tabindex="-1" role="dialog" aria-labelledby="labelAgregarVideo" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title" id="labelAgregarVideo">Agregar Video</h5>
+                    <div class="modal-header bg-warning">
+                        <h5 class="modal-title text-white" id="labelAgregarVideo">Agregar Video</h5>
                         <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -374,8 +374,7 @@ if (isset($_SESSION['empresa_id'])) {
                             <input type="text" class="d-none" name="tipoPeticion" value="agregarVideo">
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label class="text-dark">Nombre</label>
-                                    <input type="text" class="form-control form-control-sm" name="txtNombreVideo" required>
+                                    <input type="text" class="form-control form-control-sm" name="txtNombreVideo" placeholder="Nombre" required>
                                     <div class="valid-feedback">
                                         Correcto!
                                     </div>
@@ -386,8 +385,7 @@ if (isset($_SESSION['empresa_id'])) {
                             </div>
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label class="text-dark">Link del video</label>
-                                    <input type="text" class="form-control form-control-sm" name="txtLinkVideo" required>
+                                    <input type="text" class="form-control form-control-sm" name="txtLinkVideo" placeholder="Link del video" required>
                                     <div class="valid-feedback">
                                         Correcto!
                                     </div>
@@ -397,7 +395,7 @@ if (isset($_SESSION['empresa_id'])) {
                                 </div>
                             </div>
                             <div class="form-row d-flex justify-content-end">
-                                <button class="btn btn-primary" type="submit">Guardar</button>
+                                <button class="btn btn-warning" type="submit">Guardar</button>
                             </div>
                         </form>
                     </div>
@@ -409,8 +407,8 @@ if (isset($_SESSION['empresa_id'])) {
         <div class="modal fade" id="modalEditarVideo" tabindex="-1" role="dialog" aria-labelledby="labelEditarVideo" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title" id="labelEditarVideo">{{nombreVideo}}</h5>
+                    <div class="modal-header bg-warning">
+                        <h5 class="modal-title text-white" id="labelEditarVideo">{{nombreVideo}}</h5>
                         <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -444,7 +442,7 @@ if (isset($_SESSION['empresa_id'])) {
                                 </div>
                             </div>
                             <div class="form-row d-flex justify-content-end">
-                                <button class="btn btn-primary" type="submit">Guardar</button>
+                                <button class="btn btn-warning" type="submit">Guardar</button>
                             </div>
                         </form>
                     </div>

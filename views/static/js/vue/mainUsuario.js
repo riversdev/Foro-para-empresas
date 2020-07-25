@@ -21,9 +21,12 @@ var appUsuario = new Vue({
     methods: {
         dameElActive(id) {
             dameElActive('item' + id, this.items);
+        },
+        getTripticos(id) {
+            store.dispatch('obtenerTripticos', id);
         }
     },
     computed: {
-        ...Vuex.mapState(['empresas'])
+        ...Vuex.mapState(['empresas', 'tripticos', 'videos'])
     }
 });

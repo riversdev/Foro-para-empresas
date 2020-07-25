@@ -36,9 +36,12 @@ var appEmpresa = new Vue({
         },
         eliminarVideo(idVid, nomVid) {
             confirmacionEliminarVideo(idVid, nomVid);
+        },
+        tabTrip({ commit }) {
+            tabularTripticos();
         }
     },
     computed: {
-        ...Vuex.mapState(['empresa', 'productos', 'mision', 'vision', 'fundador', 'CEO', 'tripticos', 'videos'])
+        ...Vuex.mapState(['empresa', 'correo', 'productos', 'mision', 'vision', 'fundador', 'CEO', 'tripticos', 'videos'])
     }
 });

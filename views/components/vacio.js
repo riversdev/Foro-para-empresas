@@ -2,8 +2,8 @@ Vue.component('vacio', {
     props: ['cat'],
     template:/*html*/
         `
-        <div class="card border-info mb-3" style="max-width: 18rem;">
-            <div class="card-body text-info">
+        <div class="card bg-warning mb-3" style="max-width: 18rem;">
+            <div class="card-body text-white">
                 <h6 class="card-title text-center">No existen {{cat}}</h6>
                 <p class="card-text text-justify">
                     <small>
