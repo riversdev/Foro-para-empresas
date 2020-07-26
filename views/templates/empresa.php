@@ -167,12 +167,12 @@ if (isset($_SESSION['empresa_id'])) {
                                     <div v-if="tripticoDeInicio === true">
                                         <div v-for="(triptico, index) in tripticos">
                                             <div v-if="index === 0" class="">
-                                                <img v-bind:src="'data:image/jpeg;base64,'+triptico.imagen" class="d-block" style="height: 55vh;">
+                                                <img v-bind:src="'data:image/jpeg;base64,'+triptico.imagen" class="d-block" style="height: 70vh;">
                                             </div>
                                         </div>
                                     </div>
                                     <div v-else>
-                                        <img v-bind:src="imagenTriptico" class="d-block" style="height: 55vh;">
+                                        <img v-bind:src="imagenTriptico" class="d-block" style="height: 70vh;">
                                     </div>
                                 </div>
                             </div>
@@ -218,12 +218,12 @@ if (isset($_SESSION['empresa_id'])) {
                                     <div v-if="videoDeInicio === true">
                                         <div v-for="(video, index) in videos">
                                             <div v-if="index === 0" class="">
-                                                <iframe width="640" height="355" v-bind:src="video.link" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                <iframe width="720" height="395" v-bind:src="video.link" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                             </div>
                                         </div>
                                     </div>
                                     <div v-else>
-                                        <iframe width="640" height="355" v-bind:src="linkVideo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        <iframe width="720" height="395" v-bind:src="linkVideo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                     </div>
                                 </div>
                             </div>
