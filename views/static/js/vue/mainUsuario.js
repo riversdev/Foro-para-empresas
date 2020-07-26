@@ -5,6 +5,8 @@ var appUsuario = new Vue({
     data: {
         saludo: "Cuenta de usuario VUE !!!",
         items: [],
+        listaTripticos: [],
+        listaVideos: [],
         idEmpresaU: "",
         empresaU: "",
         correoU: "",
@@ -13,7 +15,9 @@ var appUsuario = new Vue({
         misionU: "",
         visionU: "",
         fundadorU: "",
-        CEOU: ""
+        CEOU: "",
+        tripticoSeleccionado: "",
+        videoSeleccionado: ""
     },
     mounted() {
         store.dispatch('obtenerEmpresas');
@@ -22,8 +26,17 @@ var appUsuario = new Vue({
         dameElActive(id) {
             dameElActive('item' + id, this.items);
         },
+        dameElActiveVideo(id) {
+            dameElActiveVideo('listaVideos' + id, this.listaVideos);
+        },
+        dameElActiveTriptico(id) {
+            dameElActiveTriptico('listaTripticos' + id, this.listaTripticos);
+        },
         getTripticos(id) {
             store.dispatch('obtenerTripticos', id);
+        },
+        getVideos(id) {
+            store.dispatch('obtenerVideos', id);
         }
     },
     computed: {

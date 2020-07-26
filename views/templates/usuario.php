@@ -152,47 +152,27 @@ if (isset($_SESSION['user_id'])) {
                                 </div>
                             </div>
                             <div v-else>
-                                <div id="carouselTripticos" class="carousel slide" data-ride="carousel">
-                                    <ol class="carousel-indicators">
-                                        <div v-for="(triptico, index) in tripticos">
-                                            <div v-if="index === 0">
-                                                <li data-target="#carouselTripticos" v-bind:data-slide-to="index" class="active"></li>
-                                            </div>
-                                            <div v-else>
-                                                <li data-target="#carouselTripticos" v-bind:data-slide-to="index"></li>
-                                            </div>
-                                        </div>
-                                    </ol>
-                                    <div class="carousel-inner">
-                                        <div v-for="(triptico, index) in tripticos">
-                                            <div v-if="index === 0">
-                                                <div class="carousel-item active">
-                                                    <img v-bind:src="'data:image/jpeg;base64,' + triptico.imagen" class="d-block w-100" style="height: 70vh;">
-                                                    <div class="carousel-caption d-none d-md-block">
-                                                        <h5 class="text-white">{{triptico.nombre}}</h5>
-                                                        <p class="text-white">{{triptico.descripcion}}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div v-else>
-                                                <div class="carousel-item">
-                                                    <img v-bind:src="'data:image/jpeg;base64,' + triptico.imagen" class="d-block w-100" style="height: 70vh;">
-                                                    <div class="carousel-caption d-none d-md-block">
-                                                        <h5 class="text-white">{{triptico.nombre}}</h5>
-                                                        <p class="text-white">{{triptico.descripcion}}</p>
-                                                    </div>
-                                                </div>
+                                <div class="row pt-3">
+                                    <div class="col-12 col-sm-12 col-lg-3">
+                                        <div class="list-group list-group-flush">
+                                            <div v-for="(triptico, index) in tripticos">
+                                                <p class="d-none">{{listaTripticos[index]=triptico.id}}</p>
+                                                <a v-bind:id="'listaTripticos'+triptico.id" class="list-group-item list-group-item-action d-flex justify-content-center align-items-center border-warning border-top-0 border-left-0 border-right-0 rounded" v-on:click="tripticoSeleccionado=triptico.imagen, dameElActiveTriptico(triptico.id)">{{triptico.nombre}}</a>
                                             </div>
                                         </div>
                                     </div>
-                                    <a class="carousel-control-prev" href="#carouselTripticos" role="button" data-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                    <a class="carousel-control-next" href="#carouselTripticos" role="button" data-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
+                                    <div class="col-12 col-sm-12 col-lg-9">
+                                        <div v-if="tripticoSeleccionado === ''">
+                                            <div v-for="(triptico, index) in tripticos">
+                                                <div v-if="index === 0">
+                                                    <img v-bind:src="'data:image/jpeg;base64,' + triptico.imagen" class="d-block w-100" style="height: 70vh;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div v-else>
+                                            <img v-bind:src="'data:image/jpeg;base64,' + tripticoSeleccionado" class="d-block w-100" style="height: 70vh;">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -209,7 +189,30 @@ if (isset($_SESSION['user_id'])) {
                                     </div>
                                 </div>
                             </div>
-                            <div v-else>VIDEOS</div>
+                            <div v-else>
+                                <div class="row pt-3">
+                                    <div class="col-12 col-sm-12 col-lg-3">
+                                        <div class="list-group list-group-flush">
+                                            <div v-for="(video, index) in videos">
+                                                <p class="d-none">{{listaVideos[index]=video.id}}</p>
+                                                <a v-bind:id="'listaVideos'+video.id" class="list-group-item list-group-item-action d-flex justify-content-center align-items-center border-warning border-top-0 border-left-0 border-right-0 rounded" v-on:click="videoSeleccionado=video.link, dameElActiveVideo(video.id)">{{video.nombre}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-lg-9 text-center pt-5">
+                                        <div v-if="videoSeleccionado === ''">
+                                            <div v-for="(video, index) in videos">
+                                                <div v-if="index === 0">
+                                                    <iframe width="720" height="395" v-bind:src="video.link" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div v-else>
+                                            <iframe width="720" height="395" v-bind:src="videoSeleccionado" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="chat" role="tabpanel" aria-labelledby="chat-tab">.Chat..</div>
                     </div>
@@ -219,7 +222,7 @@ if (isset($_SESSION['user_id'])) {
                         <h5 class="text-center text-light py-2 shadow bg-primary rounded">Empresas</h5>
                         <div v-for="(empresa, index) in empresas">
                             <p class="d-none">{{items[index]=empresa.id}}</p>
-                            <a v-bind:id="'item' + empresa.id" v-on:click="dameElActive(empresa.id), idEmpresaU=empresa.id, empresaU=empresa.nombre, correoU=empresa.correo, logoU=empresa.logo, productosU=empresa.productosServicios, misionU=empresa.mision,visionU=empresa.vision, fundadorU=empresa.fundador, CEOU=empresa.CEO, getTripticos(empresa.id)" class="list-group-item list-group-item-action d-flex justify-content-center align-items-center border-warning border-top-0 border-left-0 border-right-0 rounded">
+                            <a v-bind:id="'item' + empresa.id" v-on:click="dameElActive(empresa.id), idEmpresaU=empresa.id, empresaU=empresa.nombre, correoU=empresa.correo, logoU=empresa.logo, productosU=empresa.productosServicios, misionU=empresa.mision,visionU=empresa.vision, fundadorU=empresa.fundador, CEOU=empresa.CEO, tripticoSeleccionado='', videoSeleccionado='', getTripticos(empresa.id), getVideos(empresa.id)" class="list-group-item list-group-item-action d-flex justify-content-center align-items-center border-warning border-top-0 border-left-0 border-right-0 rounded">
                                 <h6>{{empresa.nombre}}</h6><img v-bind:src="empresa.logo" style="height: 30px;" class="pl-2">
                             </a>
                         </div>
