@@ -19,11 +19,36 @@ if (isset($_SESSION['admin_id'])) {
 ?>
     <div id="appAdmin">
         <navegacionadmin></navegacionadmin>
-        <div class="container">
-            <div class="row d-flex align-items-center justify-content-center">
-                <div class="card border-warning border-top-0 border-bottom-0 border-right-0 rounded">
-                    <div id="calendar" style="width: 100vh;"></div>
+        <div class="container pt-3">
+            <div class="row d-flex align-items-center justify-content-center" style="height: 85vh;">
+                <div class="card bg-warning mb-3" style="max-width: 30rem;">
+                    <div class="card-body text-white">
+                        <h5 class="card-title text-center">Bienvenido administrador</h5>
+                        <p class="card-text text-justify">
+                            En esta vista podrás agendar los accesos permitidos a empresas y usuarios, deberás presionar algún dia para agendar un nuevo acceso y presionar sobre los mismos para vizualizar su información.
+                            <br><br>
+                            Notas:
+                            <small class="card-text text-justify">
+                                <p>
+                                    <ul>
+                                        <li>Utiliza la navegación superior izquierda para moverte entre semanas, meses y años</li>
+                                        <li>Utiliza la navegación superior derecha para vizualizar los accesos en mes, semana y día.</li>
+                                        <li>Utiliza la vista de agenda en la parte superior derecha para una vista de lista de los accesos de todo el mes</li>
+                                    </ul>
+                                </p>
+                            </small>
+                        </p>
+                        <div class="row justify-content-center">
+                            <button id="btnSlideCalendar" class="btn btn-warning d-flex align-items-center" type="button">
+                                <span class="pr-2">Comenzar</span>
+                                <i class="far fa-2x fa-arrow-alt-circle-right"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div class="row d-flex align-items-center justify-content-center">
+                <div id="calendar" class="pt-3"></div>
             </div>
         </div>
     </div>
@@ -40,7 +65,7 @@ if (isset($_SESSION['admin_id'])) {
                 </div>
                 <div class="modal-body">
                     <form id="formAccesos" class="needs-validation" novalidate>
-                        <input type="hidden" id="eventForId">
+                        <input type="hidden" id="idAcceso">
                         <div class="form-row">
                             <div class="col-md-8 offset-2 mb-3">
                                 <div class="input-group input-group-sm">
@@ -120,11 +145,20 @@ if (isset($_SESSION['admin_id'])) {
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                // themeSystem: 'bootstrap', // duplica los botones !!!
-                locale: 'es',
+        // FECHA ACTUAL
+        var f = new Date();
+        let meses = f.getMonth() + 1;
+        let dias = f.getDate();
+        if (meses < 10) {
+            meses = '0' + meses;
+        }
+        if (dias < 10) {
+            dias = '0' + dias;
+        }
+        let fechaActual = f.getFullYear() + '-' + meses + "-" + dias;
+
+        $(document).ready(function() {
+            $('#calendar').fullCalendar({
                 slotMinTime: '08:00',
                 slotMaxTime: '20:00',
                 editable: true,
@@ -134,20 +168,101 @@ if (isset($_SESSION['admin_id'])) {
                 navLinks: true,
                 nowIndicator: true,
                 weekNumbers: true,
-                headerToolbar: {
+                eventLimit: true,
+                header: {
                     left: 'prevYear,prev,next,nextYear today',
                     center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+                    right: 'month,basicWeek,basicDay,listMonth'
                 },
-                events: 'ajax/adminAjax.php'
+                events: 'ajax/adminAjax.php',
+                dayClick: function(date, jsEvent, view) {
+                    $('#idAcceso').val("");
+                    if (date.format() > fechaActual) {
+                        $('#fechaAcceso').attr("min", fechaActual);
+                        $('#horaInicioAcceso').attr("min", "08:00");
+                        $('#horaFinAcceso').attr("min", "08:00");
+                        $('#horaInicioAcceso').attr("max", "20:00");
+                        $('#horaFinAcceso').attr("max", "20:00");
+                        $("#eventsModalTitle").html("Agendar acceso").removeClass("text-info").addClass("text-dark");
+                        $('#fechaAcceso').removeAttr("disabled");
+                        $('#horaInicioAcceso').removeAttr("disabled");
+                        $('#horaFinAcceso').removeAttr("disabled");
+                        $("#btnEventCancel").addClass("d-none");
+                        $("#btnEventEdit").addClass("d-none");
+                        $("#btnEventDelete").addClass("d-none");
+                        $("#btnEventAgendar").removeClass("d-none");
+                        document.getElementById("formAccesos").reset();
+                        $('#fechaAcceso').val(date.format());
+                        $('#horaInicioAcceso').val("00:00");
+                        $('#horaFinAcceso').val("00:00");
+                        $("#rowIssue").removeClass("d-none");
+                        $('#modalEvents').modal();
+                    } else if (date.format() == fechaActual) {
+                        if (f.getHours() < 20 && f.getHours() >= 8) {
+                            $('#fechaAcceso').attr("min", fechaActual);
+                            insertarHoraInicial("horaInicioAcceso", "fechaAcceso");
+                            $('#horaFinAcceso').attr("min", "08:00");
+                            $("#eventsModalTitle").html("Agendar acceso").removeClass("text-info").addClass("text-dark");
+                            $('#fechaAcceso').removeAttr("disabled");
+                            $('#horaInicioAcceso').removeAttr("disabled");
+                            $('#horaFinAcceso').removeAttr("disabled");
+                            $("#btnEventCancel").addClass("d-none");
+                            $("#btnEventEdit").addClass("d-none");
+                            $("#btnEventDelete").addClass("d-none");
+                            $("#btnEventAgendar").removeClass("d-none");
+                            document.getElementById("formAccesos").reset();
+                            $('#fechaAcceso').val(date.format());
+                            $('#horaInicioAcceso').val("00:00");
+                            $('#horaFinAcceso').val("00:00");
+                            $("#rowIssue").removeClass("d-none");
+                            $('#modalEvents').modal();
+                        } else {
+                            alertify.error("Imposible agendar acceso");
+                        }
+                    } else {
+                        alertify.error("Imposible agendar acceso");
+                    }
+                },
+                eventClick: function(calEvent, jsEvent, view) {
+                    $('#fechaAcceso').attr("min", fechaActual);
+                    $("#eventsModalTitle").html(calEvent.title).removeClass("text-info").addClass("text-dark");
+                    $('#idAcceso').val(calEvent.idAcceso);
+                    $('#fechaAcceso').val(calEvent.fecha).attr("disabled", "true");
+                    $('#horaInicioAcceso').val(calEvent.horaInicio).attr("disabled", "true");
+                    $('#horaFinAcceso').val(calEvent.horaFin).attr("disabled", "true");
+                    $('#descripcionAcceso').val(calEvent.title).attr("disabled", "true");
+                    $("#btnEventCancel").addClass("d-none");
+                    if (calEvent.fecha < fechaActual) {
+                        $("#btnEventEdit").addClass("d-none");
+                        $("#btnEventDelete").addClass("d-none");
+                    } else {
+                        $("#btnEventEdit").removeClass("d-none");
+                        $("#btnEventDelete").removeClass("d-none");
+                    }
+                    $("#btnEventAgendar").addClass("d-none");
+                    $("#rowIssue").addClass("d-none");
+                    insertarHoraFinal("horaInicioAcceso", "horaFinAcceso");
+                    $('#modalEvents').modal();
+                },
+                eventDrop: function(calEvent) {
+                    if (calEvent.fecha < fechaActual) {
+                        alertify.error("Imposible reagendar cita");
+                        $("#calendar").fullCalendar('refetchEvents');
+                    } else {
+                        if (calEvent.start.format().split("T")[0] < fechaActual) {
+                            alertify.error("Imposible reagendar cita");
+                            $("#calendar").fullCalendar('refetchEvents');
+                        } else {
+                            $('#idAcceso').val(calEvent.idAcceso);
+                            $('#fechaAcceso').val(calEvent.start.format().split("T")[0]);
+                            $('#horaInicioAcceso').val(calEvent.start.format().split("T")[1]);
+                            $('#horaFinAcceso').val(calEvent.end.format().split("T")[1]);
+                            $('#descripcionAcceso').val(calEvent.title);
+                            actualizarAcceso();
+                        }
+                    }
+                },
             });
-            calendar.on('dateClick', function(info) {
-                console.log('clicked on ' + info.dateStr);
-                console.log('todo el dia ?:' + info.allDay);
-                $('#fechaAcceso').val(info.dateStr);
-                $('#modalEvents').modal();
-            });
-            calendar.render();
         });
     </script>
 

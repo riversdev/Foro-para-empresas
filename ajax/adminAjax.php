@@ -7,4 +7,8 @@ if ($tipoPeticion == "leer") {
     ModeloAdmin::obtenerAccesos();
 } elseif ($tipoPeticion == "agendarAcceso") {
     ModeloAdmin::agendarAcceso($_POST['descripcionAcceso'], $_POST['fechaAcceso'], $_POST['horaInicioAcceso'], $_POST['horaFinAcceso']);
+} elseif ($tipoPeticion == "actualizarAcceso") {
+    ModeloAdmin::actualizarAcceso($_POST['idAcceso'], $_POST['tituloAcceso'], $_POST['fechaAcceso'], $_POST['horaInicioAcceso'], $_POST['horaFinAcceso']);
+} elseif ($tipoPeticion == "eliminarAcceso") {
+    ModeloAdmin::eliminarAcceso($_POST['idAcceso']);
 }
