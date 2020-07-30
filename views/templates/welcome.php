@@ -1,11 +1,14 @@
 <?php
 session_start();
 
-if (isset($_SESSION['user_id'])) {
-    header("Location: /Foro-para-empresas/usuario");
+if (isset($_SESSION['admin_id'])) {
+    header("Location: /Foro-para-empresas/admin");
 }
 if (isset($_SESSION['empresa_id'])) {
     header("Location: /Foro-para-empresas/empresa");
+}
+if (isset($_SESSION['user_id'])) {
+    header("Location: /Foro-para-empresas/usuario");
 }
 
 ?>
@@ -222,7 +225,11 @@ if (isset($_SESSION['empresa_id'])) {
                                             location.href = "empresa";
                                         }
                                         if (txtSoyEmpresa == 3) {
-                                            location.href = "usuario"
+                                            if (txtEmail == "admin@admin") {
+                                                location.href = "admin"
+                                            } else {
+                                                location.href = "usuario"
+                                            }
                                         }
                                     } else {
                                         alertify.error("Verifica tus datos!");

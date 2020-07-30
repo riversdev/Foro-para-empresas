@@ -71,8 +71,13 @@ class Welcome
         $stmt->execute();
         $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
         if (count($resultado) > 0 && password_verify($contrasenia, $resultado['contrasenia'])) {
-            $_SESSION['user_id'] = $resultado['id'];
-            return 1;
+            if ($correo == "admin@admin") {
+                $_SESSION['admin_id'] = $resultado['id'];
+                return 1;
+            } else {
+                $_SESSION['user_id'] = $resultado['id'];
+                return 1;
+            }
         } else {
             return 0;
         }

@@ -19,6 +19,10 @@
     <!-- DataTables-1.10.21 -->
     <link rel="stylesheet" href="views/static/datatables/datatables.min.css">
     <script src="views/static/datatables/datatables.min.js"></script>
+    <!-- fullcalendar-5.1.0 -->
+    <link rel="stylesheet" href="views\static\fullcalendar\lib\main.css">
+    <script src="views\static\fullcalendar\lib\main.js"></script>
+    <script src="views\static\fullcalendar\lib\locales-all.js"></script>
     <!-- Alertify JS 1.13.1 -->
     <link rel="stylesheet" href="views\static\alertify\css\alertify.css">
     <link rel="stylesheet" href="views\static\alertify\css\themes\default.css">

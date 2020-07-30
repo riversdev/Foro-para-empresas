@@ -67,7 +67,34 @@ function prepararValidacionFormularios() {
                     guardarVideo(form.id);
                 } else if (form.id == "formEditarVideo") {
                     guardarVideo(form.id);
-                } else {
+                } else if (form.id == "formAccesos") {
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/adminAjax.php",
+                        data: {
+                            tipoPeticion: "agendarAcceso",
+                            fechaAcceso: $('#fechaAcceso').val(),
+                            horaInicioAcceso: $('#horaInicioAcceso').val(),
+                            horaFinAcceso: $('#horaFinAcceso').val(),
+                            descripcionAcceso: $('#descripcionAcceso').val(),
+                        },
+                        error: function (data) {
+                            console.error(data);
+                        },
+                        success: function (data) {
+                            let respuesta = data.split('|');
+                            if (respuesta[0] == "success") {
+                                alertify.success(respuesta[1]);
+                                calendar.render(); /////////NO SIRVE
+                            } else if (respuesta[0] == "error") {
+                                alertify.error(respuesta[1]);
+                            } else {
+                                console.error("Tipo de respuesta no definido:" + data);
+                            }
+                        }
+                    });
+                }
+                else {
                     console.log("Formulario no encontrado");
                 }
             }
