@@ -239,7 +239,7 @@ if (isset($_SESSION['user_id'])) {
                                         <form id="formChat" method="POST" class="needs-validation pt-3" novalidate>
                                             <input type="text" class="d-none" id="sujetoChat" v-bind:value="nombreUsuario" required>
                                             <div class="form-row">
-                                                <div class="col-lg-10 col-sm-12">
+                                                <div class="col-12 col-sm-8 col-md-9 col-lg-10">
                                                     <textarea class="form-control form-control-sm" rows="2" id="mensajeChat" placeholder="Escribe un mensaje" required></textarea>
                                                     <div class="valid-feedback">
                                                         Correcto!
@@ -248,7 +248,7 @@ if (isset($_SESSION['user_id'])) {
                                                         Ingresa un mensaje.
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-2 col-sm-12">
+                                                <div class="col-12 col-sm-4 col-md-3 col-lg-2">
                                                     <button type="submit" class="btn btn-outline-warning btn-block">Enviar</button>
                                                 </div>
                                             </div>
