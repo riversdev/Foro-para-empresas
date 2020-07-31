@@ -5,7 +5,7 @@ class ModeloChat
 {
     public static function obtenerMensajes()
     {
-        $SQL = "SELECT * FROM chat ORDER BY id DESC";
+        $SQL = "SELECT * FROM chat ORDER BY id ASC";
         $stmt = Conexion::conectar()->prepare($SQL);
         $stmt->execute();
         $resultado = $stmt->fetchAll();

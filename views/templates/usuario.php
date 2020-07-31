@@ -235,7 +235,9 @@ if (isset($_SESSION['user_id'])) {
                             <div class="row d-flex align-items-center justify-content-center pt-3">
                                 <div class="card mb-3 bg-transparent border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded" style="width: 50rem;">
                                     <div class="card-body">
-                                        <div id="chatContainer" style="height: 50vh; overflow-y: scroll;"></div>
+                                        <div class="d-flex align-items-end" style="height: 50vh; overflow-y: scroll;">
+                                            <div id="chatContainer"></div>
+                                        </div>
                                         <form id="formChat" method="POST" class="needs-validation pt-3" novalidate>
                                             <input type="text" class="d-none" id="sujetoChat" v-bind:value="nombreUsuario" required>
                                             <div class="form-row">
