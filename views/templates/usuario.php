@@ -32,23 +32,7 @@ if (isset($_SESSION['user_id'])) {
     }
 
 ?>
-    <script type="text/javascript">
-        function ajax() {
-            var req = new XMLHttpRequest();
-            req.onreadystatechange = function() {
-                if (req.readyState == 4 && req.status == 200) {
-                    document.getElementById('chatContainer').innerHTML = req.responseText;
-                }
-            }
-            req.open('GET', 'ajax/chatAjax.php', true);
-            req.send();
-        }
-        setInterval(function() {
-            ajax();
-        }, 1000);
-    </script>
-
-    <div id="appUsuario" style="overflow-x: hidden;min-height:100vh;" onload="ajax();">
+    <div id="appUsuario" style="overflow-x: hidden;min-height:100vh;">
         <p class="d-none">{{nombreUsuario="<?= $usuario['nombre'] ?>"}}</p>
         <navegacionusuarios nombre="<?= $usuario['nombre'] ?>" correo="<?= $usuario['correo'] ?>"></navegacionusuarios>
         <div v-if="empresas === null">
@@ -232,32 +216,47 @@ if (isset($_SESSION['user_id'])) {
                             </div>
                         </div>
                         <div class="tab-pane fade show active" id="chat" role="tabpanel" aria-labelledby="chat-tab">
-                            <div class="row d-flex align-items-center justify-content-center pt-3">
-                                <div class="card mb-3 bg-transparent border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded" style="width: 50rem;">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-end" style="height: 50vh; overflow-y: scroll;">
-                                            <div id="chatContainer"></div>
+                            <div v-if="idEmpresaU === ''">
+                                <div class="row px-5 pt-3 d-flex justify-content-center pt-5 mt-5">
+                                    <div class="card mb-3 bg-warning text-white mt-5" style="max-width: 25rem;">
+                                        <div class="card-body text-white">
+                                            <h5 class="card-title text-center">Bienvenido</h5>
+                                            <p class="card-text text-justify">
+                                                Selecciona la empresa de tu interés en la lista a la derecha. Podrás vizualizar su información, tripticos y videos navegando entre las opciones de la parte superior. Tienes acceso a un chat con la empresa eligiendo la opción en la parte superior.
+                                            </p>
                                         </div>
-                                        <form id="formChat" method="POST" class="needs-validation pt-3" novalidate>
-                                            <input type="text" class="d-none" id="sujetoChat" v-bind:value="nombreUsuario" required>
-                                            <div class="form-row">
-                                                <div class="col-12 col-sm-8 col-md-9 col-lg-10">
-                                                    <textarea class="form-control form-control-sm" rows="2" id="mensajeChat" placeholder="Escribe un mensaje" required></textarea>
-                                                    <div class="valid-feedback">
-                                                        Correcto!
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                        Ingresa un mensaje.
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-sm-4 col-md-3 col-lg-2">
-                                                    <button type="submit" class="btn btn-outline-warning btn-block">Enviar</button>
-                                                </div>
-                                            </div>
-                                        </form>
                                     </div>
-                                    <div class="card-footer text-muted">
-                                        Los mensajes se eliminarán al terminar el tiempo de acceso.
+                                </div>
+                            </div>
+                            <div v-else>
+                                <div class="row d-flex align-items-center justify-content-center pt-3">
+                                    <div class="card mb-3 bg-transparent border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded" style="width: 50rem;">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-end pb-3" style="height: 50vh; overflow-y: scroll;">
+                                                <div id="chatContainer"></div>
+                                            </div>
+                                            <p class="d-none">{{prepararValidacionForms()}}</p>
+                                            <form id="formChat" method="POST" class="needs-validation" novalidate>
+                                                <input type="text" class="d-none" id="sujetoChat" v-bind:value="nombreUsuario" required>
+                                                <div class="form-row">
+                                                    <div class="col-12 col-sm-8 col-md-9 col-lg-10">
+                                                        <textarea class="form-control form-control-sm" rows="2" id="mensajeChat" placeholder="Escribe un mensaje" required></textarea>
+                                                        <div class="valid-feedback">
+                                                            Correcto!
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            Ingresa un mensaje.
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-sm-4 col-md-3 col-lg-2">
+                                                        <button type="submit" class="btn btn-outline-warning btn-block">Enviar</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="card-footer text-muted">
+                                            Los mensajes se eliminarán al terminar el tiempo de acceso.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -269,7 +268,7 @@ if (isset($_SESSION['user_id'])) {
                         <h5 class="text-center text-light py-2 shadow bg-primary rounded">Empresas</h5>
                         <div v-for="(empresa, index) in empresas">
                             <p class="d-none">{{items[index]=empresa.id}}</p>
-                            <a v-bind:id="'item' + empresa.id" v-on:click="dameElActive(empresa.id), idEmpresaU=empresa.id, empresaU=empresa.nombre, correoU=empresa.correo, logoU=empresa.logo, productosU=empresa.productosServicios, misionU=empresa.mision,visionU=empresa.vision, fundadorU=empresa.fundador, CEOU=empresa.CEO, tripticoSeleccionado='', videoSeleccionado='', getTripticos(empresa.id), getVideos(empresa.id)" class="list-group-item list-group-item-action d-flex justify-content-center align-items-center border-warning border-top-0 border-left-0 border-right-0 rounded">
+                            <a v-bind:id="'item' + empresa.id" v-on:click="dameElActive(empresa.id), idEmpresaU=empresa.id, empresaU=empresa.nombre, correoU=empresa.correo, logoU=empresa.logo, productosU=empresa.productosServicios, misionU=empresa.mision,visionU=empresa.vision, fundadorU=empresa.fundador, CEOU=empresa.CEO, tripticoSeleccionado='', videoSeleccionado='', getTripticos(empresa.id), getVideos(empresa.id), getChat(empresa.id)" class="list-group-item list-group-item-action d-flex justify-content-center align-items-center border-warning border-top-0 border-left-0 border-right-0 rounded">
                                 <h6>{{empresa.nombre}}</h6><img v-bind:src="empresa.logo" style="height: 30px;" class="pl-2">
                             </a>
                         </div>

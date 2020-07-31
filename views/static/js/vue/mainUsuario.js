@@ -20,10 +20,12 @@ var appUsuario = new Vue({
         videoSeleccionado: ""
     },
     mounted() {
-        prepararValidacionFormularios();
         store.dispatch('obtenerEmpresas');
     },
     methods: {
+        prepararValidacionForms() {
+            prepararValidacionFormularios()
+        },
         dameElActive(id) {
             dameElActive('item' + id, this.items);
         },
@@ -38,6 +40,21 @@ var appUsuario = new Vue({
         },
         getVideos(id) {
             store.dispatch('obtenerVideos', id);
+        },
+        getChat(id) {
+            function ajax() {
+                var req = new XMLHttpRequest();
+                req.onreadystatechange = function () {
+                    if (req.readyState == 4 && req.status == 200) {
+                        document.getElementById('chatContainer').innerHTML = req.responseText;
+                    }
+                }
+                req.open('GET', 'ajax/chatAjax.php', true);
+                req.send();
+            }
+            setInterval(function () {
+                ajax();
+            }, 1000);
         }
     },
     computed: {

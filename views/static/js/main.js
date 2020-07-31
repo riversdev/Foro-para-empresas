@@ -73,47 +73,55 @@ $(document).ready(function () {
             .getElementById("calendar")
             .scrollIntoView({ block: "start", behavior: "smooth" });
     });
+
 });
 
+let x = 0;
+
 function prepararValidacionFormularios() {
-    var forms = document.getElementsByClassName('needs-validation');
-    var validation = Array.prototype.filter.call(forms, function (form) {
-        form.addEventListener('submit', function (event) {
-            if (form.id == "formAccesos") {
-                insertarHoraInicial("horaInicioAcceso", "fechaAcceso");
-                insertarHoraFinal("horaInicioAcceso", "horaFinAcceso");
-            }
-            if (form.checkValidity() === false) {
-                event.preventDefault();
-                event.stopPropagation();
-            } else {
-                event.preventDefault();
-                if (form.id == "formEditarInformacion") {
-                    guardarLogo(form.id, form[0].value);
-                } else if (form.id == "formEditarTriptico") {
-                    guardarTriptico(form.id);
-                } else if (form.id == "formAgregarTriptico") {
-                    guardarTriptico(form.id);
-                } else if (form.id == "formAgregarVideo") {
-                    guardarVideo(form.id);
-                } else if (form.id == "formEditarVideo") {
-                    guardarVideo(form.id);
-                } else if (form.id == "formAccesos") {
-                    if ($('#idAcceso').val() == "") {
-                        agendarAcceso();
-                    } else {
-                        actualizarAcceso();
+    console.log("preparando validacion");
+    x = x + 1;
+    if (x == 2) {
+        console.log("validacion leida");
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+                if (form.id == "formAccesos") {
+                    insertarHoraInicial("horaInicioAcceso", "fechaAcceso");
+                    insertarHoraFinal("horaInicioAcceso", "horaFinAcceso");
+                }
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    event.preventDefault();
+                    if (form.id == "formEditarInformacion") {
+                        guardarLogo(form.id, form[0].value);
+                    } else if (form.id == "formEditarTriptico") {
+                        guardarTriptico(form.id);
+                    } else if (form.id == "formAgregarTriptico") {
+                        guardarTriptico(form.id);
+                    } else if (form.id == "formAgregarVideo") {
+                        guardarVideo(form.id);
+                    } else if (form.id == "formEditarVideo") {
+                        guardarVideo(form.id);
+                    } else if (form.id == "formAccesos") {
+                        if ($('#idAcceso').val() == "") {
+                            agendarAcceso();
+                        } else {
+                            actualizarAcceso();
+                        }
+                    } else if (form.id == "formChat") {
+                        guardarMensaje();
                     }
-                } else if (form.id == "formChat") {
-                    guardarMensaje();
+                    else {
+                        console.log("Formulario no encontrado");
+                    }
                 }
-                else {
-                    console.log("Formulario no encontrado");
-                }
-            }
-            form.classList.add('was-validated');
-        }, false);
-    });
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }
 }
 
 function guardarTriptico(form) {
