@@ -104,6 +104,8 @@ function prepararValidacionFormularios() {
                     } else {
                         actualizarAcceso();
                     }
+                } else if (form.id == "formChat") {
+                    guardarMensaje();
                 }
                 else {
                     console.log("Formulario no encontrado");
@@ -410,4 +412,27 @@ function insertarHoraFinal(start, end) {
     horas < 10 ? horas = '0' + horas : horas = horas;
     minutos < 10 ? minutos = '0' + minutos : minutos = minutos;
     $('#' + end).attr("min", horas + ':' + minutos);
+}
+
+
+// CHAT
+function guardarMensaje() {
+    let sujetoChat = $('#sujetoChat').val();
+    let mensajeChat = $('#mensajeChat').val();
+
+    $.ajax({
+        type: "POST",
+        url: "ajax/chatAjax.php",
+        data: {
+            tipoPeticion: "guardarMensaje",
+            sujetoChat,
+            mensajeChat
+        },
+        error: function (data) {
+            console.error(data);
+        },
+        success: function (data) {
+            //console.log("Guardado");
+        }
+    });
 }

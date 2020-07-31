@@ -12,7 +12,7 @@ Vue.component('navegacionusuarios', {
                 <ul class="navbar-nav mr-auto">
                     <ul class="nav" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true">Información</a>
+                            <a class="nav-link" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true">Información</a>
                         </li>
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" id="tripticos-tab" data-toggle="tab" href="#tripticos" role="tab" aria-controls="tripticos" aria-selected="false">Tripticos</a>
@@ -20,7 +20,7 @@ Vue.component('navegacionusuarios', {
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" id="videos-tab" data-toggle="tab" href="#videos" role="tab" aria-controls="videos" aria-selected="false">Videos</a>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        <li class="nav-item active" role="presentation">
                             <a class="nav-link" id="chat-tab" data-toggle="tab" href="#chat" role="tab" aria-controls="chat" aria-selected="false">Chat</a>
                         </li>
                     </ul>

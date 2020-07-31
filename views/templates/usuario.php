@@ -32,7 +32,24 @@ if (isset($_SESSION['user_id'])) {
     }
 
 ?>
-    <div id="appUsuario" style="overflow-x: hidden;min-height:100vh;">
+    <script type="text/javascript">
+        function ajax() {
+            var req = new XMLHttpRequest();
+            req.onreadystatechange = function() {
+                if (req.readyState == 4 && req.status == 200) {
+                    document.getElementById('chatContainer').innerHTML = req.responseText;
+                }
+            }
+            req.open('GET', 'ajax/chatAjax.php', true);
+            req.send();
+        }
+        setInterval(function() {
+            ajax();
+        }, 1000);
+    </script>
+
+    <div id="appUsuario" style="overflow-x: hidden;min-height:100vh;" onload="ajax();">
+        <p class="d-none">{{nombreUsuario="<?= $usuario['nombre'] ?>"}}</p>
         <navegacionusuarios nombre="<?= $usuario['nombre'] ?>" correo="<?= $usuario['correo'] ?>"></navegacionusuarios>
         <div v-if="empresas === null">
             NO EXISTEN EMRESAS
@@ -41,7 +58,7 @@ if (isset($_SESSION['user_id'])) {
             <div class="row">
                 <div class="col-12 col-sm-8 col-lg-9">
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
+                        <div class="tab-pane fade" id="info" role="tabpanel" aria-labelledby="info-tab">
                             <div v-if="idEmpresaU === ''">
                                 <div class="row px-5 pt-3 d-flex justify-content-center pt-5 mt-5">
                                     <div class="card mb-3 bg-warning text-white mt-5" style="max-width: 25rem;">
@@ -214,7 +231,35 @@ if (isset($_SESSION['user_id'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="chat" role="tabpanel" aria-labelledby="chat-tab">.Chat..</div>
+                        <div class="tab-pane fade show active" id="chat" role="tabpanel" aria-labelledby="chat-tab">
+                            <div class="row d-flex align-items-center justify-content-center pt-3">
+                                <div class="card mb-3 bg-transparent border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded" style="width: 50rem;">
+                                    <div class="card-body">
+                                        <div id="chatContainer" style="height: 50vh; overflow-y: scroll;"></div>
+                                        <form id="formChat" method="POST" class="needs-validation pt-3" novalidate>
+                                            <input type="text" class="d-none" id="sujetoChat" v-bind:value="nombreUsuario" required>
+                                            <div class="form-row">
+                                                <div class="col-lg-10 col-sm-12">
+                                                    <textarea class="form-control form-control-sm" rows="2" id="mensajeChat" placeholder="Escribe un mensaje" required></textarea>
+                                                    <div class="valid-feedback">
+                                                        Correcto!
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Ingresa un mensaje.
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-sm-12">
+                                                    <button type="submit" class="btn btn-outline-warning btn-block">Enviar</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="card-footer text-muted">
+                                        Los mensajes se eliminarán al terminar el tiempo de acceso.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 col-sm-4 col-lg-3 pt-5">

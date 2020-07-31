@@ -3,7 +3,7 @@ var appUsuario = new Vue({
     el: '#appUsuario',
     store,
     data: {
-        saludo: "Cuenta de usuario VUE !!!",
+        nombreUsuario: "VUE",
         items: [],
         listaTripticos: [],
         listaVideos: [],
@@ -20,6 +20,7 @@ var appUsuario = new Vue({
         videoSeleccionado: ""
     },
     mounted() {
+        prepararValidacionFormularios();
         store.dispatch('obtenerEmpresas');
     },
     methods: {
