@@ -40,7 +40,7 @@ if (isset($_SESSION['empresa_id'])) {
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
                     <div v-if="productos === '', mision === '', vision === '', fundador === '', CEO === ''">
-                        <div class="row align-items-center justify-content-center">
+                        <div class="row mt-4 align-items-center justify-content-center" style="height: 65vh;overflow: hidden;">
                             <vacio cat="datos"></vacio>
                         </div>
                     </div>

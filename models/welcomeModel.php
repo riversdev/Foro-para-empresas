@@ -7,6 +7,7 @@ class Welcome
 {
     public static function registrarEmpresa($nombre, $email, $contrasenia)
     {
+        $nombre = strtoupper($nombre);
         $SQL = "SELECT * FROM empresas WHERE correo = '$email';";
         $stmt = Conexion::conectar()->prepare($SQL);
         $stmt->execute();
