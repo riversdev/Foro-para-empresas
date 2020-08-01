@@ -52,7 +52,7 @@ if (isset($_SESSION['user_id'])) {
         <button id="iniciarSesion" class="btn btn-outline-light" type="button">
             Iniciar sesión
         </button>
-        <div id="contenedorFormularioIdentificar" class="card bg-light mb-3 d-none" style="max-width: 20rem;">
+        <div id="contenedorFormularioIdentificar" class="card bg-light mb-3 d-none" style="max-width: 25rem;">
             <div class="card-body text-primary">
                 <h5 class="card-title text-center">Identifícate</h5>
                 <form id="formIdentificarUsuario" class="needs-validation" novalidate>
@@ -171,6 +171,7 @@ if (isset($_SESSION['user_id'])) {
         $('#iniciarSesion').on('click', function() {
             $('#iniciarSesion').addClass("d-none");
             $('#contenedorFormularioIdentificar').removeClass("d-none");
+            $('#contenedorFormularioRegistrar').addClass("d-none");
         });
         $('#registrarme').on('click', function() {
             $('#contenedorFormularioIdentificar').addClass("d-none");
@@ -183,6 +184,8 @@ if (isset($_SESSION['user_id'])) {
         $('#iniciarSesion2').on('click', function() {
             $('#iniciarSesion').addClass("d-none");
             $('#contenedorFormularioIdentificar').removeClass("d-none");
+            $('#contenedorFormularioRegistrar').addClass("d-none");
+
         });
     });
 
