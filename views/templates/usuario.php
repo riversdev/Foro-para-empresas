@@ -33,6 +33,61 @@ if (isset($_SESSION['user_id'])) {
     }
 
 ?>
+    <script>
+        function validarAcceso() {
+            // FECHA ACTUAL RECUPERADA CON JS
+            let fechaActual = new Date();
+            let anio = fechaActual.getFullYear();
+            let mes = fechaActual.getMonth() + 1;
+            let dia = fechaActual.getDate();
+            mes < 10 ? mes = '0' + mes : mes = mes;
+            dia < 10 ? dia = '0' + dia : dia = dia;
+            let cadFechaActual = anio + '-' + mes + '-' + dia;
+            // HORA ACTUAL RECUPERADA CON JS
+            let horas = fechaActual.getHours();
+            let minutos = fechaActual.getMinutes();
+            horas < 10 ? horas = '0' + horas : horas = horas;
+            minutos < 10 ? minutos = '0' + minutos : minutos = minutos;
+            let cadHoraActual = horas + ":" + minutos;
+            $.ajax({
+                type: "POST",
+                url: "ajax/welcomeAjax.php",
+                data: {
+                    tipo: "validarAcceso",
+                    cadFechaActual,
+                    cadHoraActual
+                },
+                error: function(data) {
+                    console.error(data);
+                },
+                success: function(data) {
+                    let mensaje = data.split("|");
+                    if (mensaje[0] == "error") {
+                        $.ajax({
+                            type: "POST",
+                            url: "ajax/welcomeAjax.php",
+                            data: {
+                                tipo: "salir"
+                            },
+                            error: function(data) {
+                                console.error(data);
+                            },
+                            success: function(data) {
+                                location.href = "welcome";
+                            }
+                        });
+                    } else if (mensaje[0] == "success") {
+                        //console.log(mensaje[1]);
+                    } else {
+                        console.log("Tipo de mensaje no definido!");
+                    }
+                }
+            });
+        }
+        setInterval(function() {
+            validarAcceso();
+        }, 60000);
+    </script>
     <div id="appUsuario" style="overflow-x: hidden;min-height:100vh;">
         <p class="d-none">{{nombreUsuario="<?= $usuario['nombre'] ?>"}}</p>
         <navegacionusuarios nombre="<?= $usuario['nombre'] ?>" correo="<?= $usuario['correo'] ?>"></navegacionusuarios>

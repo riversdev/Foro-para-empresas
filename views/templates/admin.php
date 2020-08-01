@@ -187,6 +187,7 @@ if (isset($_SESSION['admin_id'])) {
                         $('#fechaAcceso').removeAttr("disabled");
                         $('#horaInicioAcceso').removeAttr("disabled");
                         $('#horaFinAcceso').removeAttr("disabled");
+                        $('#descripcionAcceso').removeAttr("disabled");
                         $("#btnEventCancel").addClass("d-none");
                         $("#btnEventEdit").addClass("d-none");
                         $("#btnEventDelete").addClass("d-none");
@@ -206,6 +207,7 @@ if (isset($_SESSION['admin_id'])) {
                             $('#fechaAcceso').removeAttr("disabled");
                             $('#horaInicioAcceso').removeAttr("disabled");
                             $('#horaFinAcceso').removeAttr("disabled");
+                            $('#descripcionAcceso').removeAttr("disabled");
                             $("#btnEventCancel").addClass("d-none");
                             $("#btnEventEdit").addClass("d-none");
                             $("#btnEventDelete").addClass("d-none");

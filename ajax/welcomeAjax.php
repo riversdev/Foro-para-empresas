@@ -14,17 +14,19 @@ if ($peticion == "registro") {
     if ($tipo == 2) {
         $resultado = Welcome::registrarEmpresa($nombre, $correo, $contrasenia);
     }
+    echo $resultado;
 } elseif ($peticion == "identificacion") {
     $correo = $_POST['txtEmail'];
     $contrasenia = $_POST['txtPassword'];
     $tipo = $_POST['txtSoyEmpresa'];
     if ($tipo == 3) {
-        $resultado = Welcome::identificarUsuario($correo, $contrasenia);
+        Welcome::identificarUsuario($correo, $contrasenia, $_POST['cadFechaActual'], $_POST['cadHoraActual']);
     } elseif ($tipo == 2) {
-        $resultado = Welcome::identificarEmpresa($correo, $contrasenia);
+        Welcome::identificarEmpresa($correo, $contrasenia, $_POST['cadFechaActual'], $_POST['cadHoraActual']);
     }
+} elseif ($peticion == "validarAcceso") {
+    Welcome::validarAcceso($_POST['cadFechaActual'], $_POST['cadHoraActual']);
 } elseif ($peticion == "salir") {
     $resultado = Welcome::salir();
+    echo $resultado;
 }
-
-echo $resultado;

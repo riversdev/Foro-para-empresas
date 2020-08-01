@@ -207,6 +207,20 @@ if (isset($_SESSION['user_id'])) {
                             } else {
                                 txtSoyEmpresa = 3;
                             }
+                            // FECHA ACTUAL RECUPERADA CON JS
+                            let fechaActual = new Date();
+                            let anio = fechaActual.getFullYear();
+                            let mes = fechaActual.getMonth() + 1;
+                            let dia = fechaActual.getDate();
+                            mes < 10 ? mes = '0' + mes : mes = mes;
+                            dia < 10 ? dia = '0' + dia : dia = dia;
+                            let cadFechaActual = anio + '-' + mes + '-' + dia;
+                            // HORA ACTUAL RECUPERADA CON JS
+                            let horas = fechaActual.getHours();
+                            let minutos = fechaActual.getMinutes();
+                            horas < 10 ? horas = '0' + horas : horas = horas;
+                            minutos < 10 ? minutos = '0' + minutos : minutos = minutos;
+                            let cadHoraActual = horas + ":" + minutos;
                             $.ajax({
                                 type: "POST",
                                 url: "ajax/welcomeAjax.php",
@@ -214,13 +228,16 @@ if (isset($_SESSION['user_id'])) {
                                     tipo: "identificacion",
                                     txtEmail,
                                     txtPassword,
-                                    txtSoyEmpresa
+                                    txtSoyEmpresa,
+                                    cadFechaActual,
+                                    cadHoraActual
                                 },
                                 error: function(data) {
                                     console.error(data);
                                 },
                                 success: function(data) {
-                                    if (data == 1) {
+                                    let mensaje = data.split("|");
+                                    if (mensaje[0] == "success") {
                                         if (txtSoyEmpresa == 2) {
                                             location.href = "empresa";
                                         }
@@ -231,8 +248,10 @@ if (isset($_SESSION['user_id'])) {
                                                 location.href = "usuario"
                                             }
                                         }
+                                    } else if (mensaje[0] == "error") {
+                                        alertify.error(mensaje[1]);
                                     } else {
-                                        alertify.error("Verifica tus datos!");
+                                        console.log("Tipo de respuesta no definido");
                                     }
                                 }
                             });

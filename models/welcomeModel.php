@@ -50,39 +50,80 @@ class Welcome
         }
     }
 
-    public static function identificarEmpresa($correo, $contrasenia)
+    public static function identificarEmpresa($correo, $contrasenia, $fechaActual, $horaActual)
     {
-        $SQL = "SELECT id, contrasenia FROM empresas WHERE correo='$correo';";
+        $SQL = "SELECT * FROM accesos WHERE fecha = '$fechaActual' AND horaInicio<='$horaActual' AND horaFin>='$horaActual';";
         $stmt = Conexion::conectar()->prepare($SQL);
         $stmt->execute();
-        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-        if (count($resultado) > 0 && password_verify($contrasenia, $resultado['contrasenia'])) {
-            $_SESSION['empresa_id'] = $resultado['id'];
-            return 1;
-        } else {
-            return 0;
-        }
+        $resultado = $stmt->fetchAll();
         $stmt = null;
+        if (count($resultado) > 0) {
+            $SQL = "SELECT id, contrasenia FROM empresas WHERE correo='$correo';";
+            $stmt = Conexion::conectar()->prepare($SQL);
+            $stmt->execute();
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+            if (count($resultado) > 0 && password_verify($contrasenia, $resultado['contrasenia'])) {
+                $_SESSION['empresa_id'] = $resultado['id'];
+                echo "success| ";
+            } else {
+                echo "error|Verifica tus datos!";
+            }
+            $stmt = null;
+        } else {
+            echo "error|Acceso no permitido!";
+        }
     }
 
-    public static function identificarUsuario($correo, $contrasenia)
+    public static function identificarUsuario($correo, $contrasenia, $fechaActual, $horaActual)
     {
-        $SQL = "SELECT id, contrasenia FROM usuarios WHERE correo='$correo';";
+        if ($correo == "admin@admin") {
+            $SQL = "SELECT id, contrasenia FROM usuarios WHERE correo='$correo';";
+            $stmt = Conexion::conectar()->prepare($SQL);
+            $stmt->execute();
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+            if (count($resultado) > 0 && password_verify($contrasenia, $resultado['contrasenia'])) {
+                $_SESSION['admin_id'] = $resultado['id'];
+                echo "success| ";
+            } else {
+                echo "error|Verifica tus datos!";
+            }
+            $stmt = null;
+        } else {
+            $SQL = "SELECT * FROM accesos WHERE fecha = '$fechaActual' AND horaInicio<='$horaActual' AND horaFin>='$horaActual';";
+            $stmt = Conexion::conectar()->prepare($SQL);
+            $stmt->execute();
+            $resultado = $stmt->fetchAll();
+            $stmt = null;
+            if (count($resultado) > 0) {
+                $SQL = "SELECT id, contrasenia FROM usuarios WHERE correo='$correo';";
+                $stmt = Conexion::conectar()->prepare($SQL);
+                $stmt->execute();
+                $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+                if (count($resultado) > 0 && password_verify($contrasenia, $resultado['contrasenia'])) {
+                    $_SESSION['user_id'] = $resultado['id'];
+                    echo "success| ";
+                } else {
+                    echo "error|Verifica tus datos!";
+                }
+                $stmt = null;
+            } else {
+                echo "error|Acceso no permitido!";
+            }
+        }
+    }
+
+    public static function validarAcceso($fechaActual, $horaActual)
+    {
+        $SQL = "SELECT * FROM accesos WHERE fecha = '$fechaActual' AND horaInicio<='$horaActual' AND horaFin>='$horaActual';";
         $stmt = Conexion::conectar()->prepare($SQL);
         $stmt->execute();
-        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-        if (count($resultado) > 0 && password_verify($contrasenia, $resultado['contrasenia'])) {
-            if ($correo == "admin@admin") {
-                $_SESSION['admin_id'] = $resultado['id'];
-                return 1;
-            } else {
-                $_SESSION['user_id'] = $resultado['id'];
-                return 1;
-            }
-        } else {
-            return 0;
-        }
+        $resultado = $stmt->fetchAll();
         $stmt = null;
+        if (count($resultado) == 0) {
+            echo "error|Acceso no permitido!";
+        } else {
+            echo "success|Acceso valido!";
+        }
     }
 
     public static function salir()
