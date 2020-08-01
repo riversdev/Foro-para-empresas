@@ -6,7 +6,8 @@
 <script src="views\static\js\vue\vue-router.js"></script>
 <!-- Components -->
 <script src="views/components/navUsuarios.js"></script>
-<script src="views/components/vacio.js"></script>
+<script src="views/components/vaciousuario.js"></script>
+<script src="views/components/antesDeElegir.js"></script>
 
 <?php
 session_start();
@@ -36,7 +37,16 @@ if (isset($_SESSION['user_id'])) {
         <p class="d-none">{{nombreUsuario="<?= $usuario['nombre'] ?>"}}</p>
         <navegacionusuarios nombre="<?= $usuario['nombre'] ?>" correo="<?= $usuario['correo'] ?>"></navegacionusuarios>
         <div v-if="empresas === null">
-            NO EXISTEN EMRESAS
+            <div class="row px-5 pt-3 d-flex justify-content-center pt-5 mt-5">
+                <div class="card mb-3 bg-danger text-white mt-5" style="max-width: 25rem;">
+                    <div class="card-body text-white">
+                        <h5 class="card-title text-center">Bienvenido</h5>
+                        <p class="card-text text-justify">
+                            No existen empresas registradas con las que puedas interactuar. Ponte en contacto con el administrador del sistema.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
         <div v-else>
             <div class="row">
@@ -44,16 +54,7 @@ if (isset($_SESSION['user_id'])) {
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
                             <div v-if="idEmpresaU === ''">
-                                <div class="row px-5 pt-3 d-flex justify-content-center pt-5 mt-5">
-                                    <div class="card mb-3 bg-warning text-white mt-5" style="max-width: 25rem;">
-                                        <div class="card-body text-white">
-                                            <h5 class="card-title text-center">Bienvenido</h5>
-                                            <p class="card-text text-justify">
-                                                Selecciona la empresa de tu interés en la lista a la derecha. Podrás vizualizar su información, tripticos y videos navegando entre las opciones de la parte superior. Tienes acceso a un chat con la empresa eligiendo la opción en la parte superior.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+                                <antesdeelegir></antesdeelegir>
                             </div>
                             <div v-else>
                                 <div class="row px-5 pt-3">
@@ -141,37 +142,33 @@ if (isset($_SESSION['user_id'])) {
                         </div>
                         <div class="tab-pane fade" id="nav-tripticos" role="tabpanel" aria-labelledby="nav-tripticos-tab">
                             <div v-if="idEmpresaU === ''">
-                                <div class="row px-5 pt-3 d-flex justify-content-center pt-5 mt-5">
-                                    <div class="card mb-3 bg-warning text-white mt-5" style="max-width: 25rem;">
-                                        <div class="card-body text-white">
-                                            <h5 class="card-title text-center">Bienvenido</h5>
-                                            <p class="card-text text-justify">
-                                                Selecciona la empresa de tu interés en la lista a la derecha. Podrás vizualizar su información, tripticos y videos navegando entre las opciones de la parte superior. Tienes acceso a un chat con la empresa eligiendo la opción en la parte superior.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+                                <antesdeelegir></antesdeelegir>
                             </div>
                             <div v-else>
-                                <div class="row pt-3">
-                                    <div class="col-12 col-sm-12 col-lg-3">
-                                        <div class="list-group list-group-flush">
-                                            <div v-for="(triptico, index) in tripticos">
-                                                <p class="d-none">{{listaTripticos[index]=triptico.id}}</p>
-                                                <a v-bind:id="'listaTripticos'+triptico.id" class="list-group-item list-group-item-action d-flex justify-content-center align-items-center border-warning border-top-0 border-left-0 border-right-0 rounded" v-on:click="tripticoSeleccionado=triptico.imagen, dameElActiveTriptico(triptico.id)">{{triptico.nombre}}</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-12 col-lg-9">
-                                        <div v-if="tripticoSeleccionado === ''">
-                                            <div v-for="(triptico, index) in tripticos">
-                                                <div v-if="index === 0">
-                                                    <img v-bind:src="'data:image/jpeg;base64,' + triptico.imagen" class="d-block w-100" style="height: 70vh;">
+                                <div v-if="tripticos === null">
+                                    <vaciousuarios cat="tripticos"></vaciousuarios>
+                                </div>
+                                <div v-else>
+                                    <div class="row pt-3">
+                                        <div class="col-12 col-sm-12 col-lg-3">
+                                            <div class="list-group list-group-flush">
+                                                <div v-for="(triptico, index) in tripticos">
+                                                    <p class="d-none">{{listaTripticos[index]=triptico.id}}</p>
+                                                    <a v-bind:id="'listaTripticos'+triptico.id" class="list-group-item list-group-item-action d-flex justify-content-center align-items-center border-warning border-top-0 border-left-0 border-right-0 rounded" v-on:click="tripticoSeleccionado=triptico.imagen, dameElActiveTriptico(triptico.id)">{{triptico.nombre}}</a>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div v-else>
-                                            <img v-bind:src="'data:image/jpeg;base64,' + tripticoSeleccionado" class="d-block w-100" style="height: 70vh;">
+                                        <div class="col-12 col-sm-12 col-lg-9">
+                                            <div v-if="tripticoSeleccionado === ''">
+                                                <div v-for="(triptico, index) in tripticos">
+                                                    <div v-if="index === 0">
+                                                        <img v-bind:src="'data:image/jpeg;base64,' + triptico.imagen" class="d-block w-100" style="height: 70vh;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div v-else>
+                                                <img v-bind:src="'data:image/jpeg;base64,' + tripticoSeleccionado" class="d-block w-100" style="height: 70vh;">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -179,37 +176,33 @@ if (isset($_SESSION['user_id'])) {
                         </div>
                         <div class="tab-pane fade" id="nav-videos" role="tabpanel" aria-labelledby="nav-videos-tab">
                             <div v-if="idEmpresaU === ''">
-                                <div class="row px-5 pt-3 d-flex justify-content-center pt-5 mt-5">
-                                    <div class="card mb-3 bg-warning text-white mt-5" style="max-width: 25rem;">
-                                        <div class="card-body text-white">
-                                            <h5 class="card-title text-center">Bienvenido</h5>
-                                            <p class="card-text text-justify">
-                                                Selecciona la empresa de tu interés en la lista a la derecha. Podrás vizualizar su información, tripticos y videos navegando entre las opciones de la parte superior. Tienes acceso a un chat con la empresa eligiendo la opción en la parte superior.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+                                <antesdeelegir></antesdeelegir>
                             </div>
                             <div v-else>
-                                <div class="row pt-3">
-                                    <div class="col-12 col-sm-12 col-lg-3">
-                                        <div class="list-group list-group-flush">
-                                            <div v-for="(video, index) in videos">
-                                                <p class="d-none">{{listaVideos[index]=video.id}}</p>
-                                                <a v-bind:id="'listaVideos'+video.id" class="list-group-item list-group-item-action d-flex justify-content-center align-items-center border-warning border-top-0 border-left-0 border-right-0 rounded" v-on:click="videoSeleccionado=video.link, dameElActiveVideo(video.id)">{{video.nombre}}</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-12 col-lg-9 text-center pt-5">
-                                        <div v-if="videoSeleccionado === ''">
-                                            <div v-for="(video, index) in videos">
-                                                <div v-if="index === 0">
-                                                    <iframe width="720" height="395" v-bind:src="video.link" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <div v-if="tripticos === null">
+                                    <vaciousuarios cat="videos"></vaciousuarios>
+                                </div>
+                                <div v-else>
+                                    <div class="row pt-3">
+                                        <div class="col-12 col-sm-12 col-lg-3">
+                                            <div class="list-group list-group-flush">
+                                                <div v-for="(video, index) in videos">
+                                                    <p class="d-none">{{listaVideos[index]=video.id}}</p>
+                                                    <a v-bind:id="'listaVideos'+video.id" class="list-group-item list-group-item-action d-flex justify-content-center align-items-center border-warning border-top-0 border-left-0 border-right-0 rounded" v-on:click="videoSeleccionado=video.link, dameElActiveVideo(video.id)">{{video.nombre}}</a>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div v-else>
-                                            <iframe width="720" height="395" v-bind:src="videoSeleccionado" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        <div class="col-12 col-sm-12 col-lg-9 text-center pt-5">
+                                            <div v-if="videoSeleccionado === ''">
+                                                <div v-for="(video, index) in videos">
+                                                    <div v-if="index === 0">
+                                                        <iframe width="720" height="395" v-bind:src="video.link" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div v-else>
+                                                <iframe width="720" height="395" v-bind:src="videoSeleccionado" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -217,16 +210,7 @@ if (isset($_SESSION['user_id'])) {
                         </div>
                         <div class="tab-pane fade" id="nav-chat" role="tabpanel" aria-labelledby="nav-chat-tab">
                             <div v-if="idEmpresaU === ''">
-                                <div class="row px-5 pt-3 d-flex justify-content-center pt-5 mt-5">
-                                    <div class="card mb-3 bg-warning text-white mt-5" style="max-width: 25rem;">
-                                        <div class="card-body text-white">
-                                            <h5 class="card-title text-center">Bienvenido</h5>
-                                            <p class="card-text text-justify">
-                                                Selecciona la empresa de tu interés en la lista a la derecha. Podrás vizualizar su información, tripticos y videos navegando entre las opciones de la parte superior. Tienes acceso a un chat con la empresa eligiendo la opción en la parte superior.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+                                <antesdeelegir></antesdeelegir>
                             </div>
                             <div v-else>
                                 <div class="row d-flex align-items-center justify-content-center pt-3">
