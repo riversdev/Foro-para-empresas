@@ -234,8 +234,8 @@ if (isset($_SESSION['empresa_id'])) {
                     <div class="row d-flex align-items-center justify-content-center pt-3">
                         <div class="card mb-3 bg-transparent border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded" style="width: 50rem;">
                             <div class="card-body">
-                                <div class="d-flex align-items-end pb-3" style="height: 50vh; overflow-y: scroll;">
-                                    <div id="chatContainer" style="width: 100%;"></div>
+                                <div style="height: 50vh; overflow-y: scroll;">
+                                    <div id="chatContainer" class="pb-5" style="width: 100%;"></div>
                                 </div>
                                 <form id="formChatEmpresa" method="POST" class="needs-validation" novalidate>
                                     <input type="text" class="d-none" id="idEmpresaChatEmpresa" value="<?= $empresa['id']; ?>" required>

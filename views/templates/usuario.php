@@ -233,8 +233,7 @@ if (isset($_SESSION['user_id'])) {
                                     <div class="card mb-3 bg-transparent border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded" style="width: 50rem;">
                                         <div class="card-body">
                                             <div style="height: 50vh; overflow-y: scroll;">
-                                                <div id="chatContainer" style="width: 100%;"></div>
-                                                <div id="slideChat" class="py-3"></div>
+                                                <div id="chatContainer" class="pb-5" style="width: 100%;"></div>
                                             </div>
                                             <p class="d-none">{{prepararValidacionForms()}}</p>
                                             <form id="formChatUsuario" method="POST" class="needs-validation" novalidate>

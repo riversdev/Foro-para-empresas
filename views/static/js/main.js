@@ -445,8 +445,8 @@ function guardarMensaje(idEmpresa, tipoAcceso) {
         success: function (data) {
             //console.log("Guardado");
             document
-                .getElementById("slideChat")
-                .scrollIntoView({ block: "start", behavior: "smooth" });
+                .getElementById("chatContainer")
+                .scrollIntoView({ block: "end", behavior: "smooth" });
         }
     });
 }
