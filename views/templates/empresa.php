@@ -230,7 +230,35 @@ if (isset($_SESSION['empresa_id'])) {
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="nav-chat" role="tabpanel" aria-labelledby="nav-chat-tab">.Chat..</div>
+                <div class="tab-pane fade" id="nav-chat" role="tabpanel" aria-labelledby="nav-chat-tab">
+                    <div class="row d-flex align-items-center justify-content-center pt-3">
+                        <div class="card mb-3 bg-transparent border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded" style="width: 50rem;">
+                            <div class="card-body">
+                                <div class="d-flex align-items-end pb-3" style="height: 50vh; overflow-y: scroll;">
+                                    <div id="chatContainer" style="width: 100%;"></div>
+                                </div>
+                                <form id="formChatEmpresa" method="POST" class="needs-validation" novalidate>
+                                    <input type="text" class="d-none" id="idEmpresaChatEmpresa" value="<?= $empresa['id']; ?>" required>
+                                    <input type="text" class="d-none" id="sujetoChatEmpresa" value="<?= $empresa['nombre']; ?>" required>
+                                    <div class="form-row">
+                                        <div class="col-12 col-sm-8 col-md-9 col-lg-10">
+                                            <textarea class="form-control form-control-sm" rows="2" id="mensajeChatEmpresa" placeholder="Escribe un mensaje" v-model="mensaje" required></textarea>
+                                            <div class="invalid-feedback">
+                                                Ingresa un mensaje.
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-md-3 col-lg-2">
+                                            <button type="submit" class="btn btn-outline-warning btn-block">Enviar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer text-muted">
+                                Los mensajes se eliminarán al terminar el tiempo de acceso.
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

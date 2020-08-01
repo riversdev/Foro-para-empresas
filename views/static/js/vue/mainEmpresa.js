@@ -12,10 +12,12 @@ var appEmpresa = new Vue({
         videoDeInicio: true,
         idVideo: "",
         nombreVideo: "",
-        linkVideo: ""
+        linkVideo: "",
+        mensaje: ""
     },
     mounted() {
         prepararValidacionFormularios();
+        this.getChat();
         store.dispatch('obtenerInformacion', this.id);
         store.dispatch('obtenerTripticos', this.id);
         store.dispatch('obtenerVideos', this.id);
@@ -39,6 +41,41 @@ var appEmpresa = new Vue({
         },
         tabTrip({ commit }) {
             tabularTripticos();
+        },
+        getChat() {
+            repetir();
+            let idEmpresa = this.id;
+            function obtenerChat() {
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/chatAjax.php",
+                    data: {
+                        tipoPeticion: "leer",
+                        tipoAcceso: "empresa",
+                        idEmpresa
+                    },
+                    error: function (data) {
+                        console.error(data);
+                    },
+                    success: function (data) {
+                        $('#chatContainer').empty();
+                        $('#chatContainer').append(data);
+                    }
+                });
+            }
+
+            function repetir() {
+                if (this.bucle == undefined) {
+                    this.bucle = setInterval(function () {
+                        obtenerChat();
+                    }, 1000);
+                } else {
+                    clearInterval(this.bucle);
+                    this.bucle = setInterval(function () {
+                        obtenerChat();
+                    }, 1000);
+                }
+            }
         }
     },
     computed: {

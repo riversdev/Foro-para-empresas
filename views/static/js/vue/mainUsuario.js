@@ -17,14 +17,16 @@ var appUsuario = new Vue({
         fundadorU: "",
         CEOU: "",
         tripticoSeleccionado: "",
-        videoSeleccionado: ""
+        videoSeleccionado: "",
+        mensaje: "",
+        bucle: undefined
     },
     mounted() {
         store.dispatch('obtenerEmpresas');
     },
     methods: {
         prepararValidacionForms() {
-            prepararValidacionFormularios()
+            prepararValidacionForms()
         },
         dameElActive(id) {
             dameElActive('item' + id, this.items);
@@ -42,22 +44,71 @@ var appUsuario = new Vue({
             store.dispatch('obtenerVideos', id);
         },
         getChat(id) {
-            function ajax() {
-                var req = new XMLHttpRequest();
-                req.onreadystatechange = function () {
-                    if (req.readyState == 4 && req.status == 200) {
-                        document.getElementById('chatContainer').innerHTML = req.responseText;
+            repetir();
+
+            function obtenerChat(idEmpresa) {
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/chatAjax.php",
+                    data: {
+                        tipoPeticion: "leer",
+                        tipoAcceso: "usuario",
+                        idEmpresa
+                    },
+                    error: function (data) {
+                        console.error(data);
+                    },
+                    success: function (data) {
+                        $('#chatContainer').empty();
+                        $('#chatContainer').append(data);
                     }
-                }
-                req.open('GET', 'ajax/chatAjax.php', true);
-                req.send();
+                });
             }
-            setInterval(function () {
-                ajax();
-            }, 1000);
+
+            function repetir() {
+                if (this.bucle == undefined) {
+                    this.bucle = setInterval(function () {
+                        obtenerChat(id);
+                    }, 1000);
+                } else {
+                    clearInterval(this.bucle);
+                    this.bucle = setInterval(function () {
+                        obtenerChat(id);
+                    }, 1000);
+                }
+            }
         }
     },
     computed: {
         ...Vuex.mapState(['empresas', 'tripticos', 'videos'])
     }
 });
+
+let x = 0; // NI IDEA PERO FUNCIONA XD
+
+function prepararValidacionForms() {
+    // console.log("preparando valid"); // NI IDEA PERO FUNCIONA XD
+    x++; // NI IDEA PERO FUNCIONA XD
+    if (x == 2) { // NI IDEA PERO FUNCIONA XD
+        // console.log("validacion leida"); // NI IDEA PERO FUNCIONA XD
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    event.preventDefault();
+                    if (form.id == "formChatUsuario") {
+                        guardarMensaje($('#idEmpresaChatUsuario').val(), "usuario");
+                        $('#mensajeChatUsuario').val('');
+                    }
+                    else {
+                        console.log("Formulario no encontrado 2");
+                    }
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    } // NI IDEA PERO FUNCIONA XD
+}

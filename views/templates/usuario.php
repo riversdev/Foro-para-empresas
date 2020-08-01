@@ -42,7 +42,7 @@ if (isset($_SESSION['user_id'])) {
             <div class="row">
                 <div class="col-12 col-sm-8 col-lg-9">
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade" id="info" role="tabpanel" aria-labelledby="info-tab">
+                        <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
                             <div v-if="idEmpresaU === ''">
                                 <div class="row px-5 pt-3 d-flex justify-content-center pt-5 mt-5">
                                     <div class="card mb-3 bg-warning text-white mt-5" style="max-width: 25rem;">
@@ -139,7 +139,7 @@ if (isset($_SESSION['user_id'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="tripticos" role="tabpanel" aria-labelledby="tripticos-tab">
+                        <div class="tab-pane fade" id="nav-tripticos" role="tabpanel" aria-labelledby="nav-tripticos-tab">
                             <div v-if="idEmpresaU === ''">
                                 <div class="row px-5 pt-3 d-flex justify-content-center pt-5 mt-5">
                                     <div class="card mb-3 bg-warning text-white mt-5" style="max-width: 25rem;">
@@ -177,7 +177,7 @@ if (isset($_SESSION['user_id'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="videos" role="tabpanel" aria-labelledby="videos-tab">
+                        <div class="tab-pane fade" id="nav-videos" role="tabpanel" aria-labelledby="nav-videos-tab">
                             <div v-if="idEmpresaU === ''">
                                 <div class="row px-5 pt-3 d-flex justify-content-center pt-5 mt-5">
                                     <div class="card mb-3 bg-warning text-white mt-5" style="max-width: 25rem;">
@@ -215,7 +215,7 @@ if (isset($_SESSION['user_id'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade show active" id="chat" role="tabpanel" aria-labelledby="chat-tab">
+                        <div class="tab-pane fade" id="nav-chat" role="tabpanel" aria-labelledby="nav-chat-tab">
                             <div v-if="idEmpresaU === ''">
                                 <div class="row px-5 pt-3 d-flex justify-content-center pt-5 mt-5">
                                     <div class="card mb-3 bg-warning text-white mt-5" style="max-width: 25rem;">
@@ -232,18 +232,17 @@ if (isset($_SESSION['user_id'])) {
                                 <div class="row d-flex align-items-center justify-content-center pt-3">
                                     <div class="card mb-3 bg-transparent border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded" style="width: 50rem;">
                                         <div class="card-body">
-                                            <div class="d-flex align-items-end pb-3" style="height: 50vh; overflow-y: scroll;">
-                                                <div id="chatContainer"></div>
+                                            <div style="height: 50vh; overflow-y: scroll;">
+                                                <div id="chatContainer" style="width: 100%;"></div>
+                                                <div id="slideChat" class="py-3"></div>
                                             </div>
                                             <p class="d-none">{{prepararValidacionForms()}}</p>
-                                            <form id="formChat" method="POST" class="needs-validation" novalidate>
-                                                <input type="text" class="d-none" id="sujetoChat" v-bind:value="nombreUsuario" required>
+                                            <form id="formChatUsuario" method="POST" class="needs-validation" novalidate>
+                                                <input type="text" class="d-none" id="idEmpresaChatUsuario" v-bind:value="idEmpresaU" required>
+                                                <input type="text" class="d-none" id="sujetoChatUsuario" v-bind:value="nombreUsuario" required>
                                                 <div class="form-row">
                                                     <div class="col-12 col-sm-8 col-md-9 col-lg-10">
-                                                        <textarea class="form-control form-control-sm" rows="2" id="mensajeChat" placeholder="Escribe un mensaje" required></textarea>
-                                                        <div class="valid-feedback">
-                                                            Correcto!
-                                                        </div>
+                                                        <textarea class="form-control form-control-sm" rows="2" id="mensajeChatUsuario" placeholder="Escribe un mensaje" v-model="mensaje" required></textarea>
                                                         <div class="invalid-feedback">
                                                             Ingresa un mensaje.
                                                         </div>
@@ -268,7 +267,7 @@ if (isset($_SESSION['user_id'])) {
                         <h5 class="text-center text-light py-2 shadow bg-primary rounded">Empresas</h5>
                         <div v-for="(empresa, index) in empresas">
                             <p class="d-none">{{items[index]=empresa.id}}</p>
-                            <a v-bind:id="'item' + empresa.id" v-on:click="dameElActive(empresa.id), idEmpresaU=empresa.id, empresaU=empresa.nombre, correoU=empresa.correo, logoU=empresa.logo, productosU=empresa.productosServicios, misionU=empresa.mision,visionU=empresa.vision, fundadorU=empresa.fundador, CEOU=empresa.CEO, tripticoSeleccionado='', videoSeleccionado='', getTripticos(empresa.id), getVideos(empresa.id), getChat(empresa.id)" class="list-group-item list-group-item-action d-flex justify-content-center align-items-center border-warning border-top-0 border-left-0 border-right-0 rounded">
+                            <a v-bind:id="'item' + empresa.id" v-on:click="dameElActive(empresa.id), idEmpresaU=empresa.id, empresaU=empresa.nombre, correoU=empresa.correo, logoU=empresa.logo, productosU=empresa.productosServicios, misionU=empresa.mision,visionU=empresa.vision, fundadorU=empresa.fundador, CEOU=empresa.CEO, tripticoSeleccionado='', videoSeleccionado='', getTripticos(empresa.id), getVideos(empresa.id), mensaje='', getChat(empresa.id)" class="list-group-item list-group-item-action d-flex justify-content-center align-items-center border-warning border-top-0 border-left-0 border-right-0 rounded">
                                 <h6>{{empresa.nombre}}</h6><img v-bind:src="empresa.logo" style="height: 30px;" class="pl-2">
                             </a>
                         </div>

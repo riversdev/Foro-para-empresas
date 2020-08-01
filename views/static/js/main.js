@@ -73,55 +73,48 @@ $(document).ready(function () {
             .getElementById("calendar")
             .scrollIntoView({ block: "start", behavior: "smooth" });
     });
-
 });
 
-let x = 0;
-
 function prepararValidacionFormularios() {
-    console.log("preparando validacion");
-    x = x + 1;
-    if (x == 2) {
-        console.log("validacion leida");
-        var forms = document.getElementsByClassName('needs-validation');
-        var validation = Array.prototype.filter.call(forms, function (form) {
-            form.addEventListener('submit', function (event) {
-                if (form.id == "formAccesos") {
-                    insertarHoraInicial("horaInicioAcceso", "fechaAcceso");
-                    insertarHoraFinal("horaInicioAcceso", "horaFinAcceso");
-                }
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                } else {
-                    event.preventDefault();
-                    if (form.id == "formEditarInformacion") {
-                        guardarLogo(form.id, form[0].value);
-                    } else if (form.id == "formEditarTriptico") {
-                        guardarTriptico(form.id);
-                    } else if (form.id == "formAgregarTriptico") {
-                        guardarTriptico(form.id);
-                    } else if (form.id == "formAgregarVideo") {
-                        guardarVideo(form.id);
-                    } else if (form.id == "formEditarVideo") {
-                        guardarVideo(form.id);
-                    } else if (form.id == "formAccesos") {
-                        if ($('#idAcceso').val() == "") {
-                            agendarAcceso();
-                        } else {
-                            actualizarAcceso();
-                        }
-                    } else if (form.id == "formChat") {
-                        guardarMensaje();
+    var forms = document.getElementsByClassName('needs-validation');
+    var validation = Array.prototype.filter.call(forms, function (form) {
+        form.addEventListener('submit', function (event) {
+            if (form.id == "formAccesos") {
+                insertarHoraInicial("horaInicioAcceso", "fechaAcceso");
+                insertarHoraFinal("horaInicioAcceso", "horaFinAcceso");
+            }
+            if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+            } else {
+                event.preventDefault();
+                if (form.id == "formEditarInformacion") {
+                    guardarLogo(form.id, form[0].value);
+                } else if (form.id == "formEditarTriptico") {
+                    guardarTriptico(form.id);
+                } else if (form.id == "formAgregarTriptico") {
+                    guardarTriptico(form.id);
+                } else if (form.id == "formAgregarVideo") {
+                    guardarVideo(form.id);
+                } else if (form.id == "formEditarVideo") {
+                    guardarVideo(form.id);
+                } else if (form.id == "formAccesos") {
+                    if ($('#idAcceso').val() == "") {
+                        agendarAcceso();
+                    } else {
+                        actualizarAcceso();
                     }
-                    else {
-                        console.log("Formulario no encontrado");
-                    }
+                } else if (form.id == "formChatEmpresa") {
+                    guardarMensaje($('#idEmpresaChatEmpresa').val(), "empresa");
+                    $('#mensajeChatEmpresa').val('');
                 }
-                form.classList.add('was-validated');
-            }, false);
-        });
-    }
+                else {
+                    console.log("Formulario no encontrado");
+                }
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
 }
 
 function guardarTriptico(form) {
@@ -424,15 +417,25 @@ function insertarHoraFinal(start, end) {
 
 
 // CHAT
-function guardarMensaje() {
-    let sujetoChat = $('#sujetoChat').val();
-    let mensajeChat = $('#mensajeChat').val();
+function guardarMensaje(idEmpresa, tipoAcceso) {
+    let sujetoChat = '';
+    let mensajeChat = '';
+
+    if (tipoAcceso == "usuario") {
+        sujetoChat = $('#sujetoChatUsuario').val();
+        mensajeChat = $('#mensajeChatUsuario').val();
+    } else if (tipoAcceso == "empresa") {
+        sujetoChat = $('#sujetoChatEmpresa').val();
+        mensajeChat = $('#mensajeChatEmpresa').val();
+    }
 
     $.ajax({
         type: "POST",
         url: "ajax/chatAjax.php",
         data: {
             tipoPeticion: "guardarMensaje",
+            tipoAcceso,
+            idEmpresa,
             sujetoChat,
             mensajeChat
         },
@@ -441,6 +444,9 @@ function guardarMensaje() {
         },
         success: function (data) {
             //console.log("Guardado");
+            document
+                .getElementById("slideChat")
+                .scrollIntoView({ block: "start", behavior: "smooth" });
         }
     });
 }

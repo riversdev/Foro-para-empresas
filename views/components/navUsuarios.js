@@ -10,20 +10,12 @@ Vue.component('navegacionusuarios', {
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <ul class="nav" id="myTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true">Información</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="tripticos-tab" data-toggle="tab" href="#tripticos" role="tab" aria-controls="tripticos" aria-selected="false">Tripticos</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="videos-tab" data-toggle="tab" href="#videos" role="tab" aria-controls="videos" aria-selected="false">Videos</a>
-                        </li>
-                        <li class="nav-item active" role="presentation">
-                            <a class="nav-link" id="chat-tab" data-toggle="tab" href="#chat" role="tab" aria-controls="chat" aria-selected="false">Chat</a>
-                        </li>
-                    </ul>
+                    <div class="nav d-flex justify-content-center align-items-center" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-controls="nav-info" aria-selected="true">Información</a>
+                        <a class="nav-item nav-link" id="nav-tripticos-tab" data-toggle="tab" href="#nav-tripticos" role="tab" aria-controls="nav-tripticos" aria-selected="false">Tripticos</a>
+                        <a class="nav-item nav-link" id="nav-videos-tab" data-toggle="tab" href="#nav-videos" role="tab" aria-controls="nav-videos" aria-selected="false">Videos</a>
+                        <a class="nav-item nav-link" id="nav-chat-tab" data-toggle="tab" href="#nav-chat" role="tab" aria-controls="nav-chat" aria-selected="false">Chat</a>
+                    </div>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <div class="dropdown">
