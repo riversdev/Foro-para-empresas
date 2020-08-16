@@ -1,7 +1,7 @@
 Vue.component('navegacionusuarios', {
     props: ['nombre', 'correo'],
     template: /*html*/`
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
             <a class="navbar-brand d-flex justify-content-between align-items-center" href="/Foro-para-empresas/usuario">
                 Foro
             </a>
@@ -19,16 +19,18 @@ Vue.component('navegacionusuarios', {
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <div class="dropdown">
-                        <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownUsuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-outline-warning dropdown-toggle" type="button" id="dropdownUsuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="far fa-user"></i>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownUsuario">
+                        <div class="dropdown-menu dropdown-menu-right bg-primary rounded mt-4" aria-labelledby="dropdownUsuario">
                             <div class="dropdown-item-text text-center">
-                                <h4>{{nombre}}</h4>
-                                <label>{{correo}}</label>
+                                <h4 class="text-light">{{nombre}}</h4>
+                                <label class="text-light">{{correo}}</label>
                             </div>
                             <div class="dropdown-divider"></div>
-                            <div class="dropdown-item text-right bg-danger text-white" id="salir">Cerrar sesión</div>
+                            <div class="dropdown-item bg-primary text-center">
+                                <button id="salir" type="button" class="btn btn-sm btn-danger">Cerrar sesión</button>
+                            </div>
                         </div>
                     </div>
                 </form>

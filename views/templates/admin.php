@@ -237,22 +237,48 @@ if (isset($_SESSION['admin_id'])) {
                     if (calEvent.fecha < fechaActual) {
                         $("#btnEventEdit").addClass("d-none");
                         $("#btnEventDelete").addClass("d-none");
+                    } else if (calEvent.fecha == fechaActual) {
+                        if (f.getHours() < 20 && f.getHours() >= 8) {
+                            $("#btnEventEdit").removeClass("d-none");
+                            $("#btnEventDelete").removeClass("d-none");
+                        } else {
+                            $("#btnEventEdit").addClass("d-none");
+                            $("#btnEventDelete").addClass("d-none");
+                        }
                     } else {
                         $("#btnEventEdit").removeClass("d-none");
                         $("#btnEventDelete").removeClass("d-none");
                     }
                     $("#btnEventAgendar").addClass("d-none");
                     $("#rowIssue").addClass("d-none");
+                    insertarHoraInicial("horaInicioAcceso", "fechaAcceso");
                     insertarHoraFinal("horaInicioAcceso", "horaFinAcceso");
                     $('#modalEvents').modal();
                 },
                 eventDrop: function(calEvent) {
                     if (calEvent.fecha < fechaActual) {
-                        alertify.error("Imposible reagendar cita");
+                        alertify.error("Imposible reagendar acceso");
                         $("#calendar").fullCalendar('refetchEvents');
+                    } else if (calEvent.fecha == fechaActual) {
+                        if (f.getHours() < 20 && f.getHours() >= 8) {
+                            if (calEvent.start.format().split("T")[0] < fechaActual) {
+                                alertify.error("Imposible reagendar acceso");
+                                $("#calendar").fullCalendar('refetchEvents');
+                            } else {
+                                $('#idAcceso').val(calEvent.idAcceso);
+                                $('#fechaAcceso').val(calEvent.start.format().split("T")[0]);
+                                $('#horaInicioAcceso').val(calEvent.start.format().split("T")[1]);
+                                $('#horaFinAcceso').val(calEvent.end.format().split("T")[1]);
+                                $('#descripcionAcceso').val(calEvent.title);
+                                actualizarAcceso();
+                            }
+                        } else {
+                            alertify.error("Imposible reagendar acceso");
+                            $("#calendar").fullCalendar('refetchEvents');
+                        }
                     } else {
                         if (calEvent.start.format().split("T")[0] < fechaActual) {
-                            alertify.error("Imposible reagendar cita");
+                            alertify.error("Imposible reagendar acceso");
                             $("#calendar").fullCalendar('refetchEvents');
                         } else {
                             $('#idAcceso').val(calEvent.idAcceso);

@@ -73,6 +73,21 @@ $(document).ready(function () {
             .getElementById("calendar")
             .scrollIntoView({ block: "start", behavior: "smooth" });
     });
+
+    // SLIDE MENUS
+    let content = document.getElementsByClassName('slide-Right');
+    for (let i = 0; i < content.length; i++) {
+        $(content[i]).on('mouseover', function () {
+            $(this).css({
+                "padding-left": "27px"
+            });
+        });
+        $(content[i]).on('mouseout', function () {
+            $(this).css({
+                "padding-left": "25px"
+            });
+        });
+    }
 });
 
 function prepararValidacionFormularios() {
@@ -263,29 +278,47 @@ function confirmacionEliminarTriptico(idTriptico, nombreTriptico) {
 
 function dameElActive(item, items) {
     for (let i = 0; i < items.length; i++) {
-        $('#item' + items[i]).removeClass("bg-warning");
-        $('#item' + items[i]).removeClass("text-white");
+        $('#item' + items[i]).removeClass("border-bottom");
+        $('#item' + items[i]).removeClass("border-warning");
+        $('#item' + items[i]).css({
+            "padding-left": "0px"
+        });
     }
-    $('#' + item).addClass("bg-warning");
-    $('#' + item).addClass("text-white");
+    $('#' + item).addClass("border-bottom");
+    $('#' + item).addClass("border-warning");
+    $('#' + item).css({
+        "padding-left": "5px"
+    });
 }
 
 function dameElActiveVideo(item, items) {
     for (let i = 0; i < items.length; i++) {
-        $('#listaVideos' + items[i]).removeClass("bg-warning");
-        $('#listaVideos' + items[i]).removeClass("text-white");
+        $('#listaVideos' + items[i]).removeClass("border-bottom");
+        $('#listaVideos' + items[i]).removeClass("border-warning");
+        $('#listaVideos' + items[i]).css({
+            "padding-left": "0px"
+        });
     }
-    $('#' + item).addClass("bg-warning");
-    $('#' + item).addClass("text-white");
+    $('#' + item).addClass("border-bottom");
+    $('#' + item).addClass("border-warning");
+    $('#' + item).css({
+        "padding-left": "5px"
+    });
 }
 
 function dameElActiveTriptico(item, items) {
     for (let i = 0; i < items.length; i++) {
-        $('#listaTripticos' + items[i]).removeClass("bg-warning");
-        $('#listaTripticos' + items[i]).removeClass("text-white");
+        $('#listaTripticos' + items[i]).removeClass("border-bottom");
+        $('#listaTripticos' + items[i]).removeClass("border-warning");
+        $('#listaTripticos' + items[i]).css({
+            "padding-left": "0px"
+        });
     }
-    $('#' + item).addClass("bg-warning");
-    $('#' + item).addClass("text-white");
+    $('#' + item).addClass("border-bottom");
+    $('#' + item).addClass("border-warning");
+    $('#' + item).css({
+        "padding-left": "5px"
+    });
 }
 
 // ADMIN

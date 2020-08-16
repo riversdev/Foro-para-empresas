@@ -2,7 +2,7 @@ Vue.component('vaciousuarios', {
     props: ['cat'],
     template:/*html*/
         `
-        <div class="row px-5 pt-3 d-flex justify-content-center pt-5 mt-5">
+        <div class="row d-flex justify-content-center align-items-center" style="height: 80vh;">
             <div class="card bg-warning mb-3" style="max-width: 18rem;">
                 <div class="card-body text-white">
                     <h6 class="card-title text-center">No existen {{cat}}</h6>

@@ -17,7 +17,10 @@ var appUsuario = new Vue({
         fundadorU: "",
         CEOU: "",
         tripticoSeleccionado: "",
+        nombreTriptico: "",
+        descripcionTriptico: "",
         videoSeleccionado: "",
+        nombreVideo: "",
         mensaje: "",
         bucle: undefined
     },
