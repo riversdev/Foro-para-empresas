@@ -61,9 +61,9 @@ class Welcome
             $SQL = "SELECT id, contrasenia FROM empresas WHERE correo='$correo';";
             $stmt = Conexion::conectar()->prepare($SQL);
             $stmt->execute();
-            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-            if (count($resultado) > 0 && password_verify($contrasenia, $resultado['contrasenia'])) {
-                $_SESSION['empresa_id'] = $resultado['id'];
+            $resultado = $stmt->fetchAll();
+            if (count($resultado) > 0 && password_verify($contrasenia, $resultado[0]['contrasenia'])) {
+                $_SESSION['empresa_id'] = $resultado[0]['id'];
                 echo "success| ";
             } else {
                 echo "error|Verifica tus datos!";
@@ -98,9 +98,9 @@ class Welcome
                 $SQL = "SELECT id, contrasenia FROM usuarios WHERE correo='$correo';";
                 $stmt = Conexion::conectar()->prepare($SQL);
                 $stmt->execute();
-                $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-                if (count($resultado) > 0 && password_verify($contrasenia, $resultado['contrasenia'])) {
-                    $_SESSION['user_id'] = $resultado['id'];
+                $resultado = $stmt->fetchAll();
+                if (count($resultado) > 0 && password_verify($contrasenia, $resultado[0]['contrasenia'])) {
+                    $_SESSION['user_id'] = $resultado[0]['id'];
                     echo "success| ";
                 } else {
                     echo "error|Verifica tus datos!";

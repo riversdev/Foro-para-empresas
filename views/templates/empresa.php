@@ -88,23 +88,23 @@ if (isset($_SESSION['empresa_id'])) {
             validarAcceso();
         }, 60000);
     </script>
-    <div id="appEmpresa">
+    <div id="appEmpresa" style="overflow-x: hidden;min-height:100vh;background-color: #F0F4F7;">
         <navegacionempresas id="<?= $empresa['id']; ?>" user="<?= $empresa['nombre']; ?>" email="<?= $empresa['correo']; ?>" password="<?= $empresa['contrasenia']; ?>" logoinicial="data:image/jpeg;base64,<?= base64_encode($empresa['logo'])  ?>" tipo="2"></navegacionempresas>
         <p class="d-none">{{id=<?= $empresa['id']; ?>}}</p>
         <div class="align-items-center justify-content-center" style="overflow-x: hidden;">
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
                     <div v-if="productos === '', mision === '', vision === '', fundador === '', CEO === ''">
-                        <div class="row mt-4 align-items-center justify-content-center" style="height: 65vh;overflow: hidden;">
+                        <div class="row align-items-center justify-content-center" style="min-height: 80vh;">
                             <vacio cat="datos"></vacio>
                         </div>
                     </div>
                     <div v-else>
-                        <div class="row px-5 pt-3">
+                        <div class="row d-flex justify-content-center align-items-center p-5" style="min-height: 80vh;">
                             <div class="col col-12">
                                 <div class="row">
                                     <div class="col-12 col-sm-6 col-lg-4">
-                                        <div class="card bg-transparent mb-3 border border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
+                                        <div class="card bg-white mb-3 border border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
                                             <div class="card-body text-primary">
                                                 <h6 class="card-title">Fundador</h6>
                                                 <small>
@@ -114,7 +114,7 @@ if (isset($_SESSION['empresa_id'])) {
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6 col-lg-4">
-                                        <div class="card bg-transparent mb-3 border border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
+                                        <div class="card bg-white mb-3 border border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
                                             <div class="card-body text-primary">
                                                 <h6 class="card-title">CEO</h6>
                                                 <small>
@@ -124,7 +124,7 @@ if (isset($_SESSION['empresa_id'])) {
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6 col-lg-4">
-                                        <div class="card bg-transparent mb-3 border border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
+                                        <div class="card bg-white mb-3 border border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
                                             <div class="card-body text-primary">
                                                 <h6 class="card-title">Contacto</h6>
                                                 <small>
@@ -136,7 +136,7 @@ if (isset($_SESSION['empresa_id'])) {
                                 </div>
                             </div>
                             <div class="col col-lg-4 col-sm-12 col-12">
-                                <div class="card mb-3 bg-transparent border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
+                                <div class="card mb-3 bg-white border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
                                     <div class="card-body text-primary">
                                         <div>
                                             <h6 class="card-title">Productos o servicios</h6>
@@ -144,14 +144,14 @@ if (isset($_SESSION['empresa_id'])) {
                                                 <p class="text-justify">{{productos}}</p>
                                             </small>
                                         </div>
-                                        <div class="bg-transparent text-center">
+                                        <div class="bg-white text-center">
                                             <img src="./views/static/img/productos-servicios-naranja.png" style="height: 20vh;">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col col-lg-4 col-sm-12 col-12">
-                                <div class="card bg-transparent mb-3 border-top-0 border-bottom-0 border-right-0 border-warning shadow-sm bg-white rounded">
+                                <div class="card bg-white mb-3 border-top-0 border-bottom-0 border-right-0 border-warning shadow-sm bg-white rounded">
                                     <div class="card-body text-primary">
                                         <div>
                                             <h6 class="card-title">Misión</h6>
@@ -159,14 +159,14 @@ if (isset($_SESSION['empresa_id'])) {
                                                 <p class="text-justify">{{mision}}</p>
                                             </small>
                                         </div>
-                                        <div class="bg-transparent text-center">
+                                        <div class="bg-white text-center">
                                             <img src="./views/static/img/mision.png" style="height: 20vh;">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col col-lg-4 col-sm-12 col-12">
-                                <div class="card bg-transparent mb-3 border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
+                                <div class="card bg-white mb-3 border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
                                     <div class="card-body text-primary">
                                         <div>
                                             <h6 class="card-title">Visión</h6>
@@ -174,7 +174,7 @@ if (isset($_SESSION['empresa_id'])) {
                                                 <p class="text-justify">{{vision}}</p>
                                             </small>
                                         </div>
-                                        <div class="bg-transparent text-center">
+                                        <div class="bg-white text-center">
                                             <img src="./views/static/img/vision-naranja.png" style="height: 20vh;">
                                         </div>
                                     </div>
@@ -185,7 +185,7 @@ if (isset($_SESSION['empresa_id'])) {
                 </div>
                 <div class="tab-pane fade" id="nav-tripticos" role="tabpanel" aria-labelledby="nav-tripticos-tab">
                     <div v-if="tripticos === null">
-                        <div class="row mt-4 align-items-center justify-content-center" style="height: 65vh;overflow: hidden;">
+                        <div class="row align-items-center justify-content-center" style="min-height: 80vh;">
                             <vacio cat="tripticos"></vacio>
                         </div>
                     </div>
@@ -203,13 +203,13 @@ if (isset($_SESSION['empresa_id'])) {
                                         <tr>
                                             <td><small>{{triptico.nombre}}</small></td>
                                             <td class="text-center d-flex justify-content-between">
-                                                <button class="btn btn-sm btn-transparent" type="button" v-on:click="eliminarTriptico(triptico.id,triptico.nombre)">
+                                                <button class="btn btn-sm btn-white" type="button" v-on:click="eliminarTriptico(triptico.id,triptico.nombre)">
                                                     <i class="far fa-trash-alt"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-transparent" type="button" data-toggle="modal" data-target="#modalEditarTriptico" v-on:click="idTriptico=triptico.id, nombreTriptico=triptico.nombre, descripcionTriptico=triptico.descripcion, imagenTriptico='data:image/jpeg;base64,'+triptico.imagen">
+                                                <button class="btn btn-sm btn-white" type="button" data-toggle="modal" data-target="#modalEditarTriptico" v-on:click="idTriptico=triptico.id, nombreTriptico=triptico.nombre, descripcionTriptico=triptico.descripcion, imagenTriptico='data:image/jpeg;base64,'+triptico.imagen">
                                                     <i class="far fa-edit"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-transparent" type="button" v-on:click="imagenTriptico='data:image/jpeg;base64,'+triptico.imagen, tripticoDeInicio = false">
+                                                <button class="btn btn-sm btn-white" type="button" v-on:click="imagenTriptico='data:image/jpeg;base64,'+triptico.imagen, tripticoDeInicio = false">
                                                     <i class="far fa-eye"></i>
                                                 </button>
                                             </td>
@@ -222,12 +222,24 @@ if (isset($_SESSION['empresa_id'])) {
                                     <div v-if="tripticoDeInicio === true">
                                         <div v-for="(triptico, index) in tripticos">
                                             <div v-if="index === 0" class="">
-                                                <img v-bind:src="'data:image/jpeg;base64,'+triptico.imagen" class="d-block" style="height: 70vh;">
+                                                <div class="row d-flex justify-content-center align-items-center px-5" style="min-height: 80vh;">
+                                                    <div class="card bg-white mb-3 border border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded" style="width: 100%;">
+                                                        <div class="card-body p-4">
+                                                            <img v-bind:src="'data:image/jpeg;base64,'+triptico.imagen" style="height: 60vh;max-width: 100%;">
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div v-else>
-                                        <img v-bind:src="imagenTriptico" class="d-block" style="height: 70vh;">
+                                        <div class="row d-flex justify-content-center align-items-center px-5" style="min-height: 80vh;">
+                                            <div class="card bg-white mb-3 border border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded" style="width: 100%;">
+                                                <div class="card-body p-4">
+                                                    <img v-bind:src="imagenTriptico" style="height: 60vh;max-width: 100%;">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -236,7 +248,7 @@ if (isset($_SESSION['empresa_id'])) {
                 </div>
                 <div class="tab-pane fade" id="nav-videos" role="tabpanel" aria-labelledby="nav-videos-tab">
                     <div v-if="videos === null">
-                        <div class="row mt-4 align-items-center justify-content-center" style="height: 65vh;overflow: hidden;">
+                        <div class="row align-items-center justify-content-center" style="min-height: 80vh;">
                             <vacio cat="videos"></vacio>
                         </div>
                     </div>
@@ -254,13 +266,13 @@ if (isset($_SESSION['empresa_id'])) {
                                         <tr>
                                             <td scope="row"><small>{{video.nombre}}</small></td>
                                             <td class="text-center d-flex justify-content-between">
-                                                <button class="btn btn-sm btn-transparent" type="button" v-on:click="eliminarVideo(video.id,video.nombre)">
+                                                <button class="btn btn-sm btn-white" type="button" v-on:click="eliminarVideo(video.id,video.nombre)">
                                                     <i class="far fa-trash-alt"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-transparent" type="button" data-toggle="modal" data-target="#modalEditarVideo" v-on:click="idVideo=video.id, nombreVideo=video.nombre, linkVideo=video.link">
+                                                <button class="btn btn-sm btn-white" type="button" data-toggle="modal" data-target="#modalEditarVideo" v-on:click="idVideo=video.id, nombreVideo=video.nombre, linkVideo=video.link">
                                                     <i class="far fa-edit"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-transparent" type="button" v-on:click="linkVideo=video.link, videoDeInicio = false">
+                                                <button class="btn btn-sm btn-white" type="button" v-on:click="linkVideo=video.link, videoDeInicio = false">
                                                     <i class="far fa-eye"></i>
                                                 </button>
                                             </td>
@@ -273,12 +285,24 @@ if (isset($_SESSION['empresa_id'])) {
                                     <div v-if="videoDeInicio === true">
                                         <div v-for="(video, index) in videos">
                                             <div v-if="index === 0" class="">
-                                                <iframe width="720" height="395" v-bind:src="video.link" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                <div class="row d-flex justify-content-center align-items-center px-5" style="min-height: 80vh;">
+                                                    <div class="card bg-white mb-3 border border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded" style="width: 100%;">
+                                                        <div class="card-body p-4">
+                                                            <iframe width="720" height="395" v-bind:src="video.link" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div v-else>
-                                        <iframe width="720" height="395" v-bind:src="linkVideo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        <div class="row d-flex justify-content-center align-items-center px-5" style="min-height: 80vh;">
+                                            <div class="card bg-white mb-3 border border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded" style="width: 100%;">
+                                                <div class="card-body p-4">
+                                                    <iframe width="720" height="395" v-bind:src="linkVideo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -286,30 +310,32 @@ if (isset($_SESSION['empresa_id'])) {
                     </div>
                 </div>
                 <div class="tab-pane fade" id="nav-chat" role="tabpanel" aria-labelledby="nav-chat-tab">
-                    <div class="row d-flex align-items-center justify-content-center pt-3">
-                        <div class="card mb-3 bg-transparent border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded" style="width: 50rem;">
-                            <div class="card-body">
-                                <div style="height: 50vh; overflow-y: scroll;">
-                                    <div id="chatContainer" class="pb-5" style="width: 100%;"></div>
-                                </div>
-                                <form id="formChatEmpresa" method="POST" class="needs-validation" novalidate>
-                                    <input type="text" class="d-none" id="idEmpresaChatEmpresa" value="<?= $empresa['id']; ?>" required>
-                                    <input type="text" class="d-none" id="sujetoChatEmpresa" value="<?= $empresa['nombre']; ?>" required>
-                                    <div class="form-row">
-                                        <div class="col-12 col-sm-8 col-md-9 col-lg-10">
-                                            <textarea class="form-control form-control-sm" rows="2" id="mensajeChatEmpresa" placeholder="Escribe un mensaje" v-model="mensaje" required></textarea>
-                                            <div class="invalid-feedback">
-                                                Ingresa un mensaje.
+                    <div class="row align-items-center justify-content-center px-5" style="min-height: 80vh;">
+                        <div class="col col-sm-12 col-md-10 col-lg-8">
+                            <div class="card mb-3 bg-white border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded" style="width: 100%;">
+                                <div class="card-body">
+                                    <div style="height: 50vh; overflow-y: scroll;">
+                                        <div id="chatContainer" class="pb-5" style="width: 100%;"></div>
+                                    </div>
+                                    <form id="formChatEmpresa" method="POST" class="needs-validation" novalidate>
+                                        <input type="text" class="d-none" id="idEmpresaChatEmpresa" value="<?= $empresa['id']; ?>" required>
+                                        <input type="text" class="d-none" id="sujetoChatEmpresa" value="<?= $empresa['nombre']; ?>" required>
+                                        <div class="form-row">
+                                            <div class="col-12 col-sm-8 col-md-9 col-lg-10">
+                                                <input type="text" class="form-control" id="mensajeChatEmpresa" placeholder="Escribe un mensaje" v-model="mensaje" required>
+                                                <div class="invalid-feedback">
+                                                    Ingresa un mensaje.
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-4 col-md-3 col-lg-2">
+                                                <button type="submit" class="btn btn-outline-warning btn-block">Enviar</button>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-4 col-md-3 col-lg-2">
-                                            <button type="submit" class="btn btn-outline-warning btn-block">Enviar</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="card-footer text-muted">
-                                Los mensajes se eliminarán al terminar el tiempo de acceso.
+                                    </form>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    Los mensajes se eliminarán al terminar el tiempo de acceso.
+                                </div>
                             </div>
                         </div>
                     </div>

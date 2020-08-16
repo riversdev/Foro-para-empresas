@@ -254,7 +254,7 @@ if (isset($_SESSION['user_id'])) {
                                     } else if (mensaje[0] == "error") {
                                         alertify.error(mensaje[1]);
                                     } else {
-                                        console.log("Tipo de respuesta no definido");
+                                        console.log("Tipo de respuesta no definido. " + data);
                                     }
                                 }
                             });
