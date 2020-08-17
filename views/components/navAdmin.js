@@ -19,7 +19,7 @@ Vue.component('navegacionadmin', {
                                 <h4>ADMIN</h4>
                             </div>
                             <div class="dropdown-divider"></div>
-                            <div class="dropdown-item bg-primary text-center">
+                            <div class="dropdown-item bg-white text-center">
                                 <button id="salir" type="button" class="btn btn-sm btn-danger">Cerrar sesión</button>
                             </div>
                         </div>
