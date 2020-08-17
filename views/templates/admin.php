@@ -19,9 +19,9 @@ if (isset($_SESSION['admin_id'])) {
 ?>
     <div id="appAdmin">
         <navegacionadmin></navegacionadmin>
-        <div class="container pt-3">
+        <div class="container pb-5">
             <div class="row d-flex align-items-center justify-content-center" style="height: 85vh;">
-                <div class="card bg-warning mb-3" style="max-width: 30rem;">
+                <div class="card bg-warning" style="max-width: 30rem;">
                     <div class="card-body text-white">
                         <h5 class="card-title text-center">Bienvenido administrador</h5>
                         <p class="card-text text-justify">
@@ -47,8 +47,8 @@ if (isset($_SESSION['admin_id'])) {
                     </div>
                 </div>
             </div>
-            <div class="row d-flex align-items-center justify-content-center">
-                <div id="calendar" class="pt-3"></div>
+            <div class="row d-flex align-items-center justify-content-center card bg-white border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
+                <div id="calendar" class="p-4"></div>
             </div>
         </div>
     </div>

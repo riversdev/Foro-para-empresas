@@ -6,7 +6,7 @@ Vue.component('botonEditarContenido', {
             <button v-on:click="obtenerInformacion(idEmpresa)" class="btn btn-transparent text-white dropdown-toggle" type="button" id="dropdownEditar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Editar información
             </button>
-            <div class="dropdown-menu border border-primary bg-light" aria-labelledby="dropdownEditar" style="width:70vh;">
+            <div class="dropdown-menu bg-white rounded mt-4 shadow" aria-labelledby="dropdownEditar" style="width:70vh;">
                 <form id="formEditarInformacion" accept-charset="utf-8" method="POST" enctype="multipart/form-data" class="needs-validation px-3 pt-1" novalidate>
                     <input type="text" class="d-none" v-bind:value="idEmpresa" name="idEmpresa">
                     <input type="text" class="d-none" name="tipoPeticion" value="guardarLogo">

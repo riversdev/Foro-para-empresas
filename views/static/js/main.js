@@ -88,6 +88,20 @@ $(document).ready(function () {
             });
         });
     }
+
+    let contenedoresParaScroll = document.getElementsByClassName('mouseOverScroll');
+    for (let i = 0; i < contenedoresParaScroll.length; i++) {
+        $(contenedoresParaScroll[i]).on('mouseover', function () {
+            $(this).css({
+                "overflow-y": "scroll"
+            });
+        });
+        $(contenedoresParaScroll[i]).on('mouseout', function () {
+            $(this).css({
+                "overflow-y": "hidden"
+            });
+        });
+    }
 });
 
 function prepararValidacionFormularios() {
@@ -316,6 +330,40 @@ function dameElActiveTriptico(item, items) {
     }
     $('#' + item).addClass("border-bottom");
     $('#' + item).addClass("border-warning");
+    $('#' + item).css({
+        "padding-left": "5px"
+    });
+}
+
+function dameElActiveTripticoEmpresa(item, items) {
+    for (let i = 0; i < items.length; i++) {
+        $('#listaTripticosEmpresa' + items[i]).removeClass("border-bottom");
+        $('#listaTripticosEmpresa' + items[i]).removeClass("border-warning");
+        $('#listaTripticosEmpresa' + items[i]).removeClass("text-warning");
+        $('#listaTripticosEmpresa' + items[i]).css({
+            "padding-left": "0px"
+        });
+    }
+    $('#' + item).addClass("border-bottom");
+    $('#' + item).addClass("border-warning");
+    $('#' + item).addClass("text-warning");
+    $('#' + item).css({
+        "padding-left": "5px"
+    });
+}
+
+function dameElActiveVideoEmpresa(item, items) {
+    for (let i = 0; i < items.length; i++) {
+        $('#listaVideosEmpresa' + items[i]).removeClass("border-bottom");
+        $('#listaVideosEmpresa' + items[i]).removeClass("border-warning");
+        $('#listaVideosEmpresa' + items[i]).removeClass("text-warning");
+        $('#listaVideosEmpresa' + items[i]).css({
+            "padding-left": "0px"
+        });
+    }
+    $('#' + item).addClass("border-bottom");
+    $('#' + item).addClass("border-warning");
+    $('#' + item).addClass("text-warning");
     $('#' + item).css({
         "padding-left": "5px"
     });

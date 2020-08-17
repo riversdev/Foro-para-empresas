@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="views/static/css/main.css">
 </head>
 
-<body id="cuerpo">
+<body id="cuerpo" style="background-color: #F0F4F7;">
     <?php
     require_once "./drivers/viewsDriver.php";
     $vt = new viewsDriver();

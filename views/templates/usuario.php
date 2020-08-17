@@ -88,7 +88,7 @@ if (isset($_SESSION['user_id'])) {
             validarAcceso();
         }, 60000);
     </script>
-    <div id="appUsuario" style="overflow-x: hidden;min-height:100vh;background-color: #F0F4F7;">
+    <div id="appUsuario" style="overflow-x: hidden;min-height:100vh;">
         <p class="d-none">{{nombreUsuario="<?= $usuario['nombre'] ?>"}}</p>
         <navegacionusuarios nombre="<?= $usuario['nombre'] ?>" correo="<?= $usuario['correo'] ?>"></navegacionusuarios>
         <div v-if="empresas === null">

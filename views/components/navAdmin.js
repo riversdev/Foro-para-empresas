@@ -14,12 +14,14 @@ Vue.component('navegacionadmin', {
                         <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownUsuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="far fa-user"></i>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownUsuario">
+                        <div class="dropdown-menu dropdown-menu-right bg-white rounded mt-4 shadow-lg" aria-labelledby="dropdownUsuario">
                             <div class="dropdown-item-text text-center">
                                 <h4>ADMIN</h4>
                             </div>
                             <div class="dropdown-divider"></div>
-                            <div class="dropdown-item text-right bg-danger text-white" id="salir">Cerrar sesión</div>
+                            <div class="dropdown-item bg-primary text-center">
+                                <button id="salir" type="button" class="btn btn-sm btn-danger">Cerrar sesión</button>
+                            </div>
                         </div>
                     </div>
                 </form>

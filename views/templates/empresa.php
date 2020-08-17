@@ -88,7 +88,7 @@ if (isset($_SESSION['empresa_id'])) {
             validarAcceso();
         }, 60000);
     </script>
-    <div id="appEmpresa" style="overflow-x: hidden;min-height:100vh;background-color: #F0F4F7;">
+    <div id="appEmpresa">
         <navegacionempresas id="<?= $empresa['id']; ?>" user="<?= $empresa['nombre']; ?>" email="<?= $empresa['correo']; ?>" password="<?= $empresa['contrasenia']; ?>" logoinicial="data:image/jpeg;base64,<?= base64_encode($empresa['logo'])  ?>" tipo="2"></navegacionempresas>
         <p class="d-none">{{id=<?= $empresa['id']; ?>}}</p>
         <div class="align-items-center justify-content-center" style="overflow-x: hidden;">
@@ -191,34 +191,35 @@ if (isset($_SESSION['empresa_id'])) {
                     </div>
                     <div v-else>
                         <div class="row">
-                            <div class="col col-12 col-lg-4">
-                                <table id="tablaTripticos" class="table table-hover" style="width: 100%;">
-                                    <thead class="bg-warning text-light">
+                            <div class="col col-12 col-sm-6 col-md-5 col-lg-4 mouseOverScroll" style="overflow-y: hidden; height: 100vh;">
+                                <table id="tablaTripticos" class="table table-hover bg-white shadow-sm" style="width: 100%;">
+                                    <thead class="bg-white text-primary">
                                         <tr>
                                             <th scope="col" class="text-left">Nombre</th>
                                             <th scope="col" class="text-center">Acciones</th>
                                         </tr>
                                     </thead>
-                                    <tbody v-for="(triptico, index) in tripticos" class="shadow-sm rounded">
-                                        <tr>
-                                            <td><small>{{triptico.nombre}}</small></td>
-                                            <td class="text-center d-flex justify-content-between">
+                                    <tbody v-for="(triptico, index) in tripticos" class="border-0">
+                                        <tr v-bind:id="'listaTripticosEmpresa'+triptico.id">
+                                            <td class="border-0"><small>{{triptico.nombre}}</small></td>
+                                            <td class="text-center d-flex justify-content-between border-0">
                                                 <button class="btn btn-sm btn-white" type="button" v-on:click="eliminarTriptico(triptico.id,triptico.nombre)">
                                                     <i class="far fa-trash-alt"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-white" type="button" data-toggle="modal" data-target="#modalEditarTriptico" v-on:click="idTriptico=triptico.id, nombreTriptico=triptico.nombre, descripcionTriptico=triptico.descripcion, imagenTriptico='data:image/jpeg;base64,'+triptico.imagen">
                                                     <i class="far fa-edit"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-white" type="button" v-on:click="imagenTriptico='data:image/jpeg;base64,'+triptico.imagen, tripticoDeInicio = false">
+                                                <button class="btn btn-sm btn-white" type="button" v-on:click="imagenTriptico='data:image/jpeg;base64,'+triptico.imagen, tripticoDeInicio = false, dameElActiveTripticoEmpresa(triptico.id)">
                                                     <i class="far fa-eye"></i>
                                                 </button>
+                                                <p class="d-none">{{listaTripticosEmpresa[index]=triptico.id}}</p>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col col-12 col-lg-8">
-                                <div class="row align-items-center justify-content-center" style="min-height: 80vh;">
+                            <div class="col col-12 col-sm-6 col-md-7 col-lg-8">
+                                <div class="row align-items-center justify-content-center" style="min-height: 90vh;">
                                     <div v-if="tripticoDeInicio === true">
                                         <div v-for="(triptico, index) in tripticos">
                                             <div v-if="index === 0" class="">
@@ -254,34 +255,35 @@ if (isset($_SESSION['empresa_id'])) {
                     </div>
                     <div v-else>
                         <div class="row">
-                            <div class="col col-12 col-lg-4">
-                                <table id="tablaVideos" class="table table-hover" style="width: 100%;">
-                                    <thead class="bg-warning text-white">
+                            <div class="col col-12 col-sm-6 col-md-5 col-lg-4 mouseOverScroll" style="overflow-y: hidden; height: 100vh;">
+                                <table id="tablaVideos" class="table table-hover bg-white shadow-sm" style="width: 100%;">
+                                    <thead class="bg-white text-primary">
                                         <tr>
                                             <th scope="col" class="text-left">Nombre</th>
                                             <th scope="col" class="text-center">Acciones</th>
                                         </tr>
                                     </thead>
-                                    <tbody v-for="(video, index) in videos" class="shadow-sm rounded">
-                                        <tr>
-                                            <td scope="row"><small>{{video.nombre}}</small></td>
-                                            <td class="text-center d-flex justify-content-between">
+                                    <tbody v-for="(video, index) in videos" class="border-0">
+                                        <tr v-bind:id="'listaVideosEmpresa'+video.id">
+                                            <td class="border-0"><small>{{video.nombre}}</small></td>
+                                            <td class="text-center d-flex justify-content-between border-0">
                                                 <button class="btn btn-sm btn-white" type="button" v-on:click="eliminarVideo(video.id,video.nombre)">
                                                     <i class="far fa-trash-alt"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-white" type="button" data-toggle="modal" data-target="#modalEditarVideo" v-on:click="idVideo=video.id, nombreVideo=video.nombre, linkVideo=video.link">
                                                     <i class="far fa-edit"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-white" type="button" v-on:click="linkVideo=video.link, videoDeInicio = false">
+                                                <button class="btn btn-sm btn-white" type="button" v-on:click="linkVideo=video.link, videoDeInicio = false, dameElActiveVideoEmpresa(video.id)">
                                                     <i class="far fa-eye"></i>
                                                 </button>
+                                                <p class="d-none">{{listaVideosEmpresa[index]=video.id}}</p>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col col-12 col-lg-8">
-                                <div class="row align-items-center justify-content-center" style="min-height: 80vh;">
+                            <div class="col col-12 col-sm-6 col-md-7 col-lg-8">
+                                <div class="row align-items-center justify-content-center" style="min-height: 90vh;">
                                     <div v-if="videoDeInicio === true">
                                         <div v-for="(video, index) in videos">
                                             <div v-if="index === 0" class="">
@@ -346,7 +348,7 @@ if (isset($_SESSION['empresa_id'])) {
         <!-- Modal Editar Triptico -->
         <div class="modal fade" id="modalEditarTriptico" tabindex="-1" role="dialog" aria-labelledby="labelEditarTriptico" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
+                <div class="modal-content border-0">
                     <div class="modal-header bg-warning text-white">
                         <h5 class="modal-title text-white" id="labelEditarTriptico">{{nombreTriptico}}</h5>
                         <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
@@ -411,7 +413,7 @@ if (isset($_SESSION['empresa_id'])) {
         <!-- Modal Agregar Triptico -->
         <div class="modal fade" id="modalAgregarTriptico" tabindex="-1" role="dialog" aria-labelledby="labelAgregarTriptico" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
+                <div class="modal-content border-0">
                     <div class="modal-header bg-warning">
                         <h5 class="modal-title text-white" id="labelAgregarTriptico">Agregar triptico</h5>
                         <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
@@ -470,7 +472,7 @@ if (isset($_SESSION['empresa_id'])) {
         <!-- Modal Agregar Video -->
         <div class="modal fade" id="modalAgregarVideo" tabindex="-1" role="dialog" aria-labelledby="labelAgregarVideo" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
+                <div class="modal-content border-0">
                     <div class="modal-header bg-warning">
                         <h5 class="modal-title text-white" id="labelAgregarVideo">Agregar Video</h5>
                         <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
@@ -515,7 +517,7 @@ if (isset($_SESSION['empresa_id'])) {
         <!-- Modal Editar Video -->
         <div class="modal fade" id="modalEditarVideo" tabindex="-1" role="dialog" aria-labelledby="labelEditarVideo" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
+                <div class="modal-content border-0">
                     <div class="modal-header bg-warning">
                         <h5 class="modal-title text-white" id="labelEditarVideo">{{nombreVideo}}</h5>
                         <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">

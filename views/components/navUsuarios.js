@@ -22,7 +22,7 @@ Vue.component('navegacionusuarios', {
                         <button class="btn btn-outline-warning dropdown-toggle" type="button" id="dropdownUsuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="far fa-user"></i>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-right bg-primary rounded mt-4" aria-labelledby="dropdownUsuario">
+                        <div class="dropdown-menu dropdown-menu-right bg-primary rounded mt-4 shadow" aria-labelledby="dropdownUsuario">
                             <div class="dropdown-item-text text-center">
                                 <h4 class="text-light">{{nombre}}</h4>
                                 <label class="text-light">{{correo}}</label>

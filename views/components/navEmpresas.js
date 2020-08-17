@@ -27,7 +27,7 @@ Vue.component('navegacionempresas', {
                         <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownUsuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="far fa-user"></i>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-right bg-light border-primary" aria-labelledby="dropdownUsuario">
+                        <div class="dropdown-menu dropdown-menu-right bg-white rounded mt-4 shadow" aria-labelledby="dropdownUsuario">
                             <div class="dropdown-item-text text-center">
                                 <h4>{{empresa}}</h4>
                                 <div id="contenedorLogoMenu" class="my-1 d-flex align-items-center justify-content-center">
@@ -38,7 +38,9 @@ Vue.component('navegacionempresas', {
                             <div class="dropdown-divider"></div>
                             <div class="dropdown-item text-right" data-toggle="modal" data-target="#modalAgregarTriptico">Agregar triptico</div>
                             <div class="dropdown-item text-right" data-toggle="modal" data-target="#modalAgregarVideo">Agregar video</div>
-                            <div class="dropdown-item text-right bg-danger text-white" id="salir">Cerrar sesión</div>
+                            <div class="dropdown-item bg-white text-center">
+                                <button id="salir" type="button" class="btn btn-sm btn-danger">Cerrar sesión</button>
+                            </div>
                         </div>
                     </div>
                 </form>

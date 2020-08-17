@@ -13,7 +13,9 @@ var appEmpresa = new Vue({
         idVideo: "",
         nombreVideo: "",
         linkVideo: "",
-        mensaje: ""
+        mensaje: "",
+        listaTripticosEmpresa: [],
+        listaVideosEmpresa: []
     },
     mounted() {
         prepararValidacionFormularios();
@@ -41,6 +43,12 @@ var appEmpresa = new Vue({
         },
         tabTrip({ commit }) {
             tabularTripticos();
+        },
+        dameElActiveTripticoEmpresa(id) {
+            dameElActiveTripticoEmpresa('listaTripticosEmpresa' + id, this.listaTripticosEmpresa);
+        },
+        dameElActiveVideoEmpresa(id) {
+            dameElActiveVideoEmpresa('listaVideosEmpresa' + id, this.listaVideosEmpresa);
         },
         getChat() {
             repetir();
