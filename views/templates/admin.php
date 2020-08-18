@@ -37,7 +37,7 @@ if (isset($_SESSION['admin_id'])) {
                                             <li>Utiliza la navegación superior izquierda para moverte entre semanas, meses y años.</li>
                                             <li>Utiliza la navegación superior derecha para vizualizar los accesos en mes, semana y día.</li>
                                             <li>Utiliza la vista de agenda en la parte superior derecha para una vista de lista de los accesos de todo el mes.</li>
-                                            <li>Utiliza el botón "vaciar chat" almenos una vez cada 6 meses.</li>
+                                            <li>Utiliza el botón "vaciar chat" almenos una vez cada mes.</li>
                                         </ul>
                                     </p>
                                 </small>
