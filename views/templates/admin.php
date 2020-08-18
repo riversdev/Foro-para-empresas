@@ -21,28 +21,37 @@ if (isset($_SESSION['admin_id'])) {
         <navegacionadmin></navegacionadmin>
         <div class="container pb-5">
             <div class="row d-flex align-items-center justify-content-center" style="height: 85vh;">
-                <div class="card bg-warning" style="max-width: 30rem;">
-                    <div class="card-body text-white">
-                        <h5 class="card-title text-center">Bienvenido administrador</h5>
-                        <p class="card-text text-justify">
-                            En esta vista podrás agendar los accesos permitidos a empresas y usuarios, deberás presionar algún dia para agendar un nuevo acceso y presionar sobre los mismos para vizualizar su información.
-                            <br><br>
-                            Notas:
-                            <small class="card-text text-justify">
-                                <p>
-                                    <ul>
-                                        <li>Utiliza la navegación superior izquierda para moverte entre semanas, meses y años</li>
-                                        <li>Utiliza la navegación superior derecha para vizualizar los accesos en mes, semana y día.</li>
-                                        <li>Utiliza la vista de agenda en la parte superior derecha para una vista de lista de los accesos de todo el mes</li>
-                                    </ul>
-                                </p>
-                            </small>
-                        </p>
-                        <div class="row justify-content-center">
-                            <button id="btnSlideCalendar" class="btn btn-warning d-flex align-items-center" type="button">
-                                <span class="pr-2">Comenzar</span>
-                                <i class="far fa-2x fa-arrow-alt-circle-right"></i>
-                            </button>
+                <div class="col col-12 col-sm-10 col-md-9 col-lg-8">
+                    <div class="card bg-white border-warning border-top-0 border-bottom-0 border-right-0 shadow-sm rounded" style="max-width: 50rem;">
+                        <div class="card-body text-primary">
+                            <h5 class="card-title text-center">Bienvenido administrador</h5>
+                            <p class="card-text text-justify">
+                                En esta vista podrás agendar los accesos permitidos a empresas y usuarios, deberás presionar algún dia para agendar un nuevo acceso y presionar sobre los mismos para vizualizar su información.
+                                <br>
+                                Limpia el chat a tu consideración. Al hacerlo se eliminarán los mensajes que empresas y usuarios se ayan enviado mediante el sistema.
+                                <br><br>
+                                Notas:
+                                <small class="card-text text-justify">
+                                    <p>
+                                        <ul>
+                                            <li>Utiliza la navegación superior izquierda para moverte entre semanas, meses y años.</li>
+                                            <li>Utiliza la navegación superior derecha para vizualizar los accesos en mes, semana y día.</li>
+                                            <li>Utiliza la vista de agenda en la parte superior derecha para una vista de lista de los accesos de todo el mes.</li>
+                                            <li>Utiliza el botón "vaciar chat" almenos una vez cada 6 meses.</li>
+                                        </ul>
+                                    </p>
+                                </small>
+                            </p>
+                            <div class="row d-flex justify-content-around">
+                                <button id="btnSlideCalendar" class="btn btn-outline-warning d-flex align-items-center" type="button">
+                                    <span class="pr-2">Ir al calendario</span>
+                                    <i class="far fa-2x fa-arrow-alt-circle-right"></i>
+                                </button>
+                                <button id="btnTruncateChat" class="btn btn-outline-danger d-flex align-items-center" type="button">
+                                    <span class="pr-2">Vaciar chat</span>
+                                    <i class="far fa-2x fa-arrow-alt-circle-right"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

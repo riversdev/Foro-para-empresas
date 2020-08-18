@@ -56,4 +56,15 @@ class ModeloAdmin
         }
         $stmt = null;
     }
+    public static function vaciarChat()
+    {
+        $SQL = "TRUNCATE chat;";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        if ($stmt->execute()) {
+            echo "success|Chat vacío!";
+        } else {
+            echo "error|Imposible vaciar chat!";
+        }
+        $stmt = null;
+    }
 }

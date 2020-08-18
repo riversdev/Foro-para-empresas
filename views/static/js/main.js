@@ -89,6 +89,7 @@ $(document).ready(function () {
         });
     }
 
+    // SCROLL DE LOS MENUS
     let contenedoresParaScroll = document.getElementsByClassName('mouseOverScroll');
     for (let i = 0; i < contenedoresParaScroll.length; i++) {
         $(contenedoresParaScroll[i]).on('mouseover', function () {
@@ -102,6 +103,38 @@ $(document).ready(function () {
             });
         });
     }
+
+    // VACIAR CHAT
+    $('#btnTruncateChat').on('click', function () {
+        alertify
+            .confirm('Vaciando chat...', '¿Está seguro de querer vaciar el chat? Se perderán todos los mensajes enviados entre usuarios y empresas !',
+                function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/adminAjax.php",
+                        data: {
+                            tipoPeticion: "vaciarChat"
+                        },
+                        error: function (data) {
+                            console.error(data);
+                        },
+                        success: function (data) {
+                            let mensaje = data.split('|');
+                            if (mensaje[0] == "success") {
+                                alertify.success(mensaje[1]);
+                            } else if (mensaje[0] == "error") {
+                                alertify.error(mensaje[1]);
+                            } else {
+                                console.log("Tipo de respusta no definido. " + data);
+                            }
+                        }
+                    });
+                },
+                function () {
+                    alertify.error('Cancelado')
+                }
+            );
+    });
 });
 
 function prepararValidacionFormularios() {
