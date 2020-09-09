@@ -52,7 +52,7 @@ if (isset($_SESSION['user_id'])) {
         <button id="iniciarSesion" class="btn btn-outline-light" type="button">
             Iniciar sesión
         </button>
-        <div id="contenedorFormularioIdentificar" class="card bg-light mb-3 d-none" style="max-width: 25rem;">
+        <div id="contenedorFormularioIdentificar" class="card bg-light mb-3 d-none" style="max-width: 30rem;">
             <div class="card-body text-primary">
                 <h5 class="card-title text-center">Identifícate</h5>
                 <form id="formIdentificarUsuario" class="needs-validation" novalidate>
@@ -100,7 +100,7 @@ if (isset($_SESSION['user_id'])) {
                 </form>
             </div>
         </div>
-        <div id="contenedorFormularioRegistrar" class="card bg-light mb-3 d-none" style="max-width: 25rem;">
+        <div id="contenedorFormularioRegistrar" class="card bg-light mb-3 d-none" style="max-width: 30rem;">
             <div class="card-body text-primary">
                 <h5 class="card-title text-center">Registro</h5>
                 <form id="formRegistrarUsuario" class="needs-validation" novalidate>
